@@ -51,7 +51,7 @@ export class LayoutComponent {
     var footerLogo;
     var footerClass;
     if (isPlatformBrowser(this.platformId)) { // For SSR 
-      if(window.location.pathname == '/home' || window.location.pathname == '/theme/osaka') {
+      if(window.location.pathname == '/theme/paris' || window.location.pathname == '/theme/osaka') {
         headerLogo = 'assets/images/logo/1.png';
         footerLogo = 'assets/images/logo/1.png';
       } else if(window.location.pathname == '/theme/tokyo') {

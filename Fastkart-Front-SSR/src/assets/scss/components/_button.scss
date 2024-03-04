@@ -118,7 +118,7 @@
       transition: all 0.3s ease;
       position: relative;
       background: var(--theme-color);
-      background: linear-gradient(90deg, var(--theme-color) 0%, #2f9339 100%);
+      background: linear-gradient(90deg, var(--theme-color) 0%, #0e947a 100%);
       border: none;
       z-index: 0;
 
@@ -130,7 +130,7 @@
         z-index: -1;
         border-radius: 5px;
         background: var(--theme-color);
-        background: linear-gradient(90deg, #2f9339 0%, var(--theme-color) 100%);
+        background: linear-gradient(90deg, #0e947a 0%, var(--theme-color) 100%);
         transition: all 0.3s ease;
       }
     }

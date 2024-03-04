@@ -21,8 +21,6 @@ export class MenuComponent {
   public menu: Menu[] = data.menu;
   public products: Product[];
   public blogs: Blog[];
-  public tracking: Blog[];
-
 
   constructor(){
     this.product$.subscribe(product => {

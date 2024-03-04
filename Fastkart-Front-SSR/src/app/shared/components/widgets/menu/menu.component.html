@@ -2,18 +2,13 @@
   <div *ngTemplateOutlet="recursiveMenu; context: { $implicit: menu }"></div>
   <ng-template #recursiveMenu let-menus>
     <ng-container *ngFor="let menu of menus">
-      <li 
-
+      <li
         [ngClass]="[menu.type == 'sub' && menu.children ? 'nav-item dropdown' : 'nav-item', menu.megaMenu ? 'dropdown-mega' : '']"
         [class.new-nav-item]="menu.badge">
-
-
-
         <a class="nav-link dropdown-toggle" *ngIf="menu.type === 'sub'" (click)="toggle(menu)">
           {{ menu.title | translate }}
           <label *ngIf="menu.badge" class="new-dropdown">{{ menu.badge | translate }}</label>
         </a>
-        
         <a class="dropdown-item" [routerLink]="menu.path" [class.show]="menu.active" [queryParams]="menu.params"
           *ngIf="menu.type === 'link'">
           {{ menu.title | translate }}
@@ -39,7 +34,6 @@
                 </ng-template>
               </ng-container>
             </div>
- 
             <div class="dropdown-column col-xl-6 d-xl-block d-none" *ngIf="menu.slider === 'product'">
               <div class="menu-product-slider">
                 <div class="row">
@@ -49,8 +43,6 @@
                 </div>
               </div>
             </div>
-
-
             <div class="dropdown-column col-xl-3 d-xl-block d-none" *ngIf="menu.slider === 'banner_portrait'">
               <div class="menu-img-banner">
                 <a routerLink="/product/deliciously-sweet-watermelon" class="text-title">
