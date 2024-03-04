@@ -288,7 +288,7 @@ header {
 
   .header-top {
     padding: 8px 0;
-    background-color: var(--theme-color);
+    background-color: #2f9339;
 
     &-2 {
       background-color: $title-color;
@@ -1725,7 +1725,7 @@ header {
         @include flex_common;
         padding: calc(10px + (15 - 10) * ((100vw - 320px) / (1920 - 320)))
           calc(16px + (31 - 16) * ((100vw - 320px) / (1920 - 320)));
-        background: var(--theme-color);
+        background: #2f9339;
         color: $white;
         border-radius: 5px;
         border: none;
