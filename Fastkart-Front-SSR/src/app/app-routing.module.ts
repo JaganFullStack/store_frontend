@@ -8,7 +8,7 @@ import { MaintenanceComponent } from './maintenance/maintenance.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/theme/paris',
     pathMatch: 'full',
   },
   {
