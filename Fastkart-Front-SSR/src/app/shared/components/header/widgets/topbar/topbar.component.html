@@ -1,5 +1,5 @@
 <!-- Topbar -->
-<div class="header-top" [class.bg-dark]="data?.header?.page_top_bar_dark">
+<div class="header-top d-none" [class.bg-dark]="data?.header?.page_top_bar_dark ">
     <div class="container-fluid-lg">
         <div class="row">
             <div class="col-xxl-3 d-xxl-block d-none">
@@ -10,7 +10,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xxl-6 col-lg-9 d-lg-block d-none pt-1">
+            <div class="col-xxl-6 col-lg-9 d-lg-block d-none pt-1 d-none">
                 <div class="header-offer">
                     <app-notice [content]="data?.header?.top_bar_content"></app-notice>
                 </div>

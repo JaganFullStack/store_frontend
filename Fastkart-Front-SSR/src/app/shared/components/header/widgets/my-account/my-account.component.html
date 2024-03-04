@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="onhover-div onhover-div-login">
-        <ul class="user-box-name">
+        <!-- <ul class="user-box-name">
             <li class="product-box-contain" *ngIf="!(isAuthenticated$ | async)">
                 <a [routerLink]="['/auth/login']">{{ 'log_in' | translate }}</a>
             </li>
@@ -32,6 +32,32 @@
             <li class="product-box-contain" *ngIf="(isAuthenticated$ | async)">
                 <a href="javascript:void(0)" (click)="confirmationModal.openModal()"><i class="ri-logout-box-r-line me-2"></i> {{ 'log_out' | translate }}</a>
             </li>
+        </ul> -->
+
+
+        <ul class="user-box-name">
+            <li class="product-box-contain">
+                <a [routerLink]="['/auth/login']">{{ 'log_in' | translate }}</a>
+            </li>
+            <li class="product-box-contain" >
+                <a [routerLink]="['/auth/register']">{{ 'register' | translate }}</a>
+            </li>
+            <li class="product-box-contain" >
+                <a [routerLink]="['/account/dashboard']"><i class="ri-user-line me-2"></i> {{ 'my_account' | translate }}</a>
+            </li>
+
+            <li class="product-box-contain">
+                <a [routerLink]="['/wishlist']">{{ 'wishlist' | translate }}</a>
+            </li>
+
+        
+
+            
+            <li class="product-box-contain">
+                <a href="javascript:void(0)" (click)="confirmationModal.openModal()"><i class="ri-logout-box-r-line me-2"></i> {{ 'log_out' | translate }}</a>
+            </li>
+
+
         </ul>
     </div>
 </div>
