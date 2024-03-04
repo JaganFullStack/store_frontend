@@ -39,7 +39,7 @@ export class SearchComponent {
   }
 
   constructor(private store: Store, public productService: ProductService, private route: ActivatedRoute, public router: Router){
-  //  this.getProduct(this.filter);
+    // this.getProduct(this.filter);
 
    this.route.queryParams.subscribe(params => {
     if(params['search']) {
