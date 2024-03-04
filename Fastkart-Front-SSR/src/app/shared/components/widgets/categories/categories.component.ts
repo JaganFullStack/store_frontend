@@ -39,7 +39,8 @@ export class CategoriesComponent {
 
   ngOnChanges() {
     if(this.categoryIds && this.categoryIds.length) {
-      this.category$.subscribe(res => this.categories = res.data.filter(category => this.categoryIds?.includes(category.id)));
+      console.log()
+      this.category$.subscribe(res => this.categories = res.data.filter(category => this.categoryIds?.includes(category.index)));
     }
   }
 
@@ -49,6 +50,10 @@ export class CategoriesComponent {
 
   redirectToCollection(slug: string) {
     let index = this.selectedCategorySlug.indexOf(slug);
+    console.log("sluggggggg",slug);
+    console.log("this.selectedCategorySlug",this.selectedCategorySlug);
+
+
     if(index === -1)
       this.selectedCategorySlug.push(slug);
     else

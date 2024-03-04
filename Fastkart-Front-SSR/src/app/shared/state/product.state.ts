@@ -224,12 +224,16 @@ export class ProductState {
   }
 
   @Action(GetProductBySlug)
+
+
+
   getProductBySlug(ctx: StateContext<ProductStateModel>, { slug }: GetProductBySlug) {
     this.themeOptionService.preloader = true;
     return this.productService.getProducts().pipe(
       tap({
         next: results => {
           const result = results.data.find(product => product.slug == slug);
+          console.log("results",result);
 
           if(result) {
             result.related_products = result.related_products && result.related_products.length ? result.related_products : [];

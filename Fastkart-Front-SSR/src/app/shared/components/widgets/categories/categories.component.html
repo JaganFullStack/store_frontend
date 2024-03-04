@@ -103,10 +103,10 @@
 <ul class="nav nav-tabs tab-style-color-2 tab-style-color" *ngIf="categories?.length && style == 'filter'">
   <li class="nav-item" *ngFor="let category of categories">
     <app-button
-      [class]="selectedCategoryId == category.id ? 'nav-link btn active' : 'nav-link btn' "
+      [class]="selectedCategoryId == category.index ? 'nav-link btn active' : 'nav-link btn' "
       [spinner]="false"
-      [id]="'category'+category.id"
-      (click)="selectCategory(category.id)">
+      [id]="'category'+category.index"
+      (click)="selectCategory(category.index)">
       {{category?.name}}
     </app-button>
   </li>
