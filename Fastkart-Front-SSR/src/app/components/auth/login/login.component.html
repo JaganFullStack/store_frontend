@@ -18,7 +18,7 @@
                         <form class="row g-4" [formGroup]="form" (ngSubmit)="submit()">
                             <div class="col-12">
                                 <div class="form-floating log-in-form">
-                                    <input type="email" class="form-control" id="email" id="email" formControlName="email" placeholder="{{ 'email_address' | translate}}">
+                                    <input type="email" class="form-control"  id="email" formControlName="email" placeholder="{{ 'email_address' | translate}}">
                                     <label for="email">{{ 'email_address' | translate}}</label>
                                     <div *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['required']" class="invalid-feedback">
                                         {{ 'email_is_required' | translate }}
@@ -37,6 +37,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <p *ngIf="responseError!=null">  {{responseError}} </p>
                             <div class="col-12">
                                 <div class="forgot-box">
                                     <div class="form-check ps-0 m-0 remember-box">
@@ -49,6 +50,8 @@
                             <div class="col-12">
                                 <app-button [id]="'login_btn'">{{ 'log_in' | translate }}</app-button>
                             </div>
+                           
+
                         </form>
                     </div>
                     <div class="other-log-in">

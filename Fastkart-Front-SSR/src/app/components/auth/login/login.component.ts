@@ -13,6 +13,8 @@ import { AuthService } from '../../../shared/services/auth.service';
 })
 export class LoginComponent {
 
+
+  responseError:null;
   public form: FormGroup;
   public breadcrumb: Breadcrumb = {
     title: "Log in",
@@ -33,18 +35,46 @@ export class LoginComponent {
 
   submit() {
     this.form.markAllAsTouched();
-    if(this.form.valid) {
-      this.store.dispatch(new Login(this.form.value)).subscribe({
-        complete: () => {
+          // LOGIN NEW CODE 
+          if (this.form.valid) {
+            const username = this.form.get('email')!.value; 
+            const password = this.form.get('password')!.value;
+          try {
+            const userddata={
+              "Email":username,
+              "Password":password
+            };
+              this.authService.login(userddata).subscribe({
+                next: (response: any) => {  
+                  this.responseError=null;
+                    
+                    console.log(response);
+                    const redirectUrl = this.authService.redirectUrl || '/account/dashboard';
+        
+                    this.router.navigateByUrl(redirectUrl);
+                   
+                },
+                error: (error) => {
+                  this.responseError=  error?.error?.messages?.error ?? 'INVAILD EMAILID OR PASSWORD';
+                  console.log("Api Error",error.error.messages.error);
+                },  
+              });
+          } catch (Error: any) {
+            console.log("catch Error",Error);
+          }
+        } else {
+          // Form is invalid, display errors if needed
+          console.log('Invalid form submission');
+        }
+          // END OF LOGIN CODE 
           // Navigate to the intended URL after successful login
-          const redirectUrl = this.authService.redirectUrl || '/account/dashboard';
-          this.router.navigateByUrl(redirectUrl);
+          // AuthLogin
+          // const redirectUrl = this.authService.redirectUrl || '/account/dashboard';
+        
+          // this.router.navigateByUrl(redirectUrl);
 
           // Clear the stored redirect URL
-          this.authService.redirectUrl = undefined;
-        }
-      });
-    }
+          // this.authService.redirectUrl = undefined; 
   }
 
 }
