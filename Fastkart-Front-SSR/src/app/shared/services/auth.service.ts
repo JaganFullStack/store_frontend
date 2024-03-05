@@ -65,6 +65,42 @@ export class AuthService {
   }
 
 
+  Emailvalidation(data: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'AUTHKEY': 'StoreWeb'
+    });
+    const apiUrl = `http://localhost:8080/api/emailValidaion?Email=${data}`
+
+     // Update with your endpoint
+
+    return this.http.get<any>(apiUrl,{ headers: headers }).pipe(
+        catchError(HttpErrorResponse => {
+
+            return throwError(() => HttpErrorResponse);
+      })
+    );
+  }
+
+  isUpdatedUserPassword(data: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'AUTHKEY': 'StoreWeb'
+    });
+
+    const url = 'http://localhost:8080/api/updatedEmailPassword'; // Update with your endpoint
+
+    return this.http.post<any>(url, data, { headers: headers }).pipe(
+        catchError(HttpErrorResponse => {
+
+            return throwError(() => HttpErrorResponse);
+      })
+    );
+  }
+
+
+
+
 
   
 }
