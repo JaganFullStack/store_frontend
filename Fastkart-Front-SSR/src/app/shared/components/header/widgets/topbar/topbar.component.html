@@ -1,53 +1,68 @@
 <!-- Topbar -->
-<div class="header-top " [class.bg-dark]="data?.header?.page_top_bar_dark ">
+<div class="header-top py-4" [class.bg-dark]="data?.header?.page_top_bar_dark ">
     <div class="container-fluid-lg">
         <div class="row">
-            <div class="col-xxl-3 d-xxl-block ">
+            <div class="col-xxl-3 ">
                 <div class="top-left-header">
                     <a class="text-white" href="" target="_blank">
-                        <i class="ri-apple-line"></i>
-                        <!-- <span class="text-white">{{ 'get_the_app' | translate }}</span>
-                         -->
+                        <!-- <i class="ri-apple-line"></i> -->
+                    
 
-                            <span class="text-white">{{ 'contact_us' | translate }}</span>
-                        
-                         
+                            <span class="text-white">{{ 'Contact us' | translate }}</span>
+
+                            <span class="text-white" >{{ data?.header?.support_number }}</span>                                       
                     </a>
+                </div>
+          
+
+
+
+
+
+
+            </div>
+            <div class="col-lg-9">
+                <div class="rightside-box topheader">
+                    <ul class="right-side-menu ">
+            
+                        <li class="right-side">
+                            <app-header-wishlist></app-header-wishlist>
+                        </li>
+                        <li class="right-side">
+                            <div class="onhover-dropdown header-badge">
+                                <app-header-cart></app-header-cart>
+                            </div>
+                        </li>
+                        <li class="right-side onhover-dropdown">
+                            <app-my-account></app-my-account>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-
-            
-            <div class="col-xxl-6 col-lg-9 d-lg-block d-none pt-1 d-none">
+           
+            <!-- <div class="col-xxl-6 col-lg-9 d-lg-block d-none pt-1 d-none">
                 <div class="header-offer">
                     <app-notice [content]="data?.header?.top_bar_content"></app-notice>
                 </div>
-            </div>
+            </div> -->
+
+
+
+        
+
+    
 
 
 
 
-
-
-
-
-
-            <div class="col-lg-3 d-none">
-                <ul class="about-list right-nav-about">
-                    <li class="right-nav-list">
-                        <div class="dropdown theme-form-select">
-                            <app-language></app-language>
-                        </div>
-                    </li>
-                    <li class="right-nav-list">
-                        <div class="dropdown theme-form-select select-arrow">
-                            <app-currency></app-currency>
-                        </div>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
 </div>
+
+
+
+
+
 
 

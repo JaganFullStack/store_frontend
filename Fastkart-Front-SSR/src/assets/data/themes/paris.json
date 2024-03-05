@@ -86,7 +86,7 @@
           "left_side_banners": {
             "status": true,
             "banner_1": {
-              "image_url": "assets/images/data/themes/paris/4.jpg",
+              "image_url": "assets/images/mahi/homepage4.jpg",
               "redirect_link": {
                 "link": "vegetables-fruits",
                 "link_type": "collection"

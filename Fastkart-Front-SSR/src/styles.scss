@@ -5,3 +5,17 @@
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
 @import "assets/scss/app.scss";
+
+.rightside-box.topheader .user-box img{
+    width: 40px;
+    
+ }
+ .rightside-box.topheader .delivery-login-box
+ {
+    display: flex;
+    gap: 10px;
+ }
+ .rightside-box.topheader i
+ {
+    color: #fff;
+ }

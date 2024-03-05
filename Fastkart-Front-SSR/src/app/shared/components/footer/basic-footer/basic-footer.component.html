@@ -16,14 +16,14 @@
                         <app-footer-categories [data]="data"></app-footer-categories>
                     </div>
                 </div>
-                <div class="col-xl col-lg-2 col-sm-3" *ngIf="data?.footer?.useful_link?.length" (click)="toggle('useful_link')">
+                <!-- <div class="col-xl col-lg-2 col-sm-3" *ngIf="data?.footer?.useful_link?.length" (click)="toggle('useful_link')">
                     <div class="footer-title" [class.show]="active['useful_link']">
                         <h4>{{ 'useful_links' | translate }}</h4>
                     </div>
                     <div class="footer-contain">
                         <app-footer-links [links]="data?.footer?.useful_link || []"></app-footer-links>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-xl-2 col-sm-3" *ngIf="data?.footer?.help_center?.length" (click)="toggle('help_center')">
                     <div class="footer-title" [class.show]="active['help_center']">
                         <h4>{{ 'Help Center' | translate }}</h4>
