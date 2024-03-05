@@ -11,7 +11,7 @@
           }
         },
         "sub_banner_1": {
-          "image_url": "assets/images/mahi/HBI3.jpg",
+          "image_url": "assets/images/mahi/HBI3.png",
           "redirect_link": {
             "link": "grocery-staples",
             "link_type": "collection"
@@ -238,7 +238,7 @@
       "news_letter": {
         "title": "Join Our Newsletter And Get...",
         "sub_title": "$20 discount for your first order",
-        "image_url": "assets/images/data/newsletter.jpg",
+        "image_url": "assets/images/mahi/HBI11.jpg",
         "status": true
       },
       "products_ids": [

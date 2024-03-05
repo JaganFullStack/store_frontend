@@ -2,14 +2,14 @@
     <div class="dashboard-home">
         <div class="title-header">
             <div class="d-flex align-items-center">
-                <h5>{{ 'my_dashboard' | translate }}</h5>
+                <h5>{{ 'My Dashboard' | translate }}</h5>
             </div>
         </div>
         <div class="dashboard-user-name">
             <h6 class="text-content">{{ 'hello' | translate }}, <b class="text-title">{{ (user$ | async)?.name! | titleCase }}</b></h6>
-            <p class="text-content">
+            <!-- <p class="text-content">
                 {{ "welcome_to_your_personalized_my_account_dashboard_here_you_have_the_power_to_manage_your_entire_e-commerce_experience_in_one_place_whether_you're_exploring_the_latest_products_checking_your_wallet_balance_or_updating_your_profile_everything_is_at_your_fingertips"| translate}}
-            </p>
+            </p> -->
         </div>
         <div class="total-box">
             <div class="row row-cols-xxl-3 g-sm-4 g-3">

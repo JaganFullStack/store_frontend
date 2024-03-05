@@ -118,10 +118,7 @@
             "label": "Wishlist",
             "link": "wishlist"
           },
-          {
-            "label": "Compare",
-            "link": "compare"
-          },
+         
           {
             "label": "FAQ's",
             "link": "faq"

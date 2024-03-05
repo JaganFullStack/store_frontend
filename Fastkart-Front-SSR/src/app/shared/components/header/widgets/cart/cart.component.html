@@ -33,10 +33,10 @@
     </div>
     <div class="pere-text-box success-box" *ngIf="(cartItem$ | async)?.length">
         <p *ngIf="shippingFreeAmt > cartTotal else content">
-            {{ 'spend' | translate }} <span class="shipping">{{ (shippingFreeAmt - cartTotal) | currencySymbol }}</span> {{ 'more_and_enjoy' | translate }} <span class="shipping">{{ 'free_shipping' | translate }}!</span>
+            {{ 'spend' | translate }} <span class="shipping">{{ (shippingFreeAmt - cartTotal) | currencySymbol }}</span> {{ 'more and enjoy' | translate }} <span class="shipping">{{ 'free shipping' | translate }}!</span>
         </p>
         <ng-template #content>
-            <p><span class="shipping">{{ 'congratulations' | translate }}!</span> {{ 'enjoy_free_shipping_on_us' | translate }}!</p>
+            <p><span class="shipping">{{ 'congratulations' | translate }}!</span> {{ 'enjoy free shipping on us' | translate }}!</p>
         </ng-template>
       <div class="progress"
         [ngClass]="{ 'danger-progress': shippingCal <= 30, 'warning-progress': shippingCal >= 31 && shippingCal <= 80 }">
@@ -104,7 +104,7 @@
         <h5>{{ 'your_cart_is_currently_empty' | translate }}</h5>
     </div>
     <div class="bottom-box" *ngIf="(cartItem$ | async)?.length">
-        <p class="free">{{ 'shipping_and_taxes_are_calculated_at_checkout' | translate }}</p>
+        <p class="free">{{ 'shipping and taxes are calculated at checkout' | translate }}</p>
         <div class="price-box">
             <h5>{{ 'total' | translate }}:</h5>
             <h4 class="fw-bold">{{ (cartTotal$ | async)! | currencySymbol }}</h4>

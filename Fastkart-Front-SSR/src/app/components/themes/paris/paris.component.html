@@ -2,6 +2,16 @@
   <!-- Home Section Start -->
   <section class="home-section pt-2" *ngIf="data?.content?.home_banner">
     <app-theme-home-banner [theme]="'paris'" [data]="data?.content?.home_banner"></app-theme-home-banner>
+  
+
+
+
+
+
+
+
+    
+    
   </section>
   <!-- Home Section End -->
 
@@ -215,10 +225,10 @@
   <!-- Product Section End -->
 
   <!-- Newsletter Section Start -->
-  <ng-container *ngIf="data?.content?.news_letter?.status">
+  <!-- <ng-container *ngIf="data?.content?.news_letter?.status">
     <section class="newsletter-section section-b-space">
       <app-newsletter [data]="data?.content?.news_letter!"></app-newsletter>
     </section>
-  </ng-container>
+  </ng-container> -->
   <!-- Newsletter Section End -->
 </div>

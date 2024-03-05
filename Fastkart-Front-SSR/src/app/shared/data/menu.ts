@@ -19,6 +19,26 @@ export const menu: Menu[] = [
     //   },
     // ]
   },
+
+  {
+    id: 6,
+    title: 'About us',
+    type: 'link',
+
+    path: '/aboutus',
+    // megaMenu: true,
+    // megaMenuType: 'image',
+    active: false,
+    // children: [
+    //   {
+    //     title: 'Home',
+    //     type: 'link',
+    //     path: '/home',
+       
+    //   },
+    // ]
+  },
+ 
   // {
   //   id: 2,
   //   title: 'collections',
@@ -119,7 +139,7 @@ export const menu: Menu[] = [
   // },
   {
     id: 5,
-    title: 'Product',
+    title: 'Products',
     active: false,
     type: 'link',
     path: '/product',
@@ -473,7 +493,24 @@ export const menu: Menu[] = [
   //   ],
   // },
 
+  {
+    id: 5,
+    title: 'Checkout',
+    type: 'link',
 
+    path: '/checkout',
+    // megaMenu: true,
+    // megaMenuType: 'image',
+    active: false,
+    // children: [
+    //   {
+    //     title: 'Home',
+    //     type: 'link',
+    //     path: '/home',
+       
+    //   },
+    // ]
+  },
 
   {
     id: 9,

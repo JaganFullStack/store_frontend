@@ -1,0 +1,22 @@
+#ch{
+    display: none;
+
+}
+
+
+label{
+    display: inline-block;
+    cursor: pointer;
+}
+
+.contentaa{
+    display: none;
+}
+#ch:checked ~ .contentaa {
+    display: block;
+}
+
+
+#ch:checked ~ label {
+    display: none;
+}
