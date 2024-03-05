@@ -69,7 +69,7 @@ export class AppComponent {
             clearTimeout(this.timeoutId);
             // Set site title
             return this.titleService.setTitle(theme?.general?.site_title && theme?.general?.site_tagline
-              ? `${theme?.general?.site_title} | ${theme?.general?.site_tagline}` : 'FastKart Marketplace: Where Vendors Shine Together')
+              ? `${theme?.general?.site_title} | ${theme?.general?.site_tagline}` : 'KaveriStores Marketplace: Where Vendors Shine Together')
           } else {
              this.updateMessage();
           }
