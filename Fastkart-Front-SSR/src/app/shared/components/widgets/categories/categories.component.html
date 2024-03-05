@@ -7,8 +7,6 @@
         <img [src]="category?.category_icon ? category?.category_icon?.original_url : 'assets/images/category.png'"
              [alt]="category?.name">
 
-             <img [src]=" 'assets/images/mahi/1.png'"
-             [alt]="category?.name">
         <h5>
           <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)">{{ category?.name }}</a>
         </h5>
@@ -29,6 +27,8 @@
         {{ category.name }}
         <img [src]="category?.category_icon ? category?.category_icon?.original_url : 'assets/images/category.png'"
              [alt]="category?.name">
+
+   
       </app-button>
     </li>
   </ul>
@@ -68,7 +68,7 @@
           </div>
         </div>
       </div>
-      <a>sdsdsdsdeff</a>
+ 
       <div *ngIf="theme == 'rome'">
         <div class="shop-category-box border-0">
             <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)" class="circle-1">
