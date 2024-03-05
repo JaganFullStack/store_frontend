@@ -11,8 +11,15 @@ export class CartService {
   
   constructor(private http: HttpClient) {}
 
+
+
+  addToCart(item: any): Observable<CartModel> {
+    return this.http.post<CartModel>(`http://localhost:8080/api/addcart`, item);
+  }
+
+ 
   getCartItems(): Observable<CartModel> {
-    return this.http.get<CartModel>(`${environment.URL}/cart.json`);
+    return this.http.get<CartModel>(`http://localhost:8080/api/getCartData`);
   }
 
 }
