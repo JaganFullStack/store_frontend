@@ -42,13 +42,24 @@
             <li class="product-box-contain" >
                 <a [routerLink]="['/auth/register']">{{ 'register' | translate }}</a>
             </li>
+
             <li class="product-box-contain" >
-                <a [routerLink]="['/account/dashboard']"><i class="ri-user-line me-2"></i> {{ 'my_account' | translate }}</a>
+                <a [routerLink]="['/auth/forgot-password']">{{ 'forgot_password' | translate }}</a>
             </li>
 
             <li class="product-box-contain">
                 <a [routerLink]="['/wishlist']">{{ 'wishlist' | translate }}</a>
             </li>
+
+
+            <li class="product-box-contain" >
+                <a [routerLink]="['checkout']"> {{ 'checkout' | translate }}</a>
+            </li>
+            <li class="product-box-contain" >
+                <a [routerLink]="['/account/dashboard']"> {{ 'my_account' | translate }}</a>
+            </li>
+
+          
 
         
 

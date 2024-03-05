@@ -28,6 +28,7 @@ export class CategoriesComponent {
 
   public categories: Category[];
   public selectedCategorySlug: string[] = [];
+assets: any;
 
   constructor(private route: ActivatedRoute,
     private router: Router) {

@@ -4,21 +4,21 @@
       "home_banner": {
         "status": true,
         "main_banner": {
-          "image_url": "assets/images/data/themes/paris/1.jpg",
+          "image_url": "assets/images/mahi/homebig1.jpg",
           "redirect_link": {
             "link": "vegetables-fruits",
             "link_type": "collection"
           }
         },
         "sub_banner_1": {
-          "image_url": "assets/images/data/themes/paris/2.jpg",
+          "image_url": "assets/images/mahi/homesmall3.jpg",
           "redirect_link": {
             "link": "grocery-staples",
             "link_type": "collection"
           }
         },
         "sub_banner_2": {
-          "image_url": "assets/images/data/themes/paris/2.jpg",
+          "image_url": "assets/images/mahi/homesmall2.jpg",
           "redirect_link": {
             "link": "vegetables-fruits",
             "link_type": "collection",

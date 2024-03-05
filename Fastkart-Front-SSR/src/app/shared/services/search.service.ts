@@ -13,7 +13,7 @@ export class SearchService {
   constructor(private http: HttpClient) {}
 
   searchProduct(payload?: Params): Observable<ProductModel> {
-    // return this.http.get<CategoryModel>(`${environment.URL}/category.json`, { params: payload });
+    // return this.http.get<ProductModel>(`${environment.URL}/product.json`, { params: payload });
     return this.http.get<ProductModel>(`http://localhost:8080/api/getproduct`,{ params: payload })
   }
   
