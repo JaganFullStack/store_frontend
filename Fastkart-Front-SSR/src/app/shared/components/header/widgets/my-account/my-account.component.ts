@@ -5,6 +5,7 @@ import { AccountUser } from '../../../../interface/account.interface';
 import { AccountState } from '../../../../state/account.state';
 import { AuthState } from '../../../../state/auth.state';
 import { Logout } from '../../../../action/auth.action';
+import { UpdateUserProfile } from '../../../../action/account.action';
 import { ConfirmationModalComponent } from '../../../widgets/modal/confirmation-modal/confirmation-modal.component';
 
 @Component({
@@ -24,6 +25,11 @@ export class MyAccountComponent {
   constructor(private store: Store) {}
 
   logout() {
+
+    localStorage.removeItem('UserEmail');
+    let  payloadData!:AccountUser;
+    this.store.dispatch(new UpdateUserProfile(payloadData))
+    
     this.store.dispatch(new Logout());
   }
 

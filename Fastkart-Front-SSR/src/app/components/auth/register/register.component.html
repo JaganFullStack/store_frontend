@@ -82,6 +82,8 @@
                                     </div>
                                 </div>
                             </div>
+                             <p *ngIf="registerErrorMsg!=null">{{registerErrorMsg}}</p>
+
                             <div class="col-12">
                                 <app-button [id]="'sign_up_btn'" [disabled]="tnc.invalid || form.invalid">{{ 'sign_up' | translate }}</app-button>
                             </div>

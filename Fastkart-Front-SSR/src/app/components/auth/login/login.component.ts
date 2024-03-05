@@ -49,8 +49,11 @@ export class LoginComponent {
                   this.responseError=null;
                     
                     console.log(response);
+
+                    localStorage.setItem('AuthToken', response?.token);
+                    localStorage.setItem('UserEmail',response?.Email)
+
                     const redirectUrl = this.authService.redirectUrl || '/account/dashboard';
-        
                     this.router.navigateByUrl(redirectUrl);
                    
                 },

@@ -13,6 +13,7 @@ import { RegisterComponent } from './register/register.component';
 
 import { AuthState } from '../../shared/state/auth.state';
 import { TranslateModule } from '@ngx-translate/core';
+import { EmailverifiedComponent } from './emailverified/emailverified.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TranslateModule } from '@ngx-translate/core';
     ForgotPasswordComponent,
     OtpComponent,
     UpdatePasswordComponent,
-    RegisterComponent
+    RegisterComponent,
+    EmailverifiedComponent
   ],
   imports: [
     CommonModule,

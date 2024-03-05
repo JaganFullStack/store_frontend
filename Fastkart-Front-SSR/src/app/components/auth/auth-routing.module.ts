@@ -6,6 +6,7 @@ import { ForgotPasswordComponent } from "./forgot-password/forgot-password.compo
 import { OtpComponent } from "./otp/otp.component";
 import { UpdatePasswordComponent } from "./update-password/update-password.component";
 import { RegisterComponent } from "./register/register.component";
+import { EmailverifiedComponent } from "./emailverified/emailverified.component";
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: "register",
     component: RegisterComponent,
+  },
+  {
+    path:"emailverified",
+    component:EmailverifiedComponent
   }
 ];
 

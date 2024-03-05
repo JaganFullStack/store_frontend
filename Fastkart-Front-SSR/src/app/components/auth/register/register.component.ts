@@ -15,6 +15,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 export class RegisterComponent {
 
   public form: FormGroup;
+  registerErrorMsg=null;
   public breadcrumb: Breadcrumb = {
     title: "Sign In",
     items: [{ label: 'Sign In', active: true }]
@@ -66,9 +67,13 @@ export class RegisterComponent {
         next: (response: any) => {  
             
             console.log(response);
+            this.registerErrorMsg=null;
             // this.router.navigateByUrl('/account/dashboard');
+            this.router.navigateByUrl('emailverified');
         },
         error: (error) => {
+
+          this.registerErrorMsg=error.error.messages.error;
           console.log("Api Error",error.error.messages.error);
         },  
       });
