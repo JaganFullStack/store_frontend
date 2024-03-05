@@ -3,7 +3,7 @@ import { Menu } from "../interface/menu.interface";
 export const menu: Menu[] = [
   {
     id: 1,
-    title: 'home',
+    title: 'Home',
     type: 'link',
 
     path: '/home',
