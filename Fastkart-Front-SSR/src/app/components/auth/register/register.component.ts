@@ -69,7 +69,7 @@ export class RegisterComponent {
             console.log(response);
             this.registerErrorMsg=null;
             // this.router.navigateByUrl('/account/dashboard');
-            this.router.navigateByUrl('emailverified');
+            this.router.navigateByUrl('/auth/emailverified');
         },
         error: (error) => {
 

@@ -53,8 +53,10 @@ export class LoginComponent {
                     localStorage.setItem('AuthToken', response?.token);
                     localStorage.setItem('UserEmail',response?.Email)
 
+
                     const redirectUrl = this.authService.redirectUrl || '/account/dashboard';
                     this.router.navigateByUrl(redirectUrl);
+                    // window.location.reload();
                    
                 },
                 error: (error) => {

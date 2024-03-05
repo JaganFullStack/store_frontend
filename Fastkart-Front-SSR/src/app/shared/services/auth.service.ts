@@ -46,5 +46,25 @@ export class AuthService {
       })
     );
   }
+
+  verificationEmail(data: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'AUTHKEY': 'StoreWeb'
+    });
+    const apiUrl = `http://localhost:8080/verify-email?token=${data}`
+
+     // Update with your endpoint
+
+    return this.http.get<any>(apiUrl,{ headers: headers }).pipe(
+        catchError(HttpErrorResponse => {
+
+            return throwError(() => HttpErrorResponse);
+      })
+    );
+  }
+
+
+
   
 }
