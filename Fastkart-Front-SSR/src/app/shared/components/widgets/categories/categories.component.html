@@ -133,7 +133,7 @@
   [type]="'button'"
   *ngIf="categories?.length && style == 'input_dropdown'">
  <select class="form-select locat-name">
-    <option>{{ 'all_category' | translate }}</option>
+    <option>{{ 'All Category' | translate }}</option>
     <option *ngFor="let category of categories">
       {{ category.name }}
     </option>
