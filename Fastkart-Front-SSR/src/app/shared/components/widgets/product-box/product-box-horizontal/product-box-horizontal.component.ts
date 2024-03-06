@@ -11,7 +11,7 @@ import { AddToCart, GetCartItems } from '../../../../../shared/action/cart.actio
 import { CartState } from '../../../../../shared/state/cart.state';
 import { VariationModalComponent } from '../../modal/variation-modal/variation-modal.component';
 import { environment } from 'src/environments/environment';
-import { cartService } from '../../../../services/cart.service';
+// import { cartService } from '../../../../services/cart.service';
 
  @Component({
   selector: 'app-product-box-horizontal',
@@ -54,7 +54,7 @@ OMR: number|undefined;
 	// 	config.readonly = true;
 	// }
   
-  constructor(private store: Store,config: NgbRatingConfig , public cartService: cartService) {
+  constructor(private store: Store,config: NgbRatingConfig ,) {
 
 
     		config.max = 5;
@@ -95,82 +95,82 @@ OMR: number|undefined;
 
 
  
-  // addToCart(product: Product, qty: number) {
-
-
-  //   const params: CartAddOrUpdate = {
-  //     id: this.cartItem ? this.cartItem.id : null,
-  //     product: product,
-  //     product_id: product?.id,
-  //     variation_id: this.cartItem ? this.cartItem?.variation_id : null,
-  //     variation: this.cartItem ? this.cartItem?.variation : null,
-  //     quantity: qty
-  //   }
-  //   this.store.dispatch(new AddToCart(params));
-  // }
-
-
   addToCart(product: Product, qty: number) {
-    let userEmailId = localStorage.getItem('UserEmail');
-    let GuId = localStorage.getItem('GuId');
+
+
+    const params: CartAddOrUpdate = {
+      id: this.cartItem ? this.cartItem.id : null,
+      product: product,
+      product_id: product?.id,
+      variation_id: this.cartItem ? this.cartItem?.variation_id : null,
+      variation: this.cartItem ? this.cartItem?.variation : null,
+      quantity: qty
+    }
+    this.store.dispatch(new AddToCart(params));
+  }
+
+
+  // addToCart(product: Product, qty: number) {
+  //   let userEmailId = localStorage.getItem('UserEmail');
+  //   let GuId = localStorage.getItem('GuId');
 
 
 
-          // LOGIN NEW CODE 
-          if (userEmailId) {
-            const params: CartAddOrUpdate = {
-              id: this.cartItem ? this.cartItem.id : null,
-              product: product,
-              product_id: product?.id,
-              variation_id: this.cartItem ? this.cartItem?.variation_id : null,
-              variation: this.cartItem ? this.cartItem?.variation : null,
-              quantity: qty
-            }
-          }     
-          const params: CartAddOrUpdate = {
-            id: this.cartItem ? this.cartItem.id : null,
-            product: product,
-            product_id: product?.id,
-            variation_id: this.cartItem ? this.cartItem?.variation_id : null,
-            variation: this.cartItem ? this.cartItem?.variation : null,
-            quantity: qty
-          }
+  //         // LOGIN NEW CODE 
+  //         if (userEmailId) {
+  //           const params: CartAddOrUpdate = {
+  //             id: this.cartItem ? this.cartItem.id : null,
+  //             product: product,
+  //             product_id: product?.id,
+  //             variation_id: this.cartItem ? this.cartItem?.variation_id : null,
+  //             variation: this.cartItem ? this.cartItem?.variation : null,
+  //             quantity: qty
+  //           }
+  //         }     
+  //         const params: CartAddOrUpdate = {
+  //           id: this.cartItem ? this.cartItem.id : null,
+  //           product: product,
+  //           product_id: product?.id,
+  //           variation_id: this.cartItem ? this.cartItem?.variation_id : null,
+  //           variation: this.cartItem ? this.cartItem?.variation : null,
+  //           quantity: qty
+  //         }
       
 
    
 
-              console.log(params)
-              this.cartService.addToCart(params).subscribe({
-                next: (response: any) => {  
-                  this.responseError=null;
+  //             console.log(params)
+  //             this.cartService.addToCart(params).subscribe({
+  //               next: (response: any) => {  
+  //                 this.responseError=null;
                     
-                    console.log(response);
+  //                   console.log(response);
 
                 
 
-                    const redirectUrl =  '/account/dashboard';
-                    this.router.navigateByUrl(redirectUrl);
-                    // window.location.reload();
+  //                   const redirectUrl =  '/account/dashboard';
+  //                   this.router.navigateByUrl(redirectUrl);
+  //                   // window.location.reload();
                    
-                },
-                error: (error:any) => {
-                  this.responseError=  error?.error?.messages?.error ?? 'INVAILD EMAILID OR PASSWORD';
-                  console.log("Api Error",error.error.messages.error);
-                },  
-              });
+  //               },
+  //               error: (error:any) => {
+  //                 this.responseError=  error?.error?.messages?.error ?? 'INVAILD EMAILID OR PASSWORD';
+  //                 console.log("Api Error",error.error.messages.error);
+  //               },  
+  //             });
           
     
-          // Form is invalid, display errors if needed
+  //         // Form is invalid, display errors if needed
           
-          // Navigate to the intended URL after successful login
-          // AuthLogin
-          const redirectUrl =  '/account/dashboard';
+  //         // Navigate to the intended URL after successful login
+  //         // AuthLogin
+  //         const redirectUrl =  '/account/dashboard';
         
-          this.router.navigateByUrl(redirectUrl);
+  //         this.router.navigateByUrl(redirectUrl);
 
-          // Clear the stored redirect URL
-          // this.authService.redirectUrl = undefined; 
-  }
+  //         // Clear the stored redirect URL
+  //         // this.authService.redirectUrl = undefined; 
+  // }
 
 
   addToWishlist(id: number){
