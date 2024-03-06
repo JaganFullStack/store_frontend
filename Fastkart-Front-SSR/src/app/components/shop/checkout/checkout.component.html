@@ -12,10 +12,10 @@
                                 </div>
                                 <div class="checkout-box">
                                     <div href="javascript:void(0)" class="checkout-title">
-                                        <h4>{{ 'shipping_address' | translate }}</h4>
+                                        <h4>{{ 'Shipping Address' | translate }}</h4>
                                         <a href="javascript:void(0)" class="d-flex align-items-center fw-bold"
                                             (click)="AddressModal.openModal()">
-                                            <i class="ri-add-line me-1"></i> {{ 'add_new' | translate }}
+                                            <i class="ri-add-line me-1"></i> {{ 'add new' | translate }}
                                         </a>
                                     </div>
                                     <div class="checkout-detail">
@@ -33,10 +33,10 @@
                                 </div>
                                 <div class="checkout-box">
                                     <div href="javascript:void(0)" class="checkout-title">
-                                        <h4>{{ 'billing_address' | translate }}</h4>
+                                        <h4>{{ 'Billing Address' | translate }}</h4>
                                         <a href="javascript:void(0)" class="d-flex align-items-center fw-bold"
                                             (click)="AddressModal.openModal()">
-                                            <i class="ri-add-line me-1"></i> {{ 'add_new' | translate }}
+                                            <i class="ri-add-line me-1"></i> {{ 'add new' | translate }}
                                         </a>
                                     </div>
                                     <div class="checkout-detail">
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="checkout-box">
                                     <div class="checkout-title">
-                                        <h4>{{ 'delivery_options' | translate }}</h4>
+                                        <h4>{{ 'Delivery Options' | translate }}</h4>
                                     </div>
                                     <div class="empty-box" *ngIf="!(user$ | async)">
                                         <h2>{{ 'no_delivery_options_found' | translate }}</h2>
@@ -71,10 +71,10 @@
                                 </div>
                                 <div class="checkout-box">
                                     <div class="checkout-title">
-                                        <h4>{{ 'payment_options' | translate }}</h4>
+                                        <h4>{{ 'payment options' | translate }}</h4>
                                     </div>
                                     <div class="empty-box" *ngIf="!(user$ | async)">
-                                        <h2>{{ 'no_payment_options_found' | translate }}</h2>
+                                        <h2>{{ 'no payment options found' | translate }}</h2>
                                     </div>
                                     <app-payment-block
                                         [setting]="(setting$ | async)!"
@@ -130,19 +130,19 @@
                                         <li>
                                             <h4>{{ 'subtotal' | translate }}</h4>
                                             <h4 class="price">
-                                                {{ (checkoutTotal ? (checkoutTotal.total.sub_total | currencySymbol) : 'not_calculated_yet' | translate ) }}
+                                                {{ (checkoutTotal ? (checkoutTotal.total.sub_total | currencySymbol) : 'Not Yet Calculated' | translate ) }}
                                             </h4>
                                         </li>
                                         <li>
                                             <h4>{{ 'shipping' | translate }}</h4>
                                             <h4 class="price">
-                                                {{ (checkoutTotal ? (checkoutTotal.total.shipping_total | currencySymbol) : 'not_calculated_yet' | translate) }}
+                                                {{ (checkoutTotal ? (checkoutTotal.total.shipping_total | currencySymbol) : 'Not Yet Calculated' | translate) }}
                                             </h4>
                                         </li>
                                         <li>
                                             <h4>{{ 'tax' | translate  }}</h4>
                                             <h4 class="price">
-                                                {{ (checkoutTotal ? (checkoutTotal.total.tax_total | currencySymbol) : 'not_calculated_yet' | translate ) }}
+                                                {{ (checkoutTotal ? (checkoutTotal.total.tax_total | currencySymbol) : 'Not Yet Calculated' | translate ) }}
                                             </h4>
                                         </li>
                                         <li *ngIf="(user$ | async) && checkoutTotal && (user$ | async)?.point?.balance">
@@ -150,7 +150,7 @@
                                                 {{ 'points' | translate  }}
                                             </h4>
                                             <h4 [class]="form.controls['points_amount'].value ? 'txt-primary fw-bold price' : 'text-muted price'">
-                                                {{ (checkoutTotal ? (checkoutTotal.total.convert_point_amount! | currencySymbol) : 'not_calculated_yet' | translate ) }}
+                                                {{ (checkoutTotal ? (checkoutTotal.total.convert_point_amount! | currencySymbol) : 'Not Yet Calculated' | translate ) }}
                                             </h4>
                                         </li>
                                         <li class="border-cls"
@@ -163,7 +163,7 @@
                                                 {{ 'wallet_balance' | translate  }}
                                             </h4>
                                             <h4 [class]="form.controls['wallet_balance'].value ? 'txt-primary fw-bold price' : 'text-muted price'">
-                                                {{ (checkoutTotal ? (checkoutTotal.total.convert_wallet_balance! | currencySymbol) : 'not_calculated_yet' | translate ) }}
+                                                {{ (checkoutTotal ? (checkoutTotal.total.convert_wallet_balance! | currencySymbol) : 'Not Yet Calculated' | translate ) }}
                                             </h4>
                                         </li>
                                         <li class="border-cls" *ngIf="(user$ | async) && checkoutTotal && (user$ | async)?.wallet?.balance">
@@ -206,7 +206,7 @@
                                         <li class="list-total">
                                             <h4>{{ 'total' | translate }}</h4>
                                             <h4 class="price">
-                                                {{ (checkoutTotal ? (checkoutTotal.total.total | currencySymbol) : 'not_calculated_yet' | translate ) }}
+                                                {{ (checkoutTotal ? (checkoutTotal.total.total | currencySymbol) : 'Not Yet Calculated' | translate ) }}
                                             </h4>
                                         </li>
                                     </ul>
@@ -214,7 +214,7 @@
                                         [class]="'btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold'"
                                         [id]="'place_order'"
                                         [disabled]="form.valid && checkoutTotal ? false : true">
-                                        {{ 'place_order' | translate }}
+                                        {{ 'Place Order' | translate }}
                                     </app-button>
                                 </div>
                             </form>

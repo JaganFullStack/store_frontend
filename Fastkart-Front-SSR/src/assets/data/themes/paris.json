@@ -59,7 +59,7 @@
               "link_type": "collection"
             },
             "status": true,
-            "image_url": "assets/images/data/themes/paris/3.jpg"
+            "image_url": "assets/images/mahi/HBI7.jpg"
           }
         ]
       },
@@ -126,7 +126,7 @@
         },
         "section2_categories_list": {
           "image_url": null,
-          "title": "Bowse By Categories",
+          "title": "Browse By Categories",
           "description": "Uncover Hidden Gems and Culinary Delights",
           "category_ids": [
             1,
@@ -182,14 +182,14 @@
         "section6_two_column_banners": {
           "status": true,
           "banner_1": {
-            "image_url": "assets/images/data/themes/paris/8.jpg",
+            "image_url": "assets/images/mahi/HBI15.png",
             "redirect_link": {
               "link": "vegetables-fruits",
               "link_type": "collection"
             }
           },
           "banner_2": {
-            "image_url": "assets/images/data/themes/paris/9.jpg",
+            "image_url": "assets/images/mahi/HBI16.jpg",
             "redirect_link": {
               "link": "vegetables-fruits",
               "link_type": "collection",

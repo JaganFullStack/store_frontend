@@ -19,7 +19,7 @@
                                 <div class="form-floating log-in-form">
                                     <input type="name" class="form-control" id="CustomerName" id="CustomerName" formControlName="CustomerName" placeholder="{{ 'CustomerName' | translate }}">
                                     <label for="CustomerName">{{ 'full_name' | translate }}</label>
-                                    <div *ngIf="form.controls['CustomerName'].touched && form.controls['CustomerName'].errors?.['required']" class="invalid-feedback">{{ 'name_is_required' | translate }}</div>
+                                    <div *ngIf="form.controls['CustomerName'].touched && form.controls['CustomerName'].errors?.['required']" class="invalid-feedback">{{ 'Name is required' | translate }}</div>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -36,7 +36,7 @@
                                 <div class="form-floating log-in-form">
                                     <input type="number" class="form-control" id="Phone" id="Phone" formControlName="Phone" placeholder="{{ 'phone' | translate }}">
                                     <label for="Phone">{{ 'phone_number' | translate }}</label>
-                                    <div *ngIf="form.controls['Phone'].touched && form.controls['Phone'].errors?.['required']" class="invalid-feedback">{{ 'phone_number_is_required' | translate }}</div>
+                                    <div *ngIf="form.controls['Phone'].touched && form.controls['Phone'].errors?.['required']" class="invalid-feedback">{{ 'Phone number is required' | translate }}</div>
                                     <select2 class="custom-select intl-tel-input"
                                       [data]="codes"
                                       [templates]="template"
@@ -85,7 +85,7 @@
                              <p *ngIf="registerErrorMsg!=null">{{registerErrorMsg}}</p>
 
                             <div class="col-12">
-                                <app-button [id]="'sign_up_btn'" [disabled]="tnc.invalid || form.invalid">{{ 'sign_up' | translate }}</app-button>
+                                <app-button [id]="'sign_up_btn'" [disabled]="tnc.invalid || form.invalid">{{ 'Sign up' | translate }}</app-button>
                             </div>
                         </form>
                     </div>

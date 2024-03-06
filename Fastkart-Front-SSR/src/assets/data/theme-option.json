@@ -2,8 +2,8 @@
     "id": 1,
     "options": {
       "general": {
-        "site_title": "FastKart Marketplace: Where Vendors Shine Together",
-        "site_tagline": "Shop Unique, Sell Exceptional – FastKart's Multi-Vendor Universe.",
+        "site_title": "KaverStores Marketplace: Where Vendors Shine Together",
+        "site_tagline": "Shop Unique, Sell Exceptional – KaverStores Multi-Vendor Universe.",
         "cart_style": "cart_sidebar",
         "back_to_top_enable": true,
         "language_direction": "ltr",
@@ -251,7 +251,7 @@
         "detail_1": {
           "label": "Phone",
           "icon": "ri-phone-line",
-          "text": "+968 2457 4334"
+          "text": "+968 7839 6352"
         },
         "detail_2": {
           "label": "Email",
@@ -259,15 +259,13 @@
           "text": "kaveristoresmuscat@gmail.com"
         },
         "detail_3": {
-          "label": "London Office",
+          "label": "Dubai Office",
           "icon": "ri-map-pin-line",
-          "text": "Cruce Casa de Postas 29"
-        },
-        "detail_4": {
-          "label": "Bournemouth Office",
-          "icon": "ri-building-line",
-          "text": "Visitación de la Encina 22"
+          "text": "Al Goubhra, Muscat, OM, 130 Oman"
         }
+        
+    
+
       },
       "error_page": {
         "error_page_content": "The page you are looking for could not be found. The link to this address may be outdated or we may have moved the since you last bookmarked it.",

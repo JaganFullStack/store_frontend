@@ -1,4 +1,7 @@
 <div class="bg-effect">
+
+
+
   <!-- Home Section Start -->
   <section class="home-section pt-2" *ngIf="data?.content?.home_banner">
     <app-theme-home-banner [theme]="'paris'" [data]="data?.content?.home_banner"></app-theme-home-banner>
@@ -50,7 +53,7 @@
             </app-theme-banner>
 
             <!-- Products -->
-            <ng-container *ngIf="data?.content?.main_content?.sidebar?.sidebar_products?.status
+            <!-- <ng-container *ngIf="data?.content?.main_content?.sidebar?.sidebar_products?.status
                 && data?.content?.main_content?.sidebar?.sidebar_products?.product_ids?.length || 0 > 3">
               <div class="section-t-space">
                 <div class="category-menu">
@@ -61,7 +64,7 @@
                   </app-theme-product>
                 </div>
               </div>
-            </ng-container>
+            </ng-container> -->
           </div>
         </div>
         <!-- Left Content End -->
@@ -70,7 +73,7 @@
         <div [class]="data?.content?.main_content?.sidebar?.status ? 'col-xxl-9 col-xl-8' : 'col-xxl-12 col-xl-12'">
 
           <!-- Top Save Today Section Start -->
-          <ng-container *ngIf="data?.content?.main_content?.section1_products?.status &&
+          <!-- <ng-container *ngIf="data?.content?.main_content?.section1_products?.status &&
             data?.content?.main_content?.section1_products?.product_ids?.length || 0 >= 5">
             <app-title
               [title]="data?.content?.main_content?.section1_products?.title"
@@ -83,11 +86,11 @@
                 [style]="'horizontal'">
               </app-theme-product>
             </div>
-          </ng-container>
+          </ng-container> -->
           <!-- Top Save Today Section End -->
 
           <!-- Categories Section Start-->
-          <!-- <ng-container *ngIf="data?.content?.main_content?.section2_categories_list?.status">
+          <ng-container *ngIf="data?.content?.main_content?.section2_categories_list?.status">
             <div>
               <app-title
                 [title]="data?.content?.main_content?.section2_categories_list?.title"
@@ -101,7 +104,7 @@
                 [style]="'horizontal'">
               </app-theme-categories>
             </div>
-          </ng-container> -->
+          </ng-container>
           <!-- Categories Section End-->
 
           <!-- Two Column Banner Section Start-->

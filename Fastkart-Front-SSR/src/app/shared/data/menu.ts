@@ -25,7 +25,7 @@ export const menu: Menu[] = [
     title: 'About us',
     type: 'link',
 
-    path: '/aboutus',
+    path: '/about-us',
     // megaMenu: true,
     // megaMenuType: 'image',
     active: false,
@@ -142,7 +142,7 @@ export const menu: Menu[] = [
     title: 'Products',
     active: false,
     type: 'link',
-    path: '/product',
+    path: '/collections',
     // children: [
     //   {
     //     title: 'Authentication',

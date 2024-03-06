@@ -94,7 +94,7 @@
               placeholder="{{ 'enter_phone' | translate }}" name="phone">
             <div class="invalid-feedback"
               *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['required']">
-              {{ 'phone_number_is_required' | translate }}
+              {{ 'Phone number is required' | translate }}
             </div>
             <div class="invalid-feedback"
               *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['pattern']">

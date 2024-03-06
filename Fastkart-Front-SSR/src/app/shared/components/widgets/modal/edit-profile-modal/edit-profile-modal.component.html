@@ -17,7 +17,7 @@
                         <label class="form-label" for="name">{{ 'full_name' | translate }}</label>
                         <input class="form-control" id="name" type="text" placeholder="{{ 'enter_name' | translate }}" formControlName="name" />
                         <div class="invalid-feedback" *ngIf="form?.controls?.['name']?.touched && form.controls['name']?.errors?.['required']">
-                            {{ 'name_is_required' | translate }}
+                            {{ 'Name is required' | translate }}
                         </div>
                     </div>
                 </div>
@@ -52,10 +52,10 @@
                         </select2>
                         <input type="number" class="form-control intl-input-padding" formControlName="phone" placeholder="{{ 'enter_phone' | translate }}" name="phone">
                         <div class="invalid-feedback" *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['required']">
-                            {{ 'phone_number_is_required' | translate }}
+                            {{ 'Phone number is required' | translate }}
                         </div>
                         <div class="invalid-feedback" *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['pattern']">
-                            {{ 'phone_number_is_invalid' | translate }}
+                            {{ 'phone number is invalid' | translate }}
                         </div>
                     </div>
                 </div>

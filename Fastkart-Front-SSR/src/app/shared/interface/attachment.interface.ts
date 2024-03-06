@@ -14,6 +14,8 @@ export interface Attachment {
     conversions_disk: string;
     size: string;
     original_url: string;
+    product_thumbnail: string;
+    ProductImages:String;
     created_by_id: number;
     created_at?: string;
     updated_at?: string;

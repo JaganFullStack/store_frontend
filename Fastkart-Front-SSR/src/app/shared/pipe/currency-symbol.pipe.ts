@@ -28,7 +28,7 @@ export class CurrencySymbolPipe implements PipeTransform {
     value = Number(value);
     value = (value * this.selectedCurrency?.exchange_rate);
 
-    this.symbol = this.selectedCurrency?.symbol || '$';
+    this.symbol = 'OMR' || 'OMR';
     position = this.selectedCurrency?.symbol_position;
 
     let formattedValue = this.currencyPipe.transform(value, this.symbol);

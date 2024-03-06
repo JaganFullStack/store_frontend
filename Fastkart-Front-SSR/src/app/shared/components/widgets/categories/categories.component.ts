@@ -33,6 +33,7 @@ assets: any;
   constructor(private route: ActivatedRoute,
     private router: Router) {
     this.category$.subscribe(res => this.categories = res.data.filter(category => category.type == 'product'));
+    console.log("res:",this.categories)
     this.route.queryParams.subscribe(params => {
       this.selectedCategorySlug = params['category'] ? params['category'].split(',') : [];
     });
@@ -40,7 +41,7 @@ assets: any;
 
   ngOnChanges() {
     if(this.categoryIds && this.categoryIds.length) {
-      console.log()
+      console.log(this.categories)
       this.category$.subscribe(res => this.categories = res.data.filter(category => this.categoryIds?.includes(category.index)));
     }
   }

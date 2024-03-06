@@ -12,7 +12,7 @@
                       </div>
                       <div class="col-xl-12">
                           <div class="contact-title">
-                              <h3>{{ 'get_in_touch' | translate }}</h3>
+                              <h3>{{ 'Get In Touch' | translate }}</h3>
                           </div>
                           <div class="contact-detail">
                               <div class="row g-4">
@@ -86,21 +86,21 @@
                   <div class="row" [formGroup]="form" >
                       <div class="col-12">
                           <div class="mb-md-4 mb-3 custom-form">
-                              <label for="fullname" class="form-label">{{ 'full_name' | translate }}</label>
+                              <label for="fullname" class="form-label">{{ 'Full Name' | translate }}</label>
                               <div class="custom-input">
-                                  <input type="text" class="form-control" id="fullname" placeholder="{{ 'enter_full_name' | translate }}" formControlName="name">
+                                  <input type="text" class="form-control" id="fullname" placeholder="{{ 'Enter Full Name' | translate }}" formControlName="name">
                                   <i class="ri-user-3-fill"></i>
                                   <div class="invalid-feedback" *ngIf="form.controls['name'].touched && form.controls['name'].errors?.['required']">
-                                    {{ 'name_is_required' | translate }}
+                                    {{ 'Name is required' | translate }}
                                   </div>
                               </div>
                           </div>
                       </div>
                       <div class="col-xxl-6 col-lg-12 col-sm-6">
                           <div class="mb-md-4 mb-3 custom-form">
-                              <label for="email" class="form-label">{{ 'email_address' | translate }}</label>
+                              <label for="email" class="form-label">{{ 'Email Address' | translate }}</label>
                               <div class="custom-input">
-                                  <input type="email" class="form-control" id="email" placeholder="{{ 'enter_email_address' | translate }}" formControlName="email">
+                                  <input type="email" class="form-control" id="email" placeholder="{{ 'Enter Email Address' | translate }}" formControlName="email">
                                   <i class="ri-mail-fill"></i>
                                   <div class="invalid-feedback" *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['required']">
                                     {{ 'email_is_required' | translate }}
@@ -111,12 +111,12 @@
                       </div>
                       <div class="col-xxl-6 col-lg-12 col-sm-6">
                           <div class="mb-md-4 mb-3 custom-form">
-                              <label for="phonenumner" class="form-label">{{ 'phone_number' | translate }}</label>
+                              <label for="phonenumner" class="form-label">{{ 'Phone Number' | translate }}</label>
                               <div class="custom-input">
-                                  <input type="number" class="form-control" id="phonenumner" placeholder="{{ 'enter_your_phone_number' | translate }}" formControlName="phone">
+                                  <input type="number" class="form-control" id="phonenumner" placeholder="{{ 'Enter Your Phone Number' | translate }}" formControlName="phone">
                                   <i class="ri-smartphone-line"></i>
                                   <div class="invalid-feedback" *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['required']">
-                                    {{ 'phone_number_is_required' | translate }}
+                                    {{ 'Phone number is required' | translate }}
                                   </div>
                               </div>
                           </div>
@@ -125,7 +125,7 @@
                         <div class="mb-md-4 mb-3 custom-form">
                             <label for="exampleFormControlInput" class="form-label">{{ 'subject' | translate }}</label>
                             <div class="custom-input">
-                                <input type="text" class="form-control" id="subject" placeholder="{{ 'enter_subject' | translate }}" formControlName="subject">
+                                <input type="text" class="form-control" id="subject" placeholder="{{ 'Enter Subject' | translate }}" formControlName="subject">
                                 <i class="ri-user-3-fill"></i>
                                 <div class="invalid-feedback" *ngIf="form.controls['subject'].touched && form.controls['subject'].errors?.['required']">
                                   {{ 'subject_is_required' | translate }}
@@ -137,7 +137,7 @@
                           <div class="mb-md-4 mb-3 custom-form">
                               <label for="message" class="form-label">{{ 'message' | translate }}</label>
                               <div class="custom-textarea">
-                                  <textarea class="form-control" id="message" placeholder="{{ 'enter_your_message' | translate }}" rows="6" formControlName="message"></textarea>
+                                  <textarea class="form-control" id="message" placeholder="{{ 'Enter Your Message' | translate }}" rows="6" formControlName="message"></textarea>
                                   <i class="ri-chat-2-fill"></i>
                                   <div class="invalid-feedback" *ngIf="form.controls['message'].touched && form.controls['message'].errors?.['required']">
                                     {{ 'message_is_required' | translate }}
@@ -152,7 +152,7 @@
                     [id]="'send_message'"
                     [spinner]="true"
                     (click)="submit()">
-                      {{ 'send_message' | translate }}
+                      {{ 'Send Message' | translate }}
                   </app-button>
               </div>
           </div>

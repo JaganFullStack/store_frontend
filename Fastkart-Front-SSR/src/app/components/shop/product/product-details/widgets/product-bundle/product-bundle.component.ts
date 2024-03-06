@@ -55,22 +55,25 @@ export class ProductBundleComponent {
   }
 
   addToCartAll() {
-    this.selectedProduct.forEach(product => {
-      if(product) {
-        this.cartItem$.subscribe(items => {
-          this.cartItem = items.find(item => item.product.id == product.id)!;
-        });
-        const params: CartAddOrUpdate = {
-          id: this.cartItem ? this.cartItem.id : null,
-          product_id: product?.id!,
-          product: product ? product : null,
-          variation: null,
-          variation_id: null,
-          quantity: 1
-        }
-        this.store.dispatch(new AddToCart(params));
-      }
-    });
+    // this.selectedProduct.forEach(product => {
+    //   if(product) {
+    //     this.cartItem$.subscribe(items => {
+    //       this.cartItem = items.find(item => item.product.id == product.id)!;
+    //     });
+    //     const params: CartAddOrUpdate = {
+    //       id: this.cartItem ? this.cartItem.id : null,
+    //       product_id: product?.id!,
+    //       product: product ? product : null,
+    //       variation: null,
+    //       variation_id: null,
+    //       quantity: 1
+    //     }
+    //     this.store.dispatch(new AddToCart(params));
+    //   }
+    // });
+
+
+    
   }
 
 }

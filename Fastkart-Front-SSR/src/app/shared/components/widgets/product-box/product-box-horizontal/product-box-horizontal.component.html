@@ -5,9 +5,21 @@
     </ng-template>
     <div class="product-image">
         <a [routerLink]="['/product/', product.slug]">
-            <img [src]="product.product_thumbnail ?
-                        product.product_thumbnail.original_url :
-                        'assets/images/product.png'" class="img-fluid" [alt]="'product'">
+            <!-- <img [src]="product.product_thumbnail ?
+                        product.product_thumbnail.product_thumbnail :
+                        'assets/images/product.png'" class="img-fluid" [alt]="'product'"> -->
+
+ 
+                        <img [src]="product.product_thumbnail ?
+               ApiImageurl+product.product_thumbnail :
+                 'assets/images/product.png'" class="img-fluid" [alt]="'product'">
+
+                  
+                        <!-- <img src="
+                        assets/images/mahi/apple.png" class="img-fluid" [alt]="'product'">
+ -->
+
+
         </a>
         <div class="product-header-top" *ngIf="close">
           <app-button
@@ -24,12 +36,13 @@
                     <i class="ri-eye-line"></i>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="javascript:void(0)" (click)="addToCompar(product.id)">
                     <i class="ri-refresh-line"></i>
                 </a>
-            </li>
+            </li> -->
             <li>
+                
                 <a href="javascript:void(0)" class="notifi-wishlist" (click)="addToWishlist(product.id)">
                     <i class="ri-heart-line"></i>
                 </a>
@@ -42,16 +55,20 @@
         </a>
         <p>{{ product.short_description }}</p>
         <h6 class="unit mt-1" *ngIf="product.unit">{{ product.unit }}</h6>
+        <!-- <h5 class="sold text-content">
+            <span class="theme-color price">{{ product.sale_price | currencySymbol }}</span>
+            <del *ngIf="product.discount">{{ product.price | currencySymbol }}</del>
+        </h5> -->
         <h5 class="sold text-content">
             <span class="theme-color price">{{ product.sale_price | currencySymbol }}</span>
             <del *ngIf="product.discount">{{ product.price | currencySymbol }}</del>
         </h5>
-        <div class="product-rating">
+        <!-- <div class="product-rating">
             <ngb-rating [rate]="product.rating_count"></ngb-rating>
             <h6 class="theme-color" *ngIf="product.stock_status == 'in_stock'">
                 {{ product.stock_status | titleCase }}
             </h6>
-        </div>
+        </div> -->
         <div class="add-to-cart-box">
             <app-button [id]="'add-to-cart'+product.id"
                 [class]="'btn btn-add-cart addcart-button'"
