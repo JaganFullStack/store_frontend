@@ -5,6 +5,7 @@ import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Category, CategoryModel } from '../../../interface/category.interface';
 import { CategoryState } from '../../../state/category.state';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-categories',
@@ -30,10 +31,12 @@ export class CategoriesComponent {
   public selectedCategorySlug: string[] = [];
 assets: any;
 
+ApiImageurl = environment.backendCategoryImageUrl;
+
   constructor(private route: ActivatedRoute,
     private router: Router) {
     this.category$.subscribe(res => this.categories = res.data.filter(category => category.type == 'product'));
-    console.log("res:",this.categories)
+    // console.log("res:",this.categories)
     this.route.queryParams.subscribe(params => {
       this.selectedCategorySlug = params['category'] ? params['category'].split(',') : [];
     });
@@ -52,7 +55,7 @@ assets: any;
 
   redirectToCollection(slug: string) {
     let index = this.selectedCategorySlug.indexOf(slug);
-    console.log("sluggggggg",slug);
+    // console.log("sluggggggg",slug);
     console.log("this.selectedCategorySlug",this.selectedCategorySlug);
 
 

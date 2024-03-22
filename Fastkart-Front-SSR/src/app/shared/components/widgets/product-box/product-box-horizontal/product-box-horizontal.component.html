@@ -3,7 +3,7 @@
     <ng-template #featured>
         <div class="label-tag" *ngIf="product.is_featured"><span>{{ 'featured' | translate  }}</span></div>
     </ng-template>
-    <div class="product-image">
+    <div class="product-image" >
         <a [routerLink]="['/product/', product.slug]">
             <!-- <img [src]="product.product_thumbnail ?
                         product.product_thumbnail.product_thumbnail :
@@ -49,7 +49,7 @@
             </li>
         </ul>
     </div>
-    <div class="product-detail">
+    <div class="product-detail" >
         <a [routerLink]="['/product/', product.slug]">
             <h6 class="name">{{ product.name }}</h6>
         </a>
@@ -89,7 +89,11 @@
                     {{ 'sold_out' | translate  }}
                 </app-button>
             </ng-template>
-            <div class="cart_qty qty-box" [class.open]="cartItem && cartItem.quantity > 0">
+
+
+
+<!-- 
+          <div class="cart_qty qty-box" [class.open]="cartItem && cartItem.quantity > 0">
                 <div class="input-group">
                     <app-button
                         [id]="'qty-left-minus'+product.id"
@@ -98,10 +102,15 @@
                         (click)="addToCart(product, -1)">
                         <i class="ri-subtract-line"></i>
                     </app-button>
+
+
                     <input class="form-control input-number qty-input" type="text" name="quantity"
                         value="{{cartItem && cartItem.quantity ? cartItem.quantity : cartItem}}"
                         readonly>
+                   
+                        
                     <app-button
+
                         [id]="'qty-right-plus'+product.id"
                         [spinner]="false"
                         [class]="'qty-left-plus'"
@@ -109,9 +118,76 @@
                         <i class="ri-add-fill"></i>
                     </app-button>
                 </div>
-            </div>
+            </div>  -->
+
+            <div class="cart_qty qty-box" [class.open]="cartItem && cartItem.quantity > 0">
+                <div class="input-group">
+                  <app-button
+                    [id]="'qty-left-minus' + product.id"
+                    [spinner]="false"
+                    [class]="'qty-left-minus'"
+                    (click)="addToCart(product, -1)"
+                  >
+                    <i class="ri-subtract-line"></i>
+                  </app-button>
+                  <input
+                    class="form-control input-number qty-input"
+                    type="text"
+                    name="quantity"
+                    value="{{ cartItem?.quantity || 0 }}"
+                    readonly
+                  />
+                  <app-button
+                    [id]="'qty-right-plus' + product.id"
+                    [spinner]="false"
+                    [class]="'qty-left-plus'"
+                    (click)="addToCart(product, 1)"
+                  >
+                    <i class="ri-add-fill"></i>
+                  </app-button>
+                </div>
+              </div>
+
+
+
+
+
+
         </div>
     </div>
 </div>
 <app-product-detail-modal #productDetailModal [product]="product"></app-product-detail-modal>
 <app-variation-modal #variationModal></app-variation-modal>
+
+
+
+
+
+
+
+<!-- 
+
+          <div class="cart_qty qty-box" [class.open]="cartItem && cartItem.quantity > 0">
+                <div class="input-group">
+                    <app-button
+                    [id]="'qty-left-minus'+product.id"
+                    [spinner]="false"
+                    [class]="'qty-left-minus'"
+                    (click)="addToCart(product, -1)">
+                    <i class="ri-subtract-line"></i>
+                </app-button>
+                    <input class="form-control input-number qty-input" type="text" name="quantity"
+                    value="{{cartItem?.quantity || 0}}" readonly>
+                
+            
+                    <app-button
+
+                    [id]="'qty-right-plus'+product.id"
+                    [spinner]="false"
+                    [class]="'qty-left-plus'"
+                    (click)="addToCart(product, 1)">
+                    <i class="ri-add-fill"></i>
+                </app-button>
+                </div>
+            </div>  -->
+            

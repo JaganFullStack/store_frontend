@@ -4,7 +4,7 @@
   <ul>
     <li *ngFor="let category of categories">
       <div class="category-list">
-        <img [src]="category?.category_icon ? category?.category_icon?.original_url : 'assets/images/category.png'"
+        <img [src]="category?.category_icon ?  ApiImageurl+category?.category_image : 'assets/images/category.png'"
              [alt]="category?.name">
 
         <h5>
@@ -25,7 +25,7 @@
         [spinner]="false"
         (click)="redirectToCollection(category.slug!)">
         {{ category.name }}
-        <img [src]="category?.category_icon ? category?.category_icon?.original_url : 'assets/images/category.png'"
+        <img [src]="category?.category_icon ? ApiImageurl+category?.category_image : 'assets/images/category1.png'"
              [alt]="category?.name">
 
    
@@ -43,11 +43,12 @@
           (click)="redirectToCollection(category.slug!)"
           class="category-box category-dark"
           [class.active]="selectedCategorySlug.length && selectedCategorySlug.includes(category.slug!)">
-          <img [src]="image ? image : 'assets/images/shape.png'" class="background-image" alt="shape">
-          <img [src]="category?.category_icon ? category?.category_icon?.original_url : 'assets/images/category.png'"
-               [alt]="category?.name">
+          <!-- <img [src]="image ? image : 'assets/images/shape.png'" class="background-image" alt="shape"> -->
+          <img [src]="category?.category_image ?  ApiImageurl+category?.category_image : 'assets/images/category.png'"
+               [alt]="" >
           <h5>{{ category.name }}</h5>
         </a>
+        
       </div>
       <div *ngIf="theme == 'madrid'">
         <div class="category-box-list">
@@ -57,7 +58,7 @@
           </a>
           <div class="category-box-view">
             <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)">
-              <img [src]="category?.category_image ? category?.category_image?.original_url : 'assets/images/category.png'"
+              <img [src]="category?.category_image ? ApiImageurl+category?.category_image : 'assets/images/category.png'"
                    class="img-fluid"
                    [alt]="category?.name">
             </a>
@@ -71,7 +72,7 @@
       <div *ngIf="theme == 'rome'">
         <div class="shop-category-box border-0">
             <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)" class="circle-1">
-              <img [src]="category?.category_image ? category?.category_image?.original_url : 'assets/images/category.png'"
+              <img [src]="category?.category_image ? ApiImageurl+category?.category_image : 'assets/images/category.png'"
                    [alt]="category?.name">
             </a>
             <div class="category-name">
@@ -90,7 +91,7 @@
       <div>
         <div class="shop-category-box border-0 wow fadeIn">
             <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)" class="circle-1">
-              <img [src]="category?.category_icon ? category?.category_icon?.original_url : 'assets/images/category.png'"
+              <img [src]="category?.category_icon ? ApiImageurl+category?.category_image : 'assets/images/category.png'"
                    [alt]="category?.name">
             </a>
             <div class="category-name">
@@ -119,7 +120,7 @@
 <ul class="category-list" *ngIf="categories?.length && style == 'dropdown'">
   <li class="onhover-category-list" *ngFor="let category of categories">
     <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)" class="category-name">
-      <img [src]="category?.category_icon ? category?.category_icon?.original_url : 'assets/images/category.png'" [alt]="category?.name">
+      <img [src]="category?.category_icon ? ApiImageurl+category?.category_image : 'assets/images/category.png'" [alt]="category?.name">
       <h6>{{ category?.name }}</h6>
     </a>
   </li>

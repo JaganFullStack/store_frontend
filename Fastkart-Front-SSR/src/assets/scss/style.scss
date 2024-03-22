@@ -81,3 +81,16 @@
 // Themes
 @import "themes/dark";
 @import "themes/rtl";
+
+
+.lang_topbar #open_dropdown_basic_btn{
+  color: #fff;
+  padding: 0px;
+  display: flex;
+  font-weight: 400!important;
+  font-size: 14px!important;
+}
+.fs15
+{
+  font-size: 15px;
+}

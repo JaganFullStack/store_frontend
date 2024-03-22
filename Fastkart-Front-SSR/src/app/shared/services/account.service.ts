@@ -14,6 +14,7 @@ export class AccountService {
 
   getUserDetails(): Observable<AccountUser> {
     const email=localStorage.getItem('UserEmail');
+    console.log(email);
     const apiUrl = `http://localhost:8080/api/getCustomerData?Email=${email}`
     // return this.http.get<AccountUser>(`${environment.URL}/account.json`);
     return this.http.get<AccountUser>(apiUrl);

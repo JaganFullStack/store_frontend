@@ -1,8 +1,9 @@
 <!-- My Account Basic Style -->
 <div *ngIf="style == 'basic'">
     <div class="delivery-login-box">
-        <div class="delivery-icon">
-            <i class="ri-user-line" *ngIf="!(isAuthenticated$ | async) else profile"></i>
+        <div class="delivery-icon reltop7">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <!-- <i class="ri-user-line" *ngIf="!(isAuthenticated$ | async) else profile"></i> -->
             <ng-template #profile>
                 <div class="user-box">
                     <img [src]="(user$ | async)?.profile_image?.original_url" class="img-fluid" alt="profile"
@@ -16,9 +17,9 @@
         <div class="delivery-detail">
             <!-- <h6>{{ 'hi' | translate }}, {{ ((isAuthenticated$ | async) ? (user$ | async)?.name : 'user' | translate) }}</h6> -->
             
-            <h6>{{ 'Hai' | translate }}, {{ 'Saravanan' }}</h6>
+            <h6>{{ 'Hai' | translate }}, {{ 'User' }}</h6>
             
-            <h5>{{ 'My Account' | translate }}</h5>
+            <!-- <h5 class="fs15">{{ 'My Account' | translate }}</h5> -->
         </div>
     </div>
     <div class="onhover-div onhover-div-login">

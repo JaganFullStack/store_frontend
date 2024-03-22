@@ -4,7 +4,7 @@ import { of, tap } from "rxjs";
 import { GetCartItems, AddToCartLocalStorage, AddToCart, UpdateCart, DeleteCart, 
     CloseStickyCart, ToggleSidebarCart, ClearCart, ReplaceCart } from "../action/cart.action";
 import { Cart, CartModel } from "../interface/cart.interface";
-import { CartService } from "../services/cart.service";
+import { cartService } from "../services/cart.service";
 import { NotificationService } from "../services/notification.service";
 
 export interface CartStateModel {
@@ -26,7 +26,7 @@ export interface CartStateModel {
 @Injectable()
 export class CartState {
 
-  constructor(private cartService: CartService,
+  constructor(private cartService: cartService,
     private notificationService: NotificationService,
     private store: Store) {
   }
@@ -56,6 +56,12 @@ export class CartState {
     return state.sidebarCartOpen;
   }
 
+  @Selector()
+  static getCartModel(state: CartModel): CartModel {
+    console.log(state);
+    return state;
+  }
+
   @Action(GetCartItems)
   getCartItems(ctx: StateContext<CartStateModel>) {
     return this.cartService.getCartItems().pipe(
@@ -64,6 +70,7 @@ export class CartState {
           // Set Selected Varaint
           result.items.filter((item: Cart) => {
             if(item?.variation) {
+              console.log(item);
               item.variation.selected_variation = item?.variation?.attribute_values?.map(values => values?.value).join('/');
             }
           });

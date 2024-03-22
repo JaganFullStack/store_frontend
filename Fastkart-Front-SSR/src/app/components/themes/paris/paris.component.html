@@ -4,17 +4,21 @@
 
   <!-- Home Section Start -->
   <section class="home-section pt-2" *ngIf="data?.content?.home_banner">
-    <app-theme-home-banner [theme]="'paris'" [data]="data?.content?.home_banner"></app-theme-home-banner>
+
+    <div class="container-fluid-lg ng-star-inserted">
+      <owl-carousel-o [options]="customOptions">
+        <ng-template carouselSlide>
+          <img src="assets/images/banner/1.jpg">
+        </ng-template>  
+        <ng-template carouselSlide>
+          <img src="assets/images/banner/3.jpg">
+        </ng-template>  
+      </owl-carousel-o>
+    </div>
+
+    <!-- <app-theme-home-banner [theme]="'paris'" [data]="data?.content?.home_banner"></app-theme-home-banner> -->
+
   
-
-
-
-
-
-
-
-    
-    
   </section>
   <!-- Home Section End -->
 

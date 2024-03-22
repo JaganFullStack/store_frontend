@@ -10,15 +10,15 @@
             <div class="col-xxl-4 col-xl-5 col-lg-6 col-sm-8 mx-auto">
                 <div class="log-in-box">
                     <div class="log-in-title">
-                        <h3>{{ 'welcome_to_our_store' | translate }}</h3>
-                        <h4>{{ 'create_new_account' | translate }}</h4>
+                        <h3>{{ 'Welcome To Our Store' | translate }}</h3>
+                        <h4>{{ 'Create New Account' | translate }}</h4>
                     </div>
                     <div class="input-box">
                         <form class="row g-4" [formGroup]="form" (ngSubmit)="submit()">
                             <div class="col-12">
                                 <div class="form-floating log-in-form">
                                     <input type="name" class="form-control" id="CustomerName" id="CustomerName" formControlName="CustomerName" placeholder="{{ 'CustomerName' | translate }}">
-                                    <label for="CustomerName">{{ 'full_name' | translate }}</label>
+                                    <label for="CustomerName">{{ 'Full Name' | translate }}</label>
                                     <div *ngIf="form.controls['CustomerName'].touched && form.controls['CustomerName'].errors?.['required']" class="invalid-feedback">{{ 'Name is required' | translate }}</div>
                                 </div>
                             </div>

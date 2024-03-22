@@ -9,6 +9,7 @@ import { ThemeOptionService } from '../../../shared/services/theme-option.servic
 import * as data from  '../../../shared/data/owl-carousel';
 import { NewsletterModalComponent } from '../../../shared/components/widgets/modal/newsletter-modal/newsletter-modal.component';
 import { ExitModalComponent } from '../../../shared/components/widgets/modal/exit-modal/exit-modal.component';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-paris',
@@ -60,6 +61,9 @@ export class ParisComponent {
       document.documentElement.style.setProperty('--theme-color','#0da487');
       this.themeOptionService.theme_color = '#0da487';
     }
+
+
+    
   }
 
   ngOnDestroy() {
@@ -68,4 +72,31 @@ export class ParisComponent {
       document.documentElement.style.removeProperty('--theme-color');
     }
   }
+
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      }
+    },
+    nav: true
+  }
+
+  
 }

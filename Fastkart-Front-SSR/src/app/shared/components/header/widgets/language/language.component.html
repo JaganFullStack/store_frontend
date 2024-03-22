@@ -1,14 +1,15 @@
 <!-- Language Basic Style -->
-<div *ngIf="style == 'basic'" (clickOutside)="hideDropdown()">
+<div *ngIf="style == 'basic'" (clickOutside)="hideDropdown()" class="lang_topbar">
     <app-button
       [class]="'btn dropdown-toggle'"
       [type]="'button'"
       [id]="'open_dropdown_basic_btn'"
       [spinner]="false"
       (click)="openDropDown()">
-      <span><div class="iti-flag {{ selectedLanguage.icon }}"></div> {{ selectedLanguage.language }}</span>
+      <div class="iti-flag {{ selectedLanguage.icon }}"></div>
+      <span> {{ selectedLanguage.language }}</span>
     </app-button>
-    <ul class="dropdown-menu dropdown-menu-end language-dropdown" [class.show]="active" >
+    <ul class="dropdown-menu dropdown-menu-end language-dropdown lang_dropdown" [class.show]="active" >
         <li *ngFor="let language of languages">
             <a class="dropdown-item" href="javascript:void(0)" (click)="selectLanguage(language)">
               <div class="iti-flag {{ language.icon }}"></div>

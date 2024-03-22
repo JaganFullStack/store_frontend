@@ -5,8 +5,9 @@
   [spinner]="false"
   [id]="'cart_sidebar_btn'"
   (click)="cartStyle == 'cart_sidebar' && cartToggle(true)" *ngIf="style == 'basic'">
-    <i class="ri-shopping-cart-line"></i>
-    <span class="position-absolute top-0 start-100 translate-middle badge" *ngIf="(cartItem$ | async)?.length">
+    <!-- <i class="ri-shopping-cart-line"></i> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+    <span class="position-absolute top-0 start-100 translate-middle badge cart_notification" *ngIf="(cartItem$ | async)?.length">
         {{ (cartItem$ | async)?.length }} <span class="visually-hidden">{{ 'unread_messages' | translate }}</span>
     </span>
 </app-button>
@@ -18,7 +19,8 @@
     <small class="badge-number badge-light" *ngIf="(cartItem$ | async)?.length">
         {{ (cartItem$ | async)?.length }}
     </small>
-    <i class="ri-shopping-cart-line"></i>
+    <!-- <i class="ri-shopping-cart-line"></i> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
 </a>
 
 <!-- Cart On Hover -->
@@ -67,6 +69,9 @@
                     </h5>
                     <div class="cart_qty qty-box product-qty">
                       <div class="input-group h-100">
+
+
+
                         <app-button
                             [class]="'btn qty-left-minus'"
                             [id]="'add-to-cart'+item.product.id"
@@ -75,7 +80,14 @@
                             <i class="ri-subtract-line" *ngIf="item.quantity > 1"></i>
                             <i class="ri-delete-bin-line" *ngIf="item.quantity <= 1"></i>
                         </app-button>
+
+
+
+                       
                         <input class="form-control input-number qty-input" type="number" name="quantity" [value]="item?.quantity" readonly>
+                       
+                       
+                       
                         <app-button
                             [class]="'btn qty-left-minus'"
                             [id]="'qty-left-minus'+item.product.id"
@@ -83,6 +95,9 @@
                             (click)="updateQuantity(item, 1)">
                             <i class="ri-add-line"></i>
                         </app-button>
+
+
+                        
                       </div>
                     </div>
                     <div>
@@ -100,7 +115,8 @@
         </li>
     </ul>
     <div class="empty-cart-box" *ngIf="!(cartItem$ | async)?.length">
-        <i class="ri-shopping-cart-line"></i>
+        <!-- <i class="ri-shopping-cart-line"></i> -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
         <h5>{{ 'your_cart_is_currently_empty' | translate }}</h5>
     </div>
     <div class="bottom-box" *ngIf="(cartItem$ | async)?.length">

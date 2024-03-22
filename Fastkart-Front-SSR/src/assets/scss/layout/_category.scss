@@ -53,8 +53,8 @@
   }
 
   img {
-    @include pseudowh($width: calc(38px + (45 - 38) * ((100vw - 320px) / (1920 - 320))) !important,
-      $height: calc(38px + (45 - 38) * ((100vw - 320px) / (1920 - 320))));
+    @include pseudowh($width: calc(70px + (45 - 38) * ((100vw - 320px) / (1920 - 320))) !important,
+      $height: calc(70px + (45 - 38) * ((100vw - 320px) / (1920 - 320))));
     object-fit: contain;
     margin: 0 auto;
     transition: all 0.3s ease-in-out;

@@ -20,7 +20,7 @@
         }
       },
       "categories_icon_list": {
-        "title": "Browse By Categories",
+        "title": "Top Categories",
         "description": "Top Categories Of The Week",
         "image_url": "assets/images/data/themes/osaka/3.png",
         "category_ids": [
