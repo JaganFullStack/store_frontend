@@ -5,7 +5,8 @@
 export const environment = {
   production: true,
   baseURL: 'https://angular.pixelstrap.net/fastkart',
-  URL: 'https://angular.pixelstrap.net/fastkart/assets/data'
+  URL: 'https://angular.pixelstrap.net/fastkart/assets/data',
+  apiBaseUrl:"http://localhost:8080"
 };
   
 /*

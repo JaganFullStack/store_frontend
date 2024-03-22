@@ -17,99 +17,44 @@
         <div class="delivery-detail">
             <!-- <h6>{{ 'hi' | translate }}, {{ ((isAuthenticated$ | async) ? (user$ | async)?.name : 'user' | translate) }}</h6> -->
             
-            <h6>{{ 'Hai' | translate }}, {{ 'User' }}</h6>
-            
-            <!-- <h5 class="fs15">{{ 'My Account' | translate }}</h5> -->
+            <h6 *ngIf="userData && userData?.id">{{ 'Hai' | translate }}, {{ userData?.name }}</h6>
+            <h6 *ngIf="!userData && !userData?.id">{{ 'Hai' | translate }}, {{ "Guest User" }}</h6>
         </div>
     </div>
     <div class="onhover-div onhover-div-login">
-        <!-- <ul class="user-box-name">
-            <li class="product-box-contain" *ngIf="!(isAuthenticated$ | async)">
-                <a [routerLink]="['/auth/login']">{{ 'log_in' | translate }}</a>
-            </li>
-            <li class="product-box-contain" *ngIf="!(isAuthenticated$ | async)">
-                <a [routerLink]="['/auth/register']">{{ 'register' | translate }}</a>
-            </li>
-            <li class="product-box-contain" *ngIf="(isAuthenticated$ | async)">
-                <a [routerLink]="['/account/dashboard']"><i class="ri-user-line me-2"></i> {{ 'my_account' | translate }}</a>
-            </li>
-            <li class="product-box-contain" *ngIf="(isAuthenticated$ | async)">
-                <a href="javascript:void(0)" (click)="confirmationModal.openModal()"><i class="ri-logout-box-r-line me-2"></i> {{ 'log_out' | translate }}</a>
-            </li>
-        </ul> -->
-
 
         <ul class="user-box-name">
+            <li class="product-box-contain" *ngIf="!userData && !userData?.id">
+                <a [routerLink]="['/auth/login']">{{ 'LogIn' | translate }}</a>
+            </li>
+            <li class="product-box-contain"  *ngIf="!userData && !userData?.id" >
+                <a [routerLink]="['/auth/register']">{{ 'Register' | translate }}</a>
+            </li>
+
+            <li class="product-box-contain" *ngIf="!userData && !userData?.id" >
+                <a [routerLink]="['/auth/forgot-password']">{{ 'Forgot Password' | translate }}</a>
+            </li>
+
             <li class="product-box-contain">
-                <a [routerLink]="['/auth/login']">{{ 'log in' | translate }}</a>
-            </li>
-            <li class="product-box-contain" >
-                <a [routerLink]="['/auth/register']">{{ 'register' | translate }}</a>
-            </li>
-
-            <li class="product-box-contain" >
-                <a [routerLink]="['/auth/forgot-password']">{{ 'forgot password' | translate }}</a>
-            </li>
-
-            <li class="product-box-contain">
-                <a [routerLink]="['/wishlist']">{{ 'wishlist' | translate }}</a>
+                <a [routerLink]="['/wishlist']">{{ 'Wishlist' | translate }}</a>
             </li>
 
 
-            <li class="product-box-contain" >
-                <a [routerLink]="['checkout']"> {{ 'checkout' | translate }}</a>
+            <li class="product-box-contain" *ngIf="userData && userData?.id" >
+                <a [routerLink]="['checkout']"> {{ 'Checkout' | translate }}</a>
             </li>
-            <li class="product-box-contain" >
-                <a [routerLink]="['/account/dashboard']"> {{ 'my account' | translate }}</a>
+            <li class="product-box-contain" *ngIf="userData && userData?.id" >
+                <a [routerLink]="['/account/dashboard']"> {{ 'My Account' | translate }}</a>
             </li>
-
-          
-
-        
-
             
-            <li class="product-box-contain">
+            <li class="product-box-contain" *ngIf="userData && userData?.id">
                 <!-- <a href="javascript:void(0)" (click)="confirmationModal.openModal()"><i class="ri-logout-box-r-line me-2"></i> {{ 'log_out' | translate }}</a> -->
-                <a href="javascript:void(0)" (click)="confirmationModal.openModal()">{{ 'log out' | translate }}</a>
+                <a href="javascript:void(0)" (click)="confirmationModal.openModal()">{{ 'Log Out' | translate }}</a>
 
             </li>
-
-
         </ul>
     </div>
 </div>
-<!-- My Account Classic Style -->
-<!-- <div class="onhover-dropdown">
-    <a href="javascript:void(0)" class="user-box" *ngIf="style == 'classic'">
-        <span class="header-icon">
-            <i class="ri-user-line"></i>
-        </span>
-        <div class="user-name">
-            <h6 class="text-content">My Account</h6>
-            <h4 class="mt-1">{{ (isAuthenticated$ | async) ? (user$ | async)?.name : 'User' }}</h4>
-        </div>
-    </a>
-    <a href="javascript:void(0)" class="header-icon user-icon search-icon" *ngIf="style == 'standard'">
-        <i class="ri-user-line"></i>
-    </a>
-
-    <div class="onhover-div onhover-div-login">
-        <ul class="user-box-name">
-            <li class="product-box-contain" *ngIf="!(isAuthenticated$ | async)">
-                <a [routerLink]="['/auth/login']">Log In</a>
-            </li>
-            <li class="product-box-contain" *ngIf="!(isAuthenticated$ | async)">
-                <a [routerLink]="['/auth/register']">Register</a>
-            </li>
-            <li class="product-box-contain" *ngIf="(isAuthenticated$ | async)">
-                <a [routerLink]="['/account/dashboard']"><i class="ri-user-line me-2"></i> {{ 'my_account' | translate }}</a>
-            </li>
-            <li class="product-box-contain" *ngIf="(isAuthenticated$ | async)">
-                <a href="javascript:void(0)" (click)="confirmationModal.openModal()"><i class="ri-logout-box-r-line me-2"></i> {{ 'logout' | translate }}</a>
-            </li>
-        </ul>
-    </div>
-</div> -->
 
 <app-confirmation-modal
     #confirmationModal

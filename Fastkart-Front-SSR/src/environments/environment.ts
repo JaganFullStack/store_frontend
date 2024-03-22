@@ -7,8 +7,8 @@ export const environment = {
   baseURL: 'http://localhost:4200/',
   URL: 'http://localhost:4200/assets/data',
   backendBaseImageUrl :"https://localhost:44346/ProductImages/Thumbnail/",
-  backendCategoryImageUrl :"https://localhost:44346/CategoryImage/"
-
+  backendCategoryImageUrl :"https://localhost:44346/CategoryImage/",
+  apiBaseUrl:"http://localhost:8080"
   
 };
 

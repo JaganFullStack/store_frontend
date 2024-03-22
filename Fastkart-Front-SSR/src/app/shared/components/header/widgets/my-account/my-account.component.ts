@@ -14,6 +14,7 @@ import { ConfirmationModalComponent } from '../../../widgets/modal/confirmation-
   styleUrls: ['./my-account.component.scss']
 })
 export class MyAccountComponent {
+  userData: any = null;
 
   @Input() style: string = 'basic';
 
@@ -22,14 +23,15 @@ export class MyAccountComponent {
 
   @ViewChild("confirmationModal") ConfirmationModal: ConfirmationModalComponent;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.user$.subscribe((user: any) => {
+      this.userData = user;
+    });
+  }
 
   logout() {
-
-    localStorage.removeItem('UserEmail');
-    let  payloadData!:AccountUser;
-    this.store.dispatch(new UpdateUserProfile(payloadData))
-    
+    // let payloadData!: AccountUser;
+    // this.store.dispatch(new UpdateUserProfile(payloadData))
     this.store.dispatch(new Logout());
   }
 

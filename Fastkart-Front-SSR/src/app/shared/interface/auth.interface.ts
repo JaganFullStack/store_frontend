@@ -22,10 +22,9 @@ export interface UpdatePasswordModel {
 export interface RegisterModal {
   name: string;
   email: string;
-  phone: number;
+  phone_number: number;
   country_code: number;
   password: string;
-  password_confirmation: string;
 }
 
 

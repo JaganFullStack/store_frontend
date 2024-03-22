@@ -27,7 +27,7 @@ export class cartService {
  
   getCartItems(): Observable<CartModel> {
 
-    return this.http.get<CartModel>(`http://localhost:8080/api/getCartData`);
+    return this.http.get<CartModel>(``);
 
     
   }

@@ -4,6 +4,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
+
 import { ToastrModule } from 'ngx-toastr';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -113,6 +115,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     CoreModule,
     LoadingBarRouterModule,
+    NgxsReduxDevtoolsPluginModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

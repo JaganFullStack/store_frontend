@@ -14,7 +14,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 export class LoginComponent {
 
 
-  responseError:null;
+  responseError: null;
   public form: FormGroup;
   public breadcrumb: Breadcrumb = {
     title: "Log in",
@@ -28,58 +28,60 @@ export class LoginComponent {
     private authService: AuthService
   ) {
     this.form = this.formBuilder.group({
-      email: new FormControl('john.customer@example.com', [Validators.required, Validators.email]),
-      password: new FormControl('123456789', [Validators.required]),
+      email: new FormControl('akash@gmail.com', [Validators.required, Validators.email]),
+      password: new FormControl('123456', [Validators.required]),
     });
   }
 
   submit() {
     this.form.markAllAsTouched();
-          // LOGIN NEW CODE 
-          if (this.form.valid) {
-            const username = this.form.get('email')!.value; 
-            const password = this.form.get('password')!.value;
-          try {
-            const userddata={
-              "Email":username,
-              "Password":password
-            };
-              this.authService.login(userddata).subscribe({
-                next: (response: any) => {  
-                  this.responseError=null;
-                    
-                    console.log(response);
+    // LOGIN NEW CODE 
+    if (this.form.valid) {
+      const email = this.form.get('email')!.value;
+      const password = this.form.get('password')!.value;
+      try {
+        const userData = {
+          "email": email,
+          "password": password
+        };
 
-                    localStorage.setItem('AuthToken', response?.token);
-                    localStorage.setItem('UserEmail',response?.Email)
+        this.store.dispatch(new Login(userData));
+        // this.authService.login(userddata).subscribe({
+        //   next: (response: any) => {
+        //     this.responseError = null;
+
+        //     console.log(response);
+
+        //     localStorage.setItem('AuthToken', response?.token);
+        //     localStorage.setItem('UserEmail', response?.Email)
 
 
-                    const redirectUrl = this.authService.redirectUrl || '/account/dashboard';
-                    this.router.navigateByUrl(redirectUrl);
-                    // window.location.reload();
-                   
-                },
-                error: (error) => {
-                  this.responseError=  error?.error?.messages?.error ?? 'INVAILD EMAILID OR PASSWORD';
-                  console.log("Api Error",error.error.messages.error);
-                },  
-              });
-          } catch (Error: any) {
-            console.log("catch Error",Error);
-          }
-        } else {
-          // Form is invalid, display errors if needed
-          console.log('Invalid form submission');
-        }
-          // END OF LOGIN CODE 
-          // Navigate to the intended URL after successful login
-          // AuthLogin
-          // const redirectUrl = this.authService.redirectUrl || '/account/dashboard';
-        
-          // this.router.navigateByUrl(redirectUrl);
+        //     const redirectUrl = this.authService.redirectUrl || '/account/dashboard';
+        //     this.router.navigateByUrl(redirectUrl);
+        //     // window.location.reload();
 
-          // Clear the stored redirect URL
-          // this.authService.redirectUrl = undefined; 
+        //   },
+        //   error: (error) => {
+        //     this.responseError = error?.error?.messages?.error ?? 'INVAILD EMAILID OR PASSWORD';
+        //     console.log("Api Error", error.error.messages.error);
+        //   },
+        // });
+      } catch (Error: any) {
+        console.log("catch Error", Error);
+      }
+    } else {
+      // Form is invalid, display errors if needed
+      console.log('Invalid form submission');
+    }
+    // END OF LOGIN CODE 
+    // Navigate to the intended URL after successful login
+    // AuthLogin
+    // const redirectUrl = this.authService.redirectUrl || '/account/dashboard';
+
+    // this.router.navigateByUrl(redirectUrl);
+
+    // Clear the stored redirect URL
+    // this.authService.redirectUrl = undefined; 
   }
 
 }
