@@ -39,7 +39,7 @@ export class LayoutComponent {
     const getBlog$ = this.store.dispatch(new GetBlogs({ status: 1, paginate: 10 }));
     const getProduct$ = this.store.dispatch(new GetDealProducts({ status: 1, paginate: 2 }));
 
-    forkJoin([getCategories$, getBlog$, getProduct$]).subscribe({
+    forkJoin([getCategories$, getProduct$]).subscribe({
       complete: () => {
         this.themeOptionService.preloader = false;
       }

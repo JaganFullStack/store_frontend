@@ -48,7 +48,7 @@ export class AccountState {
           });
         },
         error: err => { 
-          const messageObject=mockResponseData(err);
+          const messageObject=mockResponseData(err.messageobject);
           alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }

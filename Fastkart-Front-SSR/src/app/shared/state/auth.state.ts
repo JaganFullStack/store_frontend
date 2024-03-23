@@ -33,9 +33,9 @@ export class AuthState {
   ngxsOnInit(ctx: StateContext<AuthStateModel>) {
     // Pre Fake Login (if you are using ap
     ctx.patchState({
-      email: 'john.customer@example.com',
+      email: '',
       token: '',
-      access_token: '115|laravel_sanctum_mp1jyyMyKeE4qVsD1bKrnSycnmInkFXXIrxKv49w49d2a2c5'
+      access_token: ''
     })
   }
 
@@ -68,10 +68,11 @@ export class AuthState {
           storeStringDataInLocalStorage("user_token", result.authToken);
           storeStringDataInLocalStorage("user_id", result.user_id);
           this.router.navigate(["/home"]);
-          alert("Registration Successfully");
+          const mockMessageObject=mockResponseData(result.messageobject);
+          alert(mockMessageObject?.message);
         },
         error: err => {
-          const messageObject = mockResponseData(err);
+          const messageObject = mockResponseData(err.messageobject);
           alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
@@ -87,10 +88,11 @@ export class AuthState {
           storeStringDataInLocalStorage("user_token", result.token);
           storeStringDataInLocalStorage("user_id", result.user_id);
           this.router.navigate(["/home"]);
-          alert("Login Successfully");
+          const mockMessageObject=mockResponseData(result.messageobject);
+          alert(mockMessageObject?.message);
         },
         error: err => {
-          const messageObject = mockResponseData(err);
+          const messageObject = mockResponseData(err.messageobject);
           alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }

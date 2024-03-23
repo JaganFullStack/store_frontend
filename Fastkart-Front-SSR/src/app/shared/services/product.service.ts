@@ -12,12 +12,18 @@ export class ProductService {
 
   public skeletonLoader: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getProducts(payload?: Params): Observable<ProductModel> {
-    return this.http.get<ProductModel>(`${environment.URL}/product.json`, { params: payload });
+  getProducts(payload?: Params): Observable<any> {
+    // return this.http.get<ProductModel>(`${environment.URL}/product.json`, { params: payload });
+    const url = `${environment.apiBaseUrl}/api/getProductsdetails`;
 
-    //  return this.http.get<ProductModel>(`http://localhost:8080/api/getproduct`,{ params: payload })
+    const headers = {
+      'Content-Type': 'application/json',
+      'AUTHKEY': 'StoreWeb'
+    };
+
+    return this.http.get<any>(url, {headers});
   }
 
 }
