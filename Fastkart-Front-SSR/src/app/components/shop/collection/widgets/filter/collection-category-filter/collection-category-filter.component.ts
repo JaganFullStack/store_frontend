@@ -22,7 +22,8 @@ export class CollectionCategoryFilterComponent {
 
   constructor(private route: ActivatedRoute,
     private router: Router){
-    this.category$.subscribe(res => this.categories = res.data.filter(category => category.type == 'product'));
+    // this.category$.subscribe(res => this.categories = res.data.filter(category => category.type == 'product'));
+    this.category$.subscribe(res => this.categories = res.data);
   }
 
   ngOnChanges() {
