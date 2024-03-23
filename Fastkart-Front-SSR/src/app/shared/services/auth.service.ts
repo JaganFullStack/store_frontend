@@ -4,7 +4,6 @@ import { Observable, catchError, throwError } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { AuthUserStateModel } from "./../interface/auth.interface";
 import { Params } from "@angular/router";
-import { mockResponseData } from "src/app/utilities/helper";
 
 @Injectable({
   providedIn: "root",
@@ -23,13 +22,7 @@ export class AuthService {
 
     const url = `${environment.apiBaseUrl}/api/login`;
 
-    return this.http.post<any>(url, data, { headers: headers }).pipe(
-      catchError((HttpErrorResponse: any) => {
-        const errorMessage = mockResponseData(HttpErrorResponse);
-        alert(errorMessage?.message);
-        return throwError(() => HttpErrorResponse);
-      })
-    );
+    return this.http.post<any>(url, data, { headers: headers });
   }
 
 
@@ -41,13 +34,7 @@ export class AuthService {
 
     const url = `${environment.apiBaseUrl}/api/register`; // Update with your endpoint
 
-    return this.http.post<any>(url, data, { headers: headers }).pipe(
-      catchError(HttpErrorResponse => {
-        const errorMessage = mockResponseData(HttpErrorResponse);
-        alert(errorMessage?.message);
-        return throwError(() => HttpErrorResponse);
-      })
-    );
+    return this.http.post<any>(url, data, { headers: headers });
   }
 
   verificationEmail(data: any): Observable<any> {

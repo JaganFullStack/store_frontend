@@ -7,7 +7,7 @@ const mockResponseData = (errorObject: any) => {
     if (errorObject?.status === 500) {
         object = {
             statusCode: errorObject.status,
-            message: errorObject.error.messages.error ?? strings.commonErrors.systemError,
+            message: errorObject.error?.messages?.error ?? strings.commonErrors.systemError,
             title: errorObject.error.title ?? strings.commonErrors.systemError,
             property: errorObject.error.property ?? strings.commonErrors.systemError
         }

@@ -8,6 +8,7 @@ import { AccountService } from "../services/account.service";
 import { NotificationService } from "../services/notification.service";
 import { Permission } from "../interface/role.interface";
 import { Router } from "@angular/router";
+import { mockResponseData } from "src/app/utilities/helper";
 
 export class AccountStateModel {
   user: AccountUser | null;
@@ -47,6 +48,9 @@ export class AccountState {
           });
         },
         error: err => { 
+          console.log(err);
+          const messageObject=mockResponseData(err);
+          alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })

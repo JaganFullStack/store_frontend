@@ -5,8 +5,10 @@ import { AccountClear, GetUserDetails } from "../action/account.action";
 import { Register, Login, ForgotPassWord, VerifyEmailOtp, UpdatePassword, Logout, AuthClear } from "../action/auth.action";
 import { NotificationService } from "../services/notification.service";
 import { AuthService } from "../services/auth.service";
-import { getStringDataFromLocalStorage, removeDataFromLocalStorage, storeStringDataInLocalStorage } from "src/app/utilities/helper";
+import { getStringDataFromLocalStorage, mockResponseData, removeDataFromLocalStorage, storeStringDataInLocalStorage } from "src/app/utilities/helper";
 import { AccountStateModel } from "./account.state";
+import { error } from "node:console";
+import { tap } from "rxjs";
 export interface AuthStateModel {
   email: String;
   token: String | Number;
@@ -60,24 +62,39 @@ export class AuthState {
   @Action(Register)
   register(ctx: StateContext<AuthStateModel>, action: Register) {
     // Register Logic Here
-    this.authService.registration(action.payload).subscribe((response:any)=>{
-      storeStringDataInLocalStorage("user_token", response.authToken);
-      storeStringDataInLocalStorage("user_id", response.user_id);
-      this.router.navigate(["/home"]);
-      alert("Registration Successfully");
-    });
+    return this.authService.registration(action.payload).pipe(
+      tap({
+        next: result => {
+          storeStringDataInLocalStorage("user_token", result.authToken);
+          storeStringDataInLocalStorage("user_id", result.user_id);
+          this.router.navigate(["/home"]);
+          alert("Registration Successfully");
+        },
+        error: err => {
+          const messageObject = mockResponseData(err);
+          alert(messageObject?.message);
+          throw new Error(err?.error?.message);
+        }
+      }));
   }
 
   @Action(Login)
   login(ctx: StateContext<AuthStateModel>, action: Login) {
     // Login Logic Here
-    this.authService.login(action.payload).subscribe((response: any) => {
-      storeStringDataInLocalStorage("user_token", response.token);
-      storeStringDataInLocalStorage("user_id", response.user_id);
-      // this.store.dispatch(new GetUserDetails());
-      this.router.navigate(["/home"]);
-      alert("Login Successfully");
-    });
+    return this.authService.login(action.payload).pipe(
+      tap({
+        next: result => {
+          storeStringDataInLocalStorage("user_token", result.token);
+          storeStringDataInLocalStorage("user_id", result.user_id);
+          this.router.navigate(["/home"]);
+          alert("Login Successfully");
+        },
+        error: err => {
+          const messageObject = mockResponseData(err);
+          alert(messageObject?.message);
+          throw new Error(err?.error?.message);
+        }
+      }));
   }
 
   @Action(ForgotPassWord)
