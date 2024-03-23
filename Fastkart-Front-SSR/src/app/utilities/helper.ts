@@ -7,23 +7,23 @@ const mockResponseData = (errorObject: any) => {
     if (errorObject?.status === 500) {
         object = {
             statusCode: errorObject.status,
-            message: errorObject.error?.messages?.error ?? strings.commonErrors.systemError,
-            title: errorObject.error.title ?? strings.commonErrors.systemError,
-            property: errorObject.error.property ?? strings.commonErrors.systemError
+            message: errorObject.messager ?? strings.commonErrors.systemError,
+            title: errorObject.title ?? strings.commonErrors.systemError,
+            property: errorObject.property ?? strings.commonErrors.systemError
         }
     } else if (errorObject?.status === 400) {
         object = {
             statusCode: errorObject.status,
-            message: errorObject.error.messages.error ?? strings.commonErrors.failed,
-            title: errorObject.error.title ?? strings.commonErrors.failed,
-            property: errorObject.error.property ?? strings.commonErrors.failed
+            message: errorObject.message ?? strings.commonErrors.failed,
+            title: errorObject.title ?? strings.commonErrors.failed,
+            property: errorObject.property ?? strings.commonErrors.failed
         }
     } else if (errorObject?.status === 401) {
         object = {
             statusCode: errorObject.status,
-            message: errorObject.error.messages.error ?? strings.commonErrors.unauthorize,
-            title: errorObject.error.title ?? strings.commonErrors.unauthorize,
-            property: errorObject.error.property ?? strings.commonErrors.unauthorize
+            message: errorObject.message ?? strings.commonErrors.unauthorize,
+            title: errorObject.title ?? strings.commonErrors.unauthorize,
+            property: errorObject.property ?? strings.commonErrors.unauthorize
         }
     } else if (errorObject?.status === 404) {
         object = {
@@ -35,14 +35,14 @@ const mockResponseData = (errorObject: any) => {
     } else if (errorObject?.errorCode === 200) {
         object = {
             statusCode: errorObject.errorCode,
-            message: errorObject.messages.error ?? strings.commonErrors.success,
+            message: errorObject.message ?? strings.commonErrors.success,
             title: errorObject.title ?? strings.commonErrors.success,
             property: errorObject.property ?? strings.commonErrors.success
         }
     } else if (errorObject?.errorCode === 204) {
         object = {
             statusCode: errorObject.status,
-            message: errorObject.messages.error ?? strings.commonErrors.success,
+            message: errorObject.message ?? strings.commonErrors.success,
             title: errorObject.title ?? strings.commonErrors.success,
             property: errorObject.property ?? strings.commonErrors.success
         }

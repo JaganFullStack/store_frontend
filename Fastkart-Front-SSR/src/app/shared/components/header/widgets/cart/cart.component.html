@@ -77,14 +77,14 @@
                             [id]="'add-to-cart'+item.product.id"
                             [spinner]="false"
                             (click)="updateQuantity(item, -1)">
-                            <i class="ri-subtract-line" *ngIf="item.quantity > 1"></i>
-                            <i class="ri-delete-bin-line" *ngIf="item.quantity <= 1"></i>
+                            <i class="ri-subtract-line" *ngIf="item.qty > 1"></i>
+                            <i class="ri-delete-bin-line" *ngIf="item.qty <= 1"></i>
                         </app-button>
 
 
 
                        
-                        <input class="form-control input-number qty-input" type="number" name="quantity" [value]="item?.quantity" readonly>
+                        <input class="form-control input-number qty-input" type="number" name="quantity" [value]="item?.qty" readonly>
                        
                        
                        

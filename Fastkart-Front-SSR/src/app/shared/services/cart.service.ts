@@ -9,22 +9,14 @@ import { getStringDataFromLocalStorage } from "src/app/utilities/helper";
   providedIn: "root",
 })
 export class cartService {
-  static getCartItems() {
-    throw new Error('Method not implemented.');
-  }
-  static addToCart(params: CartAddOrUpdate) {
-    throw new Error('Method not implemented.');
-  }
-
-  constructor(private http: HttpClient) { }
-
-
-
-  // addToCart(item: any): Observable<CartModel> {
-  //   return this.http.post<CartModel>(`http://localhost:8080/api/addcart`, item);
+  // static getCartItems() {
+  //   throw new Error('Method not implemented.');
+  // }
+  // static addToCart(params: CartAddOrUpdate) {
+  //   throw new Error('Method not implemented.');
   // }
 
-
+  constructor(private http: HttpClient) { }
 
   getCartItems(): Observable<any> {
     const userToken = getStringDataFromLocalStorage("user_token");
@@ -41,41 +33,38 @@ export class cartService {
     return this.http.get<any>(url, { headers });
   }
 
-
-
-
-
-  removecartItems(item: any): Observable<CartModel> {
-    return this.http.post<CartModel>(`http://localhost:8080/api/removecart`, item);
-  }
-
-
   deletecartitemItems(item: any): Observable<CartModel> {
     return this.http.post<CartModel>(`http://localhost:8080/api/deletecartitem`, item);
   }
 
-
-
-
-
   addToCart(data: any): Observable<any> {
+
+    const userToken = getStringDataFromLocalStorage("user_token");
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'AUTHKEY': 'StoreWeb',
+      'authorization': `Bearer ${userToken}`,
+    };
+
+    const url = `${environment.apiBaseUrl}/api/addcart`;;
+
+    return this.http.post<any>(url, data, { headers });
+  };
+
+  removeFromCart(data: any): Observable<any> {
+
+    const userToken = getStringDataFromLocalStorage("user_token");
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'AUTHKEY': 'StoreWeb'
+      'AUTHKEY': 'StoreWeb',
+      'authorization': `Bearer ${userToken}`,
     });
 
-    const url = 'http://localhost:8080/api/addcart';
+    const url = `${environment.apiBaseUrl}/api/addcart`;
 
-    return this.http.post<any>(url, data, { headers: headers }).pipe(
-      catchError((HttpErrorResponse: any) => {
-        console.log(data);
-        console.log(HttpErrorResponse);
-        return throwError(() => HttpErrorResponse);
-      })
-    );
-  }
-
-
-
+    return this.http.post<any>(url, data, { headers: headers });
+  };
 
 }

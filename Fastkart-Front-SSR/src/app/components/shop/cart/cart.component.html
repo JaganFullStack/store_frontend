@@ -54,7 +54,7 @@
                                                                   (click)="updateQuantity(item, -1)">
                                                                     <i class="ri-subtract-fill ms-0"></i>
                                                                 </app-button>
-                                                                <input class="form-control input-number qty-input" type="text" name="quantity" value="{{ item.quantity }}" readonly>
+                                                                <input class="form-control input-number qty-input" type="text" name="quantity" value="{{ item.qty }}" readonly>
                                                                 <app-button
                                                                   [class]="'btn qty-left-minus'"
                                                                   [id]="'plus_quantity'"
@@ -67,7 +67,7 @@
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <h5>{{ 'total' | translate }}: {{ (item.variation ? item.variation.sale_price : item.product.sale_price) * item.quantity | currencySymbol }}</h5>
+                                                        <h5>{{ 'total' | translate }}: {{ (item.variation ? item.variation.sale_price : item.product.sale_price) * item.qty | currencySymbol }}</h5>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -99,7 +99,7 @@
                                                       (click)="updateQuantity(item, -1)">
                                                         <i class="ri-subtract-fill ms-0"></i>
                                                     </app-button>
-                                                    <input class="form-control input-number qty-input" type="text" name="quantity" value="{{ item.quantity }}" readonly>
+                                                    <input class="form-control input-number qty-input" type="text" name="quantity" value="{{ item.qty }}" readonly>
                                                     <app-button
                                                       [class]="'btn qty-left-minus'"
                                                       [id]="'plus_quantity'"
@@ -114,7 +114,7 @@
                                     </td>
                                     <td class="subtotal">
                                         <h4 class="table-title text-content">{{ 'total' | translate }}</h4>
-                                        <h5>{{ (item.variation ? item.variation.sale_price : item.product.sale_price) * item.quantity | currencySymbol }}</h5>
+                                        <h5>{{ (item.variation ? item.variation.sale_price : item.product.sale_price) * item.qty | currencySymbol }}</h5>
                                     </td>
                                     <td class="save-remove">
                                         <h4 class="table-title text-content">{{ 'action' | translate }}</h4>
