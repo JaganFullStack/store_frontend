@@ -13,7 +13,9 @@ export class Register {
 
 export class Login {
   static readonly type = "[Auth] Login";
-  constructor(public payload: AuthUserStateModel) {}
+  constructor(public payload: AuthUserStateModel) {
+    console.log("action",this.payload);
+  }
 }
 
 export class ForgotPassWord {

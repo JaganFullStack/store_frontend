@@ -51,32 +51,29 @@ export class RegisterComponent {
     // console.log("FORM DATA",this.form.value); 
 
     if (this.form.valid) {
-      const username = this.form.get('CustomerName')!.value;
-      const email = this.form.get('Email')!.value;
-      const password = this.form.get('Password')!.value;
-      const mobile = this.form.get('Phone')!.value;
-
       const reqData={
-        "CustomerName":username,
-        "Email":email,
-        "Password":password,
-        "MobileNo":mobile
-      }
-      
-      this.authService.registration(reqData).subscribe({
-        next: (response: any) => {  
-            
-            console.log(response);
-            this.registerErrorMsg=null;
-            // this.router.navigateByUrl('/account/dashboard');
-            this.router.navigateByUrl('/auth/emailverified');
-        },
-        error: (error) => {
+        "name":this.form.get('CustomerName')!.value,
+        "email":this.form.get('Email')!.value,
+        "password":this.form.get('Password')!.value,
+        "phone_number":this.form.get('Phone')!.value,
+        "country_code":this.form.get('country_code')!.value,
+      };
 
-          this.registerErrorMsg=error.error.messages.error;
-          console.log("Api Error",error.error.messages.error);
-        },  
-      });
+      this.store.dispatch(new Register(reqData));
+      // this.authService.registration(reqData).subscribe({
+      //   next: (response: any) => {  
+            
+      //       console.log(response);
+      //       this.registerErrorMsg=null;
+      //       // this.router.navigateByUrl('/account/dashboard');
+      //       this.router.navigateByUrl('/auth/emailverified');
+      //   },
+      //   error: (error) => {
+
+      //     this.registerErrorMsg=error.error.messages.error;
+      //     console.log("Api Error",error.error.messages.error);
+      //   },  
+      // });
     } else {
       // Form is invalid, display errors if needed
       console.log('Invalid form submission');

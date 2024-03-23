@@ -9,25 +9,20 @@ import { Params } from "@angular/router";
   providedIn: "root",
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public redirectUrl: string | undefined;
 
   // Auth Function Here
   login(data: any): Observable<any> {
-    const headers = new HttpHeaders({
+    const headers = {
       'Content-Type': 'application/json',
       'AUTHKEY': 'StoreWeb'
-    });
+    };
 
-    const url = 'http://localhost:8080/api/login'; // Update with your endpoint
+    const url = `${environment.apiBaseUrl}/api/login`;
 
-    return this.http.post<any>(url, data, { headers: headers }).pipe(
-        catchError(HttpErrorResponse => {
-
-            return throwError(() => HttpErrorResponse);
-      })
-    );
+    return this.http.post<any>(url, data, { headers: headers });
   }
 
 
@@ -37,14 +32,9 @@ export class AuthService {
       'AUTHKEY': 'StoreWeb'
     });
 
-    const url = 'http://localhost:8080/api/register'; // Update with your endpoint
+    const url = `${environment.apiBaseUrl}/api/register`; // Update with your endpoint
 
-    return this.http.post<any>(url, data, { headers: headers }).pipe(
-        catchError(HttpErrorResponse => {
-
-            return throwError(() => HttpErrorResponse);
-      })
-    );
+    return this.http.post<any>(url, data, { headers: headers });
   }
 
   verificationEmail(data: any): Observable<any> {
@@ -54,12 +44,12 @@ export class AuthService {
     });
     const apiUrl = `http://localhost:8080/verify-email?token=${data}`
 
-     // Update with your endpoint
+    // Update with your endpoint
 
-    return this.http.get<any>(apiUrl,{ headers: headers }).pipe(
-        catchError(HttpErrorResponse => {
+    return this.http.get<any>(apiUrl, { headers: headers }).pipe(
+      catchError(HttpErrorResponse => {
 
-            return throwError(() => HttpErrorResponse);
+        return throwError(() => HttpErrorResponse);
       })
     );
   }
@@ -72,12 +62,12 @@ export class AuthService {
     });
     const apiUrl = `http://localhost:8080/api/emailValidaion?Email=${data}`
 
-     // Update with your endpoint
+    // Update with your endpoint
 
-    return this.http.get<any>(apiUrl,{ headers: headers }).pipe(
-        catchError(HttpErrorResponse => {
+    return this.http.get<any>(apiUrl, { headers: headers }).pipe(
+      catchError(HttpErrorResponse => {
 
-            return throwError(() => HttpErrorResponse);
+        return throwError(() => HttpErrorResponse);
       })
     );
   }
@@ -91,9 +81,9 @@ export class AuthService {
     const url = 'http://localhost:8080/api/updatedEmailPassword'; // Update with your endpoint
 
     return this.http.post<any>(url, data, { headers: headers }).pipe(
-        catchError(HttpErrorResponse => {
+      catchError(HttpErrorResponse => {
 
-            return throwError(() => HttpErrorResponse);
+        return throwError(() => HttpErrorResponse);
       })
     );
   }
@@ -102,5 +92,5 @@ export class AuthService {
 
 
 
-  
+
 }

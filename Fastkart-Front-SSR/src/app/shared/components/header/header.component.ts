@@ -43,6 +43,8 @@ export class HeaderComponent {
           this.sticky = theme?.header && theme?.header?.sticky_header_enable ? true : this.sticky;
         });
       }
+      console.log(this.style);
+      console.log(this.sticky);
     }
   }
 

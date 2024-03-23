@@ -33,6 +33,7 @@ export class CategoryState {
 
   @Action(GetCategories)
   getCategories(ctx: StateContext<CategoryStateModel>, action: any) {
+    // return this.categoryService.getCategories(action.payload).pipe(
     return this.categoryService.getCategories(action.payload).pipe(
       tap({
         next: result => { 

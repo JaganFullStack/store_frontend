@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { AccountUser } from "../interface/account.interface";
+import { getStringDataFromLocalStorage } from "src/app/utilities/helper";
 
 
 @Injectable({
@@ -10,14 +11,20 @@ import { AccountUser } from "../interface/account.interface";
 })
 export class AccountService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getUserDetails(): Observable<AccountUser> {
-    const email=localStorage.getItem('UserEmail');
-    console.log(email);
-    const apiUrl = `http://localhost:8080/api/getCustomerData?Email=${email}`
-    // return this.http.get<AccountUser>(`${environment.URL}/account.json`);
-    return this.http.get<AccountUser>(apiUrl);
+  getUserDetails(): Observable<any> {
+    const userToken = getStringDataFromLocalStorage("user_token");
+    const userId = getStringDataFromLocalStorage("user_id");
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'authorization': `Bearer ${userToken}`,
+    };
+
+    const apiUrl = `${environment.apiBaseUrl}/api/getCustomerdetails?user_id=${userId}`;
+
+    return this.http.get<any>(apiUrl, { headers });
   }
 
 }

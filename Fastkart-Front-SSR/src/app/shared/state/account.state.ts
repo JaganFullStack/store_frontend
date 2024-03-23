@@ -7,6 +7,8 @@ import { AccountUser, AccountUserUpdatePassword } from "./../interface/account.i
 import { AccountService } from "../services/account.service";
 import { NotificationService } from "../services/notification.service";
 import { Permission } from "../interface/role.interface";
+import { Router } from "@angular/router";
+import { mockResponseData } from "src/app/utilities/helper";
 
 export class AccountStateModel {
   user: AccountUser | null;
@@ -23,7 +25,7 @@ export class AccountStateModel {
 @Injectable()
 export class AccountState {
 
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService,private router:Router) {}
 
   @Selector()
   static user(state: AccountStateModel) {
@@ -41,11 +43,14 @@ export class AccountState {
       tap({
         next: result => { 
           ctx.patchState({
-            user: result,
-            permissions: result.permission,
+            user: result.responsedata[0],
+            permissions: [],
           });
         },
         error: err => { 
+          console.log(err);
+          const messageObject=mockResponseData(err);
+          alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
@@ -83,6 +88,7 @@ export class AccountState {
       user: null,
       permissions: []
     });
+    alert("Logout Successfully");
   }
 
 }
