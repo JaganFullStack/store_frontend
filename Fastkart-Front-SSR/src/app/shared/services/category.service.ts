@@ -10,11 +10,17 @@ import { CategoryModel } from "../interface/category.interface";
 })
 export class CategoryService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getCategories(payload?: Params): Observable<CategoryModel> {
-    return this.http.get<CategoryModel>(`${environment.URL}/category.json`, { params: payload });
-    //  return this.http.get<CategoryModel>(`http://localhost:8080/api/getcategorielist`,{ params: payload })
+  getCategories(payload?: Params): Observable<any> {
+    // return this.http.get<any>(`${environment.URL}/category.json`, { params: payload });
+    const url = `${environment.apiBaseUrl}/api/getCategoriesdetails`;
+    const headers = {
+      'Content-Type': 'application/json',
+      'AUTHKEY': 'StoreWeb'
+    };
+
+    return this.http.get<CategoryModel>(url, { headers });
   }
-  
+
 }
