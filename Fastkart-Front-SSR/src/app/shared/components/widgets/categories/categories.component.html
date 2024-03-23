@@ -1,12 +1,11 @@
 <!-- Category Style Vertical -->
 <div class="category-menu section-b-space" *ngIf="categories?.length && style == 'vertical'">
-  <h3>{{ title ? title : 'categories' | translate }}</h3>
+  <h3>{{ title ? title : 'Categories' | translate }}</h3>
   <ul>
     <li *ngFor="let category of categories">
       <div class="category-list">
         <img [src]="category?.category_icon ?  ApiImageurl+category?.category_image : 'assets/images/category.png'"
              [alt]="category?.name">
-
         <h5>
           <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)">{{ category?.name }}</a>
         </h5>

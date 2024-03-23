@@ -9,7 +9,7 @@ import { mockResponseData } from "src/app/utilities/helper";
 export class CategoryStateModel {
   category = {
     data: [] as Category[],
-    // total: 0
+    total: 0
   }
 }
 
@@ -18,7 +18,7 @@ export class CategoryStateModel {
   defaults: {
     category: {
       data: [],
-      // total: 0
+      total: 0
     }
   },
 })
@@ -38,10 +38,11 @@ export class CategoryState {
     return this.categoryService.getCategories(action.payload).pipe(
       tap({
         next: result => { 
+          console.log("category",result.data);
           ctx.patchState({
             category: {
-              data: result.responsedata,
-              // total: result?.total ? result?.total : result.data.length
+              data: result.data,
+              total: result?.total ? result?.total : result.data.length
             }
           });
         },

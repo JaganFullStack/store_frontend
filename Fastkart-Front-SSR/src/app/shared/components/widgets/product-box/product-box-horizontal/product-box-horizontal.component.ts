@@ -16,7 +16,7 @@ import { cartService } from 'src/app/shared/services/cart.service';
 import { CartModel } from '../../../../../shared/interface/cart.interface';
 
 
- @Component({
+@Component({
   selector: 'app-product-box-horizontal',
   templateUrl: './product-box-horizontal.component.html',
   styleUrls: ['./product-box-horizontal.component.scss']
@@ -36,43 +36,36 @@ export class ProductBoxHorizontalComponent {
   @ViewChild("variationModal") VariationModal: VariationModalComponent;
 
   public cartItem: Cart | null;
-  public cartModel: CartModel| null;
+  public cartModel: CartModel | null;
 
   public currentDate: number | null;
   public saleStartDate: number | null;
-OMR: number|undefined;
+  OMR: number | undefined;
 
-   responseError: null;
-   router: any;
-   themeOption$: any;
-   cartTotal$: any;
-   shippingFreeAmt: any;
-   cartStyle: any;
-   setting$: any;
-   cartTotal: any;
-   shippingCal: number;
-   confetti: number;
+  responseError: null;
+  router: any;
+  themeOption$: any;
+  cartTotal$: any;
+  shippingFreeAmt: any;
+  cartStyle: any;
+  setting$: any;
+  cartTotal: any;
+  shippingCal: number;
+  confetti: number;
 
+  constructor(private store: Store, config: NgbRatingConfig, public cartService: cartService) {
 
-  // constructor(private store: Store,
-  //   config: NgbRatingConfig) {
-	// 	config.max = 5;
-	// 	config.readonly = true;
-	// }
-  
-  constructor(private store: Store,config: NgbRatingConfig ,  public cartService: cartService) {
-
-
-
-    		config.max = 5;
-		config.readonly = true;
-    this.store.dispatch(new GetCartItems());
-
+    config.max = 12;
+    config.readonly = true;
+    this.cartItem$.subscribe((items: any) => {
+      // this.cartItem = items.find(item => item.product.id == this.product.id)!;
+      this.cartItem = items;
+    });
     // this.themeOption$.subscribe((option: { general: { cart_style: any; }; }) => this.cartStyle = option?.general?.cart_style);
 
     // // Calculation
     // this.cartTotal$.subscribe((total: any) => {
-      
+
     //   this.setting$.subscribe((setting: { general: { min_order_free_shipping: any; }; }) => this.shippingFreeAmt = setting?.general?.min_order_free_shipping);
     //   this.cartTotal = total;
     //   this.shippingCal = (this.cartTotal$ * 100) / this.shippingFreeAmt;
@@ -89,21 +82,15 @@ OMR: number|undefined;
     //   }
     // });
   }
-  
-  
-  
-  
+
   ngOnInit() {
-    this.cartItem$.subscribe(items => {
-      this.cartItem = items.find(item => item.product.id == this.product.id)!;
-    });
-    console.log(this.cartModel$);
+    this.store.dispatch(new GetCartItems());
   }
 
 
 
 
- 
+
   // addToCart(product: Product, qty: number) {
 
 
@@ -124,57 +111,57 @@ OMR: number|undefined;
     let userEmailId = localStorage.getItem('UserEmail');
     let GuId = localStorage.getItem('GuestId'); const generatedUuid = uuidv4();
     console.log('Generated UUID:', generatedUuid);
-    console.log('Product Id:', product?.id);  if (userEmailId) {
-            const params: CartAddOrUpdate = {
-              id: this.cartItem ? this.cartItem.id : null,
-              product: product,
-              product_id: product?.id,
-              variation_id: this.cartItem ? this.cartItem?.variation_id : null,
-              variation: this.cartItem ? this.cartItem?.variation : null,
-              quantity: qty,
-              GuId: null
-            }
-          }     
-    const params: CartAddOrUpdate = {
-            id: this.cartItem ? this.cartItem.id : null,
-            product: product,
-            product_id: product?.id,
-            variation_id: this.cartItem ? this.cartItem?.variation_id : null,
-            variation: this.cartItem ? this.cartItem?.variation : null,
-            quantity: qty,
-            GuId: GuId ? GuId : generatedUuid
-          }
-          console.log(params)
-              this.cartService.addToCart(params).subscribe({
-                next: (response: any) => {  
-                  this.responseError=null;
-                    
-                    console.log(response);
-                    localStorage.setItem('GuestId', response?.GuestId);
-                  const redirectUrl =  '/account/dashboard';
-                    this.router.navigateByUrl(redirectUrl);
-                    // window.location.reload();       
-                },
-                error: (error:any) => {
-                  this.responseError=  error?.error?.messages?.error ?? 'INVALID CREDENTIALS';
-                  console.log("Api Error",error.error.messages.error);
-                },  
-              });    
-          const redirectUrl =  '/account/dashboard';
-        
-          this.router.navigateByUrl(redirectUrl);
+    console.log('Product Id:', product?.id); if (userEmailId) {
+      // const params: CartAddOrUpdate = {
+      //   // id: this.cartItem ? this.cartItem.id : null,
+      //   product: product,
+      //   product_id: product?.id,
+      //   // variation_id: this.cartItem ? this.cartItem?.variation_id : null,
+      //   // variation: this.cartItem ? this.cartItem?.variation : null,
+      //   quantity: qty,
+      //   GuId: null
+      // }
+    }
+    // const params: CartAddOrUpdate = {
+    //   // id: this.cartItem ? this.cartItem.id : null,
+    //   // product: product,
+    //   // product_id: product?.id,
+    //   // variation_id: this.cartItem ? this.cartItem?.variation_id : null,
+    //   // variation: this.cartItem ? this.cartItem?.variation : null,
+    //   // quantity: qty,
+    //   // GuId: GuId ? GuId : generatedUuid
+    // }
+    // console.log(params)
+    // this.cartService.addToCart(params).subscribe({
+    //   next: (response: any) => {
+    //     this.responseError = null;
+
+    //     console.log(response);
+    //     localStorage.setItem('GuestId', response?.GuestId);
+    //     const redirectUrl = '/account/dashboard';
+    //     this.router.navigateByUrl(redirectUrl);
+    //     // window.location.reload();       
+    //   },
+    //   error: (error: any) => {
+    //     this.responseError = error?.error?.messages?.error ?? 'INVALID CREDENTIALS';
+    //     console.log("Api Error", error.error.messages.error);
+    //   },
+    // });
+    const redirectUrl = '/account/dashboard';
+
+    this.router.navigateByUrl(redirectUrl);
   }
 
 
-  addToWishlist(id: number){
+  addToWishlist(id: number) {
     this.store.dispatch(new AddToWishlist({ product_id: id }));
   }
 
-  removeWishlist(id: number){
+  removeWishlist(id: number) {
     this.store.dispatch(new DeleteWishlist(id));
   }
 
-  addToCompar(id: number){
+  addToCompar(id: number) {
     this.store.dispatch(new AddToCompare({ product_id: id }));
   }
 

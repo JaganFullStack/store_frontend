@@ -18,7 +18,6 @@
 
     <!-- <app-theme-home-banner [theme]="'paris'" [data]="data?.content?.home_banner"></app-theme-home-banner> -->
 
-  
   </section>
   <!-- Home Section End -->
 
@@ -36,6 +35,7 @@
         <div class="col-xxl-3 col-xl-4 d-none d-xl-block" *ngIf="data?.content?.main_content?.sidebar?.status">
           <div class="p-sticky">
             <!-- Sidebar Category Vertical Style -->
+            
             <ng-container *ngIf="data?.content?.main_content?.sidebar?.categories_icon_list?.category_ids?.length">
               <app-theme-categories
                 [categoryIds]="data?.content?.main_content?.sidebar?.categories_icon_list?.category_ids || []"
@@ -145,6 +145,7 @@
               <app-theme-product
                 [productIds]="data?.content?.main_content?.section4_products?.product_ids || []"
                 [slider]="true"
+                [showItem]=12
                 [style]="'horizontal'">
               </app-theme-product>
             </div>
@@ -164,7 +165,7 @@
           <!-- Coupons Banner Section End -->
 
           <!-- Two Column Banner Section Start -->
-          <ng-container *ngIf="data?.content?.main_content?.section6_two_column_banners?.status">
+          <!-- <ng-container *ngIf="data?.content?.main_content?.section6_two_column_banners?.status">
             <div class="section-b-space" *ngIf="data?.content?.main_content?.section6_two_column_banners?.status">
               <div class="row g-md-4 g-3">
                 <div class="col-xxl-8 col-xl-12 col-md-7">
@@ -184,11 +185,11 @@
                 </div>
               </div>
             </div>
-          </ng-container>
+          </ng-container> -->
           <!-- Two Column Banner Section End -->
 
           <!-- Our Best Seller Section Start -->
-          <!-- <ng-container *ngIf="data?.content?.main_content?.section4_products?.status &&
+          <ng-container *ngIf="data?.content?.main_content?.section4_products?.status &&
             data?.content?.main_content?.section7_products?.product_ids?.length || 0 >= 3">
             <app-title
               [title]="data?.content?.main_content?.section7_products?.title"
@@ -198,18 +199,18 @@
               [productIds]="data?.content?.main_content?.section7_products?.product_ids || []"
               [style]="'classic'">
             </app-theme-product>
-          </ng-container> -->
+          </ng-container>
           <!-- Our Best Seller Section End -->
 
           <!-- Full Width Banner Section Start -->
-          <!-- <ng-container *ngIf="data?.content?.main_content?.section8_full_width_banner?.status">
+          <ng-container *ngIf="data?.content?.main_content?.section8_full_width_banner?.status">
             <div class="section-b-space section-t-space">
               <div class="banner-contain hover-effect">
                 <app-image-link [image]="data?.content?.main_content?.section8_full_width_banner" [bgImage]="false">
                 </app-image-link>
               </div>
             </div>
-          </ng-container> -->
+          </ng-container>
           <!-- Full Width Banner Section End -->
 
           <!-- Blogs Section Start -->

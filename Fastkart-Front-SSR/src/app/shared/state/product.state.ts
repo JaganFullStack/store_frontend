@@ -78,11 +78,11 @@ export class ProductState {
       tap({
         next: (result: any) => {
           console.log("product model :", result)
-          let products = result.responsedata || [];
+          let products = result.data || [];
           if (action?.payload) {
             // Note:- For Internal filter purpose only, once you apply filter logic on server side then you can remove  it as per your requirement.
             // Note:- we have covered only few filters as demo purpose
-            products = result.responsedata.filter((product:any) =>
+            products = result.data.filter((product:any) =>
               (action?.payload?.['store_slug'] && product?.store?.slug == action?.payload?.['store_slug']) ||
               (
                 action?.payload?.['category'] && product?.categories?.length &&
@@ -90,7 +90,7 @@ export class ProductState {
               )
             )
 
-            products = products.length ? products : result.responsedata;
+            products = products.length ? products : result.data;
 
             if (action?.payload?.['sortBy']) {
               if (action?.payload?.['sortBy'] === 'asc') {
@@ -167,7 +167,7 @@ export class ProductState {
           ctx.patchState({
             product: {
               data: products,
-              total: result?.total ? result?.total : result.responsedata?.length
+              total: result?.total ? result?.total : result.data?.length
             }
           });
         },
@@ -188,7 +188,7 @@ export class ProductState {
       tap({
         next: (result: any) => {
           const state = ctx.getState();
-          const products = result.responsedata.filter((product:any) =>
+          const products = result.data.filter((product:any) =>
             action?.payload?.['ids']?.split(',')?.map((id: number) => Number(id)).includes(product.id) ||
             (product?.categories?.length && product?.categories?.map((category:any) => category.id).includes(Number(action?.payload?.['category_ids'])))
           );
@@ -215,7 +215,7 @@ export class ProductState {
       tap({
         next: (result: any) => {
           const state = ctx.getState();
-          const products = result.responsedata.filter((product:any) =>
+          const products = result.data.filter((product:any) =>
             action?.payload?.['store_ids']?.split(',')?.map((id: number) => Number(id)).includes(product.store_id));
           ctx.patchState({
             ...state,
@@ -277,7 +277,7 @@ export class ProductState {
       tap({
         next: (result: any) => {
           const state = ctx.getState();
-          const products = result.responsedata.filter((product:any) => 
+          const products = result.data.filter((product:any) => 
             action?.payload?.['ids']?.split(',')?.map((id: number) => Number(id)).includes(product.id));
           ctx.patchState({
             ...state,
