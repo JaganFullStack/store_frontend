@@ -18,7 +18,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 })
 export class ParisComponent {
 
-  @Input() data?: Paris;
+  @Input() data: any;
   @Input() slug?: string;
 
   @ViewChild("newsletterModal") NewsletterModal: NewsletterModalComponent;
@@ -29,6 +29,7 @@ export class ParisComponent {
   constructor(private store: Store,
     @Inject(PLATFORM_ID) private platformId: Object,
     private themeOptionService: ThemeOptionService) {
+      console.log("paris_html",this.data);
   }
 
   ngOnInit() {

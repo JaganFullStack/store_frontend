@@ -85,6 +85,9 @@ const clearLocalStorage = () => {
     return localStorage.clear();
 };
 
+const convertStringToNumber=(data:any)=>{
+    return Number(data);
+};
 
 export {
     mockResponseData,
@@ -94,5 +97,6 @@ export {
     storeStringDataInLocalStorage,
     removeDataFromLocalStorage,
     clearLocalStorage,
-    defaultError
+    defaultError,
+    convertStringToNumber
 };

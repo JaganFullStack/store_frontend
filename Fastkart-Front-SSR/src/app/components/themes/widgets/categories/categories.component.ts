@@ -18,8 +18,6 @@ export class CategoriesComponent {
 
   @Output() selectedCategory: EventEmitter<number> = new EventEmitter();
 
-  constructor(){}
-
   selectCategory(id: number) {
     this.selectedCategory.emit(id);
   }

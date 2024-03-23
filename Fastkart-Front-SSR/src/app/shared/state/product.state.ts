@@ -2,11 +2,14 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store, Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
-import { GetProducts, GetStoreProducts, 
-         GetRelatedProducts, GetProductBySlug, GetDealProducts } from "../action/product.action";
+import {
+  GetProducts, GetStoreProducts,
+  GetRelatedProducts, GetProductBySlug, GetDealProducts
+} from "../action/product.action";
 import { Product, ProductModel } from "../interface/product.interface";
 import { ProductService } from "../services/product.service";
 import { ThemeOptionService } from "../services/theme-option.service";
+import { mockResponseData } from "src/app/utilities/helper";
 
 export class ProductStateModel {
   product = {
@@ -38,8 +41,8 @@ export class ProductStateModel {
 export class ProductState {
 
   constructor(private store: Store, private router: Router,
-    private productService: ProductService, 
-    private themeOptionService: ThemeOptionService) {}
+    private productService: ProductService,
+    private themeOptionService: ThemeOptionService) { }
 
   @Selector()
   static product(state: ProductStateModel) {
@@ -73,25 +76,25 @@ export class ProductState {
     //          you must need apply this logic on server side
     return this.productService.getProducts(action.payload).pipe(
       tap({
-        next: (result: ProductModel) => {
+        next: (result: any) => {
           console.log("product model :", result)
           let products = result.data || [];
-          if(action?.payload) {
+          if (action?.payload) {
             // Note:- For Internal filter purpose only, once you apply filter logic on server side then you can remove  it as per your requirement.
             // Note:- we have covered only few filters as demo purpose
-            products = result.data.filter(product => 
+            products = result.data.filter((product:any) =>
               (action?.payload?.['store_slug'] && product?.store?.slug == action?.payload?.['store_slug']) ||
               (
                 action?.payload?.['category'] && product?.categories?.length &&
-                product?.categories?.some(category => action?.payload?.['category']?.split(',')?.includes(category.slug))
+                product?.categories?.some((category:any) => action?.payload?.['category']?.split(',')?.includes(category.slug))
               )
             )
 
             products = products.length ? products : result.data;
 
-            if(action?.payload?.['sortBy']) {
-              if(action?.payload?.['sortBy'] === 'asc') {
-                products = products.sort((a, b) => {
+            if (action?.payload?.['sortBy']) {
+              if (action?.payload?.['sortBy'] === 'asc') {
+                products = products.sort((a:any, b:any) => {
                   if (a.id < b.id) {
                     return -1;
                   } else if (a.id > b.id) {
@@ -99,8 +102,8 @@ export class ProductState {
                   }
                   return 0;
                 })
-              } else if(action?.payload?.['sortBy'] === 'desc') {
-                products = products.sort((a, b) => {
+              } else if (action?.payload?.['sortBy'] === 'desc') {
+                products = products.sort((a:any, b:any) => {
                   if (a.id > b.id) {
                     return -1;
                   } else if (a.id < b.id) {
@@ -109,7 +112,7 @@ export class ProductState {
                   return 0;
                 })
               } else if (action?.payload?.['sortBy'] === 'a-z') {
-                products = products.sort((a, b) => {
+                products = products.sort((a:any, b:any) => {
                   if (a.name < b.name) {
                     return -1;
                   } else if (a.name > b.name) {
@@ -118,7 +121,7 @@ export class ProductState {
                   return 0;
                 })
               } else if (action?.payload?.['sortBy'] === 'z-a') {
-                products = products.sort((a, b) => {
+                products = products.sort((a:any, b:any) => {
                   if (a.name > b.name) {
                     return -1;
                   } else if (a.name < b.name) {
@@ -127,7 +130,7 @@ export class ProductState {
                   return 0;
                 })
               } else if (action?.payload?.['sortBy'] === 'low-high') {
-                products = products.sort((a, b) => {
+                products = products.sort((a:any, b:any) => {
                   if (a.sale_price < b.sale_price) {
                     return -1;
                   } else if (a.price > b.price) {
@@ -136,7 +139,7 @@ export class ProductState {
                   return 0;
                 })
               } else if (action?.payload?.['sortBy'] === 'high-low') {
-                products = products.sort((a, b) => {
+                products = products.sort((a:any, b:any) => {
                   if (a.sale_price > b.sale_price) {
                     return -1;
                   } else if (a.price < b.price) {
@@ -144,9 +147,9 @@ export class ProductState {
                   }
                   return 0;
                 })
-              } 
-            } else if(!action?.payload?.['ids']) {
-              products = products.sort((a, b) => {
+              }
+            } else if (!action?.payload?.['ids']) {
+              products = products.sort((a:any, b:any) => {
                 if (a.id < b.id) {
                   return -1;
                 } else if (a.id > b.id) {
@@ -156,10 +159,10 @@ export class ProductState {
               })
             }
 
-            if(action?.payload?.['search']) {
-              products = products.filter(product => product.name.toLowerCase().includes(action?.payload?.['search'].toLowerCase()))
+            if (action?.payload?.['search']) {
+              products = products.filter((product:any) => product.name.toLowerCase().includes(action?.payload?.['search'].toLowerCase()))
             }
-          } 
+          }
 
           ctx.patchState({
             product: {
@@ -183,11 +186,11 @@ export class ProductState {
     this.themeOptionService.preloader = true;
     return this.productService.getProducts(action.payload).pipe(
       tap({
-        next: (result: ProductModel) => {
+        next: (result: any) => {
           const state = ctx.getState();
-          const products = result.data.filter(product => 
-              action?.payload?.['ids']?.split(',')?.map((id: number) => Number(id)).includes(product.id) ||
-              (product?.categories?.length && product?.categories?.map(category => category.id).includes(Number(action?.payload?.['category_ids'])))
+          const products = result.data.filter((product:any) =>
+            action?.payload?.['ids']?.split(',')?.map((id: number) => Number(id)).includes(product.id) ||
+            (product?.categories?.length && product?.categories?.map((category:any) => category.id).includes(Number(action?.payload?.['category_ids'])))
           );
           ctx.patchState({
             ...state,
@@ -198,6 +201,8 @@ export class ProductState {
           this.themeOptionService.preloader = false;
         },
         error: err => {
+          const messageObject = mockResponseData(err.messageobject);
+          alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
@@ -208,9 +213,9 @@ export class ProductState {
   getStoreProducts(ctx: StateContext<ProductStateModel>, action: GetProducts) {
     return this.productService.getProducts(action.payload).pipe(
       tap({
-        next: (result: ProductModel) => {
+        next: (result: any) => {
           const state = ctx.getState();
-          const products = result.data.filter(product => 
+          const products = result.data.filter((product:any) =>
             action?.payload?.['store_ids']?.split(',')?.map((id: number) => Number(id)).includes(product.store_id));
           ctx.patchState({
             ...state,
@@ -218,6 +223,8 @@ export class ProductState {
           });
         },
         error: err => {
+          const messageObject = mockResponseData(err.messageobject);
+          alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
@@ -230,47 +237,47 @@ export class ProductState {
 
   getProductBySlug(ctx: StateContext<ProductStateModel>, { slug }: GetProductBySlug) {
     this.themeOptionService.preloader = true;
-    return this.productService.getProducts().pipe(
-      tap({
-        next: results => {
-          const result = results.data.find(product => product.slug == slug);
-          console.log("results",result);
+    // return this.productService.getProducts().pipe(
+    //   tap({
+    //     next: results => {
+    //       const result = results.data.find(product => product.slug == slug);
+    //       console.log("results", result);
 
-          if(result) {
-            result.related_products = result.related_products && result.related_products.length ? result.related_products : [];
-            result.cross_sell_products = result.cross_sell_products && result.cross_sell_products.length ? result.cross_sell_products : [];
+    //       if (result) {
+    //         result.related_products = result.related_products && result.related_products.length ? result.related_products : [];
+    //         result.cross_sell_products = result.cross_sell_products && result.cross_sell_products.length ? result.cross_sell_products : [];
 
-            const ids = [...result.related_products, ...result.cross_sell_products];
-            const categoryIds = [...result?.categories?.map(category => category.id)];
-            this.store.dispatch(new GetRelatedProducts({ids: ids.join(','), category_ids: categoryIds.join(','), status: 1}));
+    //         const ids = [...result.related_products, ...result.cross_sell_products];
+    //         const categoryIds = [...result?.categories?.map(category => category.id)];
+    //         this.store.dispatch(new GetRelatedProducts({ ids: ids.join(','), category_ids: categoryIds.join(','), status: 1 }));
 
-            const state = ctx.getState();
-            ctx.patchState({
-              ...state,
-              selectedProduct: result
-            });
-          } else {
-            this.router.navigate(['/404']);
-          }
+    //         const state = ctx.getState();
+    //         ctx.patchState({
+    //           ...state,
+    //           selectedProduct: result
+    //         });
+    //       } else {
+    //         this.router.navigate(['/404']);
+    //       }
 
-        },
-        complete: () => {
-          this.themeOptionService.preloader = false;
-        },
-        error: err => {
-          throw new Error(err?.error?.message);
-        }
-      })
-    );
+    //     },
+    //     complete: () => {
+    //       this.themeOptionService.preloader = false;
+    //     },
+    //     error: err => {
+    //       throw new Error(err?.error?.message);
+    //     }
+    //   })
+    // );
   }
 
   @Action(GetDealProducts)
   getDealProducts(ctx: StateContext<ProductStateModel>, action: GetDealProducts) {
     return this.productService.getProducts(action.payload).pipe(
       tap({
-        next: (result: ProductModel) => {
+        next: (result: any) => {
           const state = ctx.getState();
-          const products = result.data.filter(product => 
+          const products = result.data.filter((product:any) => 
             action?.payload?.['ids']?.split(',')?.map((id: number) => Number(id)).includes(product.id));
           ctx.patchState({
             ...state,
@@ -278,6 +285,8 @@ export class ProductState {
           });
         },
         error: err => {
+          const messageObject = mockResponseData(err.messageobject);
+          alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })

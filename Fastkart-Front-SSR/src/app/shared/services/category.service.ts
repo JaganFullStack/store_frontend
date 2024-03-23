@@ -20,7 +20,7 @@ export class CategoryService {
       'AUTHKEY': 'StoreWeb'
     };
 
-    return this.http.get<CategoryModel>(url, { headers });
+    return this.http.get<any>(url, { headers });
   }
 
 }

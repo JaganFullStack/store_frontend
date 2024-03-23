@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Category, CategoryModel } from '../../../interface/category.interface';
 import { CategoryState } from '../../../state/category.state';
 import { environment } from 'src/environments/environment';
+import { convertStringToNumber } from 'src/app/utilities/helper';
 
 @Component({
   selector: 'app-categories',
@@ -29,23 +30,27 @@ export class CategoriesComponent {
 
   public categories: Category[];
   public selectedCategorySlug: string[] = [];
-assets: any;
+  assets: any;
 
-ApiImageurl = environment.backendCategoryImageUrl;
+  ApiImageurl = environment.backendCategoryImageUrl;
 
   constructor(private route: ActivatedRoute,
     private router: Router) {
-    this.category$.subscribe(res => this.categories = res.data.filter(category => category.type == 'product'));
-    // console.log("res:",this.categories)
+
+    this.category$.subscribe(res => {
+      this.categories = res.data;
+    });
+
     this.route.queryParams.subscribe(params => {
       this.selectedCategorySlug = params['category'] ? params['category'].split(',') : [];
     });
   }
 
   ngOnChanges() {
-    if(this.categoryIds && this.categoryIds.length) {
-      console.log(this.categories)
-      this.category$.subscribe(res => this.categories = res.data.filter(category => this.categoryIds?.includes(category.index)));
+    if (this.categoryIds && this.categoryIds.length) {
+      this.category$.subscribe(res =>{
+         this.categories = res.data.filter(category => this.categoryIds?.includes(convertStringToNumber(category?.id)));
+      });
     }
   }
 
@@ -55,14 +60,11 @@ ApiImageurl = environment.backendCategoryImageUrl;
 
   redirectToCollection(slug: string) {
     let index = this.selectedCategorySlug.indexOf(slug);
-    // console.log("sluggggggg",slug);
-    console.log("this.selectedCategorySlug",this.selectedCategorySlug);
-
-
-    if(index === -1)
+    
+    if (index === -1)
       this.selectedCategorySlug.push(slug);
     else
-      this.selectedCategorySlug.splice(index,1);
+      this.selectedCategorySlug.splice(index, 1);
 
     this.router.navigate(['/collections'], {
       relativeTo: this.route,

@@ -29,12 +29,15 @@ export class ProductComponent {
 
   @Select(ProductState.product) product$: Observable<ProductModel>;
 
-  constructor(public productService: ProductService) {}
+  constructor(public productService: ProductService) {
+    this.sliderOption
+  }
 
   ngOnChanges() {
     if (Array.isArray(this.productIds)) {
       this.product$.subscribe(products => {
-        this.products = products.data.filter(product => this.productIds?.includes(product?.id));
+        // this.products = products.data.filter(product => this.productIds?.includes(product?.id));
+        this.products = products.data;
       });
     }
   }
