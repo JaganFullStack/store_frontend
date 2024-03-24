@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ProductDetailModalComponent } from '../../../widgets/modal/product-detail-modal/product-detail-modal.component';
 import { Product } from '../../../../../shared/interface/product.interface';
 import { CartAddOrUpdate, Cart } from '../../../../../shared/interface/cart.interface';
-import { AddToWishlist, DeleteWishlist } from '../../../../../shared/action/wishlist.action';
+import { AddOrRemoveWishlist, DeleteWishlist } from '../../../../../shared/action/wishlist.action';
 import { AddToCompare } from '../../../../../shared/action/compare.action';
 import { AddToCart, DeleteCart, GetCartItems } from '../../../../../shared/action/cart.action';
 import { CartState } from '../../../../../shared/state/cart.state';
@@ -130,7 +130,7 @@ export class ProductBoxHorizontalComponent {
     };
     const itemFound = this.cartItems.find((item: any) => item.product_id === product.id);
     const formattedQty = convertStringToNumber(itemFound.qty);
-    if ((formattedQty-1) === 0) {
+    if ((formattedQty - 1) === 0) {
       const object = {
         id: itemFound.id
       };
@@ -155,11 +155,32 @@ export class ProductBoxHorizontalComponent {
   }
 
   addToWishlist(id: number) {
-    this.store.dispatch(new AddToWishlist({ product_id: id }));
+    this.store.dispatch(new AddOrRemoveWishlist({ product_id: id }));
   }
 
-  removeWishlist(id: number) {
-    this.store.dispatch(new DeleteWishlist(id));
+  addOrRemoveWishList(product: any) {
+    const userId = getStringDataFromLocalStorage("user_id");
+
+    const requestObject = {
+      user_id: userId,
+      product_id: product.id
+    };
+    console.log("wish_pro",product)
+    console.log("wish_pro",requestObject)
+    this.store.dispatch(new AddOrRemoveWishlist(requestObject));
+
+  };
+
+  removeWishlist(product: any) {
+    const userId = getStringDataFromLocalStorage("user_id");
+
+    const requestObject = {
+      user_id: userId,
+      product_id: product.id
+    };
+console.log("wish_pro",product)
+console.log("wish_pro",requestObject)
+    this.store.dispatch(new DeleteWishlist(requestObject));
   }
 
   addToCompar(id: number) {

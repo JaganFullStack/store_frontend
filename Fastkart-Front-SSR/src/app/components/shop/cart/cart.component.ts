@@ -5,7 +5,7 @@ import { Breadcrumb } from '../../../shared/interface/breadcrumb';
 import { Cart, CartAddOrUpdate } from '../../../shared/interface/cart.interface';
 import { CartState } from '../../../shared/state/cart.state';
 import { UpdateCart, DeleteCart, AddToCart } from '../../../shared/action/cart.action';
-import { AddToWishlist } from '../../../shared/action/wishlist.action';
+import { AddOrRemoveWishlist } from '../../../shared/action/wishlist.action';
 import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/utilities/helper';
 
 @Component({
@@ -57,7 +57,7 @@ export class CartComponent {
   }
 
   addToWishlist(id: number) {
-    this.store.dispatch(new AddToWishlist({ product_id: id }));
+    this.store.dispatch(new AddOrRemoveWishlist({ product_id: id }));
   }
 
 

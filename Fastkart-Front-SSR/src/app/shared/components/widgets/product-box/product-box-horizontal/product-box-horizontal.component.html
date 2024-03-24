@@ -24,7 +24,7 @@
         </a>
         <div class="product-header-top" *ngIf="close">
             <app-button [class]="'btn wishlist-button close_button'" [spinner]="false" [id]="'close_btn'"
-                (click)="removeWishlist(product.id)">
+                (click)="removeWishlist(product)">
                 <i class="ri-close-line"></i>
             </app-button>
         </div>
@@ -35,7 +35,7 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" class="notifi-wishlist" (click)="addToWishlist(product.id)">
+                <a href="javascript:void(0)" class="notifi-wishlist" (click)="addOrRemoveWishList(product)">
                     <i class="ri-heart-line"></i>
                 </a>
             </li>
@@ -77,37 +77,6 @@
                     {{ 'sold_out' | translate }}
                 </app-button>
             </ng-template>
-
-
-
-            <!-- 
-          <div class="cart_qty qty-box" [class.open]="cartItem && cartItem.quantity > 0">
-                <div class="input-group">
-                    <app-button
-                        [id]="'qty-left-minus'+product.id"
-                        [spinner]="false"
-                        [class]="'qty-left-minus'"
-                        (click)="addToCart(product, -1)">
-                        <i class="ri-subtract-line"></i>
-                    </app-button>
-
-
-                    <input class="form-control input-number qty-input" type="text" name="quantity"
-                        value="{{cartItem && cartItem.quantity ? cartItem.quantity : cartItem}}"
-                        readonly>
-                   
-                        
-                    <app-button
-
-                        [id]="'qty-right-plus'+product.id"
-                        [spinner]="false"
-                        [class]="'qty-left-plus'"
-                        (click)="addToCart(product, 1)">
-                        <i class="ri-add-fill"></i>
-                    </app-button>
-                </div>
-            </div>  -->
-
             <div class="cart_qty qty-box" [class.open]="cartItem && cartItem.qty > 0">
                 <div class="input-group">
                     <app-button [id]="'qty-left-minus' + product.id" [spinner]="false" [class]="'qty-left-minus'"
