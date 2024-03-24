@@ -23,14 +23,25 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="form-floating log-in-form">
+                                <!-- <div class="form-floating log-in-form">
                                     <input type="email" class="form-control" id="Email" id="Email" formControlName="Email" placeholder="{{ 'email_address' | translate}}">
                                     <label for="Email">{{ 'email_address' | translate}}</label>
                                     <div *ngIf="form.controls['Email'].touched && form.controls['Email'].errors?.['required']" class="invalid-feedback">{{ 'email_is_required' | translate }}</div>
                                     <div *ngIf="form.controls['Email'].touched && form.controls['Email'].errors?.['Email']" class="invalid-feedback">
                                     {{ 'invalid_email' | translate }}
                                     </div>
+                                </div> -->
+
+                                <div class="form-floating log-in-form">
+                                    <input type="email" class="form-control" id="Email" formControlName="Email" placeholder="{{ 'email_address' | translate }}">
+                                    <label for="Email">{{ 'email_address' | translate }}</label>
+                                    <div *ngIf="form.controls['Email'].touched && form.controls['Email'].errors?.['required']" class="invalid-feedback">{{ 'email_is_required' | translate }}</div>
+                                    <div *ngIf="form.controls['Email'].touched && form.controls['Email'].errors?.['email']" class="invalid-feedback">
+                                        {{ 'invalid_email' | translate }}
+                                    </div>
                                 </div>
+                                
+                                
                             </div>
                             <div class="col-12 phone-field">
                                 <div class="form-floating log-in-form">
