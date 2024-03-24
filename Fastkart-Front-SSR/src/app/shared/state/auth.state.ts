@@ -69,11 +69,11 @@ export class AuthState {
           storeStringDataInLocalStorage("user_id", result?.data.userId);
           this.router.navigate(["/home"]);
           const mockMessageObject = mockResponseData(result.messageobject);
-          alert(mockMessageObject?.message);
+          // alert(mockMessageObject?.message);
         },
         error: err => {
           const messageObject = mockResponseData(err.messageobject);
-          alert(messageObject?.message);
+          // alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       }));
@@ -89,11 +89,11 @@ export class AuthState {
           storeStringDataInLocalStorage("user_id", result?.data.userId);
           this.router.navigate(["/home"]);
           const mockMessageObject = mockResponseData(result.messageobject);
-          alert(mockMessageObject?.message);
+          // alert(mockMessageObject?.message);
         },
         error: err => {
           const messageObject = mockResponseData(err.messageobject);
-          alert(messageObject?.message);
+          // alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       }));
