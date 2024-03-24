@@ -4,7 +4,9 @@
   <ul>
     <li *ngFor="let category of categories">
       <div class="category-list">
-        <img [src]="category?.category_icon ?  ApiImageurl+category?.category_image : 'assets/images/category.png'"
+        <!-- <img [src]="category?.category_icon ?  ApiImageurl+category?.category_image : 'assets/images/category.png'"
+             [alt]="category?.name"> -->
+        <img src="{{apiBaseUrl}}/{{category?.thumbnail_image_url}}"
              [alt]="category?.name">
         <h5>
           <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)">{{ category?.name }}</a>
@@ -43,8 +45,10 @@
           class="category-box category-dark"
           [class.active]="selectedCategorySlug.length && selectedCategorySlug.includes(category.slug!)">
           <!-- <img [src]="image ? image : 'assets/images/shape.png'" class="background-image" alt="shape"> -->
-          <img [src]="category?.category_image ?  ApiImageurl+category?.category_image : 'assets/images/category.png'"
-               [alt]="" >
+          <!-- <img [src]="category?.category_image ?  ApiImageurl+category?.category_image : 'assets/images/category.png'"
+               [alt]="" > -->
+               <img src="{{apiBaseUrl}}/{{category?.thumbnail_image_url}}"
+               [alt]="category?.name">
           <h5>{{ category.name }}</h5>
         </a>
         

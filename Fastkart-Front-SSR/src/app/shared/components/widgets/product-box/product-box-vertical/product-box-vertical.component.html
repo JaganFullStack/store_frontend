@@ -1,8 +1,9 @@
 <div class="offer-product">
     <a [routerLink]="['/product/', product.slug]" class="offer-image">
-        <img [src]="product.product_thumbnail
+        <!-- <img [src]="product.product_thumbnail
                 ? product.product_thumbnail.original_url
-                : 'assets/images/product.png'" alt="product">
+                : 'assets/images/product.png'" alt="product"> -->
+                <img src="{{apibaseurl}}/{{product?.thumbnail_image_url}}" class="img-fluid" [alt]="'product'">
     </a>
     <div class="offer-detail">
         <div>

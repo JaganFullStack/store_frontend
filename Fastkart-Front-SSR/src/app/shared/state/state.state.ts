@@ -54,11 +54,12 @@ export class StateState {
     return this.stateService.getStates().pipe(
       tap({
         next: result => { 
-          ctx.patchState({
-            state: {
-              data: result
-            }
-          });
+          console.log("state",result)
+          // ctx.patchState({
+          //   state: {
+          //     data: result
+          //   }
+          // });
         },
         error: err => { 
           throw new Error(err?.error?.message);

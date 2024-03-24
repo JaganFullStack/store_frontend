@@ -14,7 +14,7 @@ import { convertStringToNumber } from 'src/app/utilities/helper';
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent {
-
+  apiBaseUrl:string=environment.apiBaseUrl;
   @Select(CategoryState.category) category$: Observable<CategoryModel>;
 
   @Input() categoryIds: number[] = [];
@@ -28,7 +28,7 @@ export class CategoriesComponent {
 
   @Output() selectedCategory: EventEmitter<number> = new EventEmitter();
 
-  public categories: Category[];
+  public categories: any[];
   public selectedCategorySlug: string[] = [];
   assets: any;
 

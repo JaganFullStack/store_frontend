@@ -13,6 +13,7 @@ import { cartService } from '../../../../services/cart.service';
 import { response } from 'express';
 import { Product } from 'src/app/shared/interface/product.interface';
 import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/utilities/helper';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header-cart',
@@ -21,7 +22,7 @@ import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/ut
 })
 export class CartComponent {
   cartItems:Array<any>=[];
-
+  apiBaseUrl:String=environment.apiBaseUrl;
   @Select(CartState.cartItems) cartItem$: Observable<Cart[]>;
   @Select(CartState.cartTotal) cartTotal$: Observable<number>;
   @Select(CartState.sidebarCartOpen) sidebarCartOpen$: Observable<boolean>;
