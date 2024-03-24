@@ -35,7 +35,7 @@
     <li class="nav-item" role="presentation">
         <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/account/notifications']" (click)="openMenu(false)">
             <i class="ri-notification-line me-2"></i> {{ 'notifications'| translate}}
-            <span class="notification-count" *ngIf="unreadNotificationCount">{{ unreadNotificationCount }}</span>
+            <!-- <span class="notification-count" *ngIf="unreadNotificationCount">{{ unreadNotificationCount }}</span> -->
         </a>
     </li>
 

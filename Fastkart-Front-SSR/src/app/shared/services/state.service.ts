@@ -11,8 +11,18 @@ export class StateService {
 
   constructor(private http: HttpClient) {}
 
-  getStates(): Observable<States[]> {
-    return this.http.get<States[]>(`${environment.URL}/state.json`);
+  getStates(): Observable<any> {
+    // const userToken = getStringDataFromLocalStorage("user_token");
+    // const userId = getStringDataFromLocalStorage("user_id");
+
+    const headers = {
+      'Content-Type': 'application/json',
+      // 'authorization': `Bearer ${userToken}`,
+    };
+
+    const apiUrl = `${environment.apiBaseUrl}/api/getstatesdetails`;
+
+    return this.http.get<any>(apiUrl, { headers });
   }
 
 }

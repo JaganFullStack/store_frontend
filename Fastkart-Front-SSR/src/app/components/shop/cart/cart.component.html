@@ -11,11 +11,12 @@
                                     <td class="product-detail">
                                         <div class="product border-0">
                                             <a [routerLink]="['/product/', item.product.slug]" class="product-image">
-                                                <img [src]="item.variation && item.variation.variation_image
+                                                <!-- <img [src]="item.variation && item.variation.variation_image
                                                         ? item.variation.variation_image.original_url
                                                         : item.product.product_thumbnail
                                                         ? item.product.product_thumbnail.original_url
-                                                        : 'assets/images/product.png'" class="img-fluid" alt="product">
+                                                        : 'assets/images/product.png'" class="img-fluid" alt="product"> -->
+                                                <img src="{{apiBaseUrl}}/{{item.product.thumbnail_image_url}}" class="img-fluid" alt="product">
                                             </a>
                                             <div class="product-detail">
                                                 <ul>

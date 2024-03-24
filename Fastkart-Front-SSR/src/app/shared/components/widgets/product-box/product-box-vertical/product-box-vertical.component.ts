@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '../../../../../shared/interface/product.interface';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-box-vertical',
@@ -7,7 +8,7 @@ import { Product } from '../../../../../shared/interface/product.interface';
   styleUrls: ['./product-box-vertical.component.scss']
 })
 export class ProductBoxVerticalComponent {
-
-  @Input() product: Product;
+  apibaseurl:string=environment.apiBaseUrl;
+  @Input() product: any;
 
 }

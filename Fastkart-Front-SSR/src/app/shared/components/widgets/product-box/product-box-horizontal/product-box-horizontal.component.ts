@@ -24,10 +24,10 @@ import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/ut
 })
 export class ProductBoxHorizontalComponent {
   cartItems: Array<any> = [];
-  @Input() product: Product;
+  @Input() product: any;
   @Input() class: string;
   @Input() close: boolean;
-
+  apibaseurl:string=environment.apiBaseUrl;
   ApiImageurl = environment.backendBaseImageUrl;
 
   @Select(CartState.cartItems) cartItem$: Observable<Cart[]>;

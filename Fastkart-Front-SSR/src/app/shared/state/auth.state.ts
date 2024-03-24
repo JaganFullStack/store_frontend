@@ -85,8 +85,8 @@ export class AuthState {
     return this.authService.login(action.payload).pipe(
       tap({
         next: result => {
-          storeStringDataInLocalStorage("user_token", result.token);
-          storeStringDataInLocalStorage("user_id", result.user_id);
+          storeStringDataInLocalStorage("user_token", result?.data.token);
+          storeStringDataInLocalStorage("user_id", result?.data.user_id);
           this.router.navigate(["/home"]);
           const mockMessageObject=mockResponseData(result.messageobject);
           alert(mockMessageObject?.message);

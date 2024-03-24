@@ -3,7 +3,7 @@
         <h5>{{ 'my_wallet' | translate }}</h5>
     </div>
 </div>
-<div class="total-box mt-0" *ngIf="(wallet$ | async)?.transactions?.data?.length">
+<!-- <div class="total-box mt-0" *ngIf="(wallet$ | async)?.transactions?.data?.length">
     <div class="row">
         <div class="col-12">
             <div class="totle-contain wallet-bg">
@@ -50,11 +50,12 @@
             (setPage)="setPaginate($event)">
         </app-pagination>
     </nav>
-</div>
+</div> -->
 <app-no-data
     [class]="'no-data-added'"
     [image]="'assets/svg/empty-items.svg'"
     [text]="'No Transaction Found'"
     [description]="'No wallet balance activity detected'"
-    *ngIf="!(wallet$ | async)?.transactions?.data?.length">
+   >
+    <!-- *ngIf="!(wallet$ | async)?.transactions?.data?.length"> -->
 </app-no-data>

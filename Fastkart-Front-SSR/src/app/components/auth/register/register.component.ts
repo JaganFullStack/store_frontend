@@ -55,7 +55,7 @@ export class RegisterComponent {
         "name":this.form.get('CustomerName')!.value,
         "email":this.form.get('Email')!.value,
         "password":this.form.get('Password')!.value,
-        "phone_number":this.form.get('Phone')!.value,
+        "phone":this.form.get('Phone')!.value,
         "country_code":this.form.get('country_code')!.value,
       };
 

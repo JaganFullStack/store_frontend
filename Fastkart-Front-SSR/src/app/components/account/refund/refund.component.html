@@ -3,7 +3,7 @@
         <h5>{{ 'refund' | translate }}</h5>
     </div>
 </div>
-<div class="total-box mt-0" *ngIf="(refund$ | async)?.data?.length">
+<!-- <div class="total-box mt-0" *ngIf="(refund$ | async)?.data?.length">
     <div class="wallet-table mt-0 refund-table">
         <table>
             <tbody>
@@ -34,11 +34,12 @@
             (setPage)="setPaginate($event)">
         </app-pagination>
     </nav>
-</div>
+</div> -->
 <app-no-data
     [class]="'no-data-added'"
     [image]="'assets/svg/empty-items.svg'"
     [text]="'No Refunds Found'"
     [description]="'You have no refunds processed yet'"
-    *ngIf="!(refund$ | async)?.data?.length">
+    >
+    <!-- *ngIf="!(refund$ | async)?.data?.length"> -->
 </app-no-data>

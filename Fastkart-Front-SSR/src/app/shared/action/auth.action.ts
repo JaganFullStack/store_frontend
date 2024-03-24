@@ -8,7 +8,7 @@ import {
 
 export class Register {
   static readonly type = "[Auth] Register";
-  constructor(public payload: RegisterModal) {}
+  constructor(public payload: any) {}
 }
 
 export class Login {

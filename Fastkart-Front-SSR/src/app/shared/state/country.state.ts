@@ -1,14 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
-import { GetCountries } from "../action/country.action";
+import { GetCities, GetCountries } from "../action/country.action";
 import { Country } from "../interface/country.interface";
 import { CountryService } from "../services/country.service";
 
 export class CountryStateModel {
   country = {
     data: [] as Country[]
-  }
+  };
+  city = {
+    data: [] 
+  };
 }
 
 @State<CountryStateModel>({
@@ -16,17 +19,25 @@ export class CountryStateModel {
   defaults: {
     country: {
       data: []
+    },
+    city: {
+      data: []
     }
   },
 })
 @Injectable()
 export class CountryState {
-  
-  constructor(private countryService: CountryService) {}
+
+  constructor(private countryService: CountryService) { }
 
   @Selector()
   static country(state: CountryStateModel) {
     return state.country;
+  }
+
+  @Selector()
+  static city(state: any) {
+    return state.city;
   }
 
   @Selector()
@@ -35,6 +46,15 @@ export class CountryState {
       return { label: cn?.name, value: cn?.id }
     });
   }
+
+  @Selector()
+  static cities(state: any) {
+    return state?.city?.data?.map((cn:any) => {
+      return { label: cn?.name, value: cn?.id }
+    });
+  }
+
+
 
   @Action(GetCountries)
   getCountries(ctx: StateContext<CountryStateModel>, action: GetCountries) {
@@ -46,18 +66,45 @@ export class CountryState {
     }
     return this.countryService.getCountries().pipe(
       tap({
-        next: result => { 
-          ctx.patchState({
-            country: {
-              data: result
-            }
-          });
+        next: result => {
+          console.log("county",result)
+
+          // ctx.patchState({
+          //   country: {
+          //     data: result
+          //   }
+          // });
         },
-        error: err => { 
+        error: err => {
           throw new Error(err?.error?.message);
         }
       })
     );
-  }
+  };
+
+  @Action(GetCities)
+  getCities(ctx: StateContext<CountryStateModel>, action: GetCities) {
+    const state = ctx.getState();
+    if (state?.city?.data?.length) {
+      // If the country has been already loaded
+      // we just break the execution
+      return true;
+    }
+    return this.countryService.getCities().pipe(
+      tap({
+        next: result => {
+          console.log("city",result)
+          // ctx.patchState({
+          //   city: {
+          //     data: result
+          //   }
+          // });
+        },
+        error: err => {
+          throw new Error(err?.error?.message);
+        }
+      })
+    );
+  };
 
 }

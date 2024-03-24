@@ -7,6 +7,7 @@ import { CartState } from '../../../shared/state/cart.state';
 import { UpdateCart, DeleteCart, AddToCart } from '../../../shared/action/cart.action';
 import { AddOrRemoveWishlist } from '../../../shared/action/wishlist.action';
 import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/utilities/helper';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +16,7 @@ import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/ut
 })
 export class CartComponent {
   cartItems: Array<any> = [];
-
+  apiBaseUrl:string=environment.apiBaseUrl;
   @Select(CartState.cartItems) cartItem$: Observable<Cart[]>;
   @Select(CartState.cartTotal) cartTotal$: Observable<number>;
 
