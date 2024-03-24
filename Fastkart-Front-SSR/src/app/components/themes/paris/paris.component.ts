@@ -10,6 +10,7 @@ import * as data from  '../../../shared/data/owl-carousel';
 import { NewsletterModalComponent } from '../../../shared/components/widgets/modal/newsletter-modal/newsletter-modal.component';
 import { ExitModalComponent } from '../../../shared/components/widgets/modal/exit-modal/exit-modal.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { GetCartItems } from 'src/app/shared/action/cart.action';
 
 @Component({
   selector: 'app-paris',
@@ -61,6 +62,8 @@ export class ParisComponent {
       // Change color for this layout
       document.documentElement.style.setProperty('--theme-color','#0da487');
       this.themeOptionService.theme_color = '#0da487';
+    this.store.dispatch(new GetCartItems());
+
     }
 
 

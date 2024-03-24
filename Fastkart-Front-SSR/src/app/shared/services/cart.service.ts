@@ -62,7 +62,7 @@ export class cartService {
       'authorization': `Bearer ${userToken}`,
     });
 
-    const url = `${environment.apiBaseUrl}/api/addcart`;
+    const url = `${environment.apiBaseUrl}/api/delcart`;
 
     return this.http.post<any>(url, data, { headers: headers });
   };

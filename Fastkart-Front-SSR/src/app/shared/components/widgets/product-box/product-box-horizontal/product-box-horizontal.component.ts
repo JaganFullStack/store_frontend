@@ -93,13 +93,7 @@ export class ProductBoxHorizontalComponent {
     // });
   }
 
-
-
-
   ngOnInit() {
-
-    this.store.dispatch(new GetCartItems());
-
   }
 
   addCart(product: any) {
@@ -112,10 +106,11 @@ export class ProductBoxHorizontalComponent {
       "product_id": product.id,
       "qty": 0
     };
+
     const itemFound = this.cartItems.find((item: any) => item.product_id === product.id);
 
     if (itemFound) {
-      responseObject.qty = convertStringToNumber(itemFound.qty) + 1;
+      responseObject.qty = convertStringToNumber(itemFound?.qty) + 1;
     } else {
       responseObject.qty = 1;
     }
@@ -135,7 +130,7 @@ export class ProductBoxHorizontalComponent {
     };
     const itemFound = this.cartItems.find((item: any) => item.product_id === product.id);
     const formattedQty = convertStringToNumber(itemFound.qty);
-    if (formattedQty === 0) {
+    if ((formattedQty-1) === 0) {
       const object = {
         id: itemFound.id
       };

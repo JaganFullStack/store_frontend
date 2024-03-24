@@ -1,13 +1,13 @@
 <app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
 <section class="cart-section section-b-space">
     <div class="container-fluid-lg">
-        <div class="row g-xl-5 g-sm-4 g-3" *ngIf="(cartItem$ | async)?.length">
+        <div class="row g-xl-5 g-sm-4 g-3" *ngIf="cartItems?.length">
             <div class="col-xxl-9 col-xl-8">
                 <div class="cart-table">
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                                <tr class="product-box-contain" *ngFor="let item of cartItem$ | async">
+                                <tr class="product-box-contain" *ngFor="let item of cartItems">
                                     <td class="product-detail">
                                         <div class="product border-0">
                                             <a [routerLink]="['/product/', item.product.slug]" class="product-image">
@@ -25,14 +25,14 @@
                                                         </a>
                                                     </li>
                                                     <li class="text-content">
-                                                        <span class="text-title">{{ 'sold_by' | translate }}:</span> {{ 'fastkart' | translate }}
+                                                        <span class="text-title">{{ 'sold_by' | translate }}:</span> {{ item.shop?.shop_name | translate }}
                                                     </li>
                                                     <li class="text-content" *ngIf="item.product && item.product.unit">
                                                         <span class="text-title">{{ 'unit' | translate }}:</span> {{item.product.unit}}
                                                     </li>
                                                     <li>
                                                         <h5 class="text-content d-inline-block">{{ 'price' | translate }} :</h5>
-                                                        <span>{{ (item?.variation ? item.variation.sale_price : item.product.sale_price) | currencySymbol }}</span>
+                                                        <span>{{ (item?.variation ? item.variation.sale_price : item.product.min_price) | currencySymbol }}</span>
                                                         <span class="text-content" *ngIf="item.product.discount">{{ (item.variation ? item.variation!.price : item.product.price) | currencySymbol }}</span>
                                                     </li>
                                                     <li *ngIf="item.product.discount">
@@ -43,7 +43,7 @@
                                                                 : item.product.sale_price)) | currencySymbol }}
                                                         </h5>
                                                     </li>
-                                                    <li class="quantity-price-box">
+                                                    <!-- <li class="quantity-price-box">
                                                         <div class="cart_qty">
                                                             <div class="input-group">
                                                                 <app-button
@@ -65,9 +65,9 @@
                                                                 </app-button>
                                                             </div>
                                                         </div>
-                                                    </li>
+                                                    </li> -->
                                                     <li>
-                                                        <h5>{{ 'total' | translate }}: {{ (item.variation ? item.variation.sale_price : item.product.sale_price) * item.qty | currencySymbol }}</h5>
+                                                        <h5>{{ 'total' | translate }}: {{ (item.variation ? item.variation.sale_price : item.product.min_price) * item.qty | currencySymbol }}</h5>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -76,12 +76,12 @@
                                     <td class="price">
                                         <h4 class="table-title text-content">{{ 'price' | translate }}</h4>
                                         <h5>
-                                            {{ (item?.variation ? item.variation.sale_price : item.product.sale_price) | currencySymbol }}
-                                            <del class="text-content" *ngIf="item.product.discount">{{ (item.variation ? item.variation.price : item.product.price) | currencySymbol }}</del>
+                                            {{ (item?.variation ? item.variation.sale_price : item.product.min_price) | currencySymbol }}
+                                            <del class="text-content" *ngIf="item.product.discount">{{ (item.variation ? item.variation.price : item.product.min_price) | currencySymbol }}</del>
                                         </h5>
                                         <h6 class="theme-color" *ngIf="item.product.discount">
                                             {{ 'you_save' | translate }} : {{ ((item.variation ? item.variation.price
-                                            : item.product.price) - (item.variation
+                                            : item.product.min_price) - (item.variation
                                             ? item.variation.sale_price
                                             : item.product.sale_price)) | currencySymbol }}
                                         </h6>
@@ -96,7 +96,7 @@
                                                       [id]="'minus_quantity'"
                                                       [spinner]="false"
                                                       [type]="'button'"
-                                                      (click)="updateQuantity(item, -1)">
+                                                      (click)="subractFromItemCount(item)">
                                                         <i class="ri-subtract-fill ms-0"></i>
                                                     </app-button>
                                                     <input class="form-control input-number qty-input" type="text" name="quantity" value="{{ item.qty }}" readonly>
@@ -105,20 +105,20 @@
                                                       [id]="'plus_quantity'"
                                                       [spinner]="false"
                                                       [type]="'button'"
-                                                      (click)="updateQuantity(item, 1)">
+                                                      (click)="addToCart(item)">
                                                         <i class="ri-add-line ms-0"></i>
                                                     </app-button>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="subtotal">
+                                    <td class="subtotal"> 
                                         <h4 class="table-title text-content">{{ 'total' | translate }}</h4>
-                                        <h5>{{ (item.variation ? item.variation.sale_price : item.product.sale_price) * item.qty | currencySymbol }}</h5>
+                                        <h5>{{ (item.variation ? item.variation.sale_price : item.product.min_price) * item.qty | currencySymbol }}</h5>
                                     </td>
                                     <td class="save-remove">
                                         <h4 class="table-title text-content">{{ 'action' | translate }}</h4>
-                                        <a class="save notifi-wishlist" href="javascript:void(0)" (click)="addToWishlist(item.product.id)">{{ 'save_for_later' | translate }}</a>
+                                        <!-- <a class="save notifi-wishlist" href="javascript:void(0)" (click)="addToWishlist(item.product.id)">{{ 'save_for_later' | translate }}</a> -->
                                         <a class="remove close_button" href="javascript:void(0)" (click)="delete(item.id)">{{ 'remove' | translate }}</a>
                                     </td>
                                 </tr>
