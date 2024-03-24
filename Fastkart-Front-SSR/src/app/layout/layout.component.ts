@@ -1,4 +1,4 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Store, Select } from '@ngxs/store';
 import { Observable, forkJoin } from 'rxjs';
@@ -9,13 +9,15 @@ import { ThemeOptionService } from '../shared/services/theme-option.service';
 import { GetBlogs } from '../shared/action/blog.action';
 import { GetDealProducts } from '../shared/action/product.action';
 import { GetUserDetails } from '../shared/action/account.action';
+import { GetCities, GetCountries } from '../shared/action/country.action';
+import { GetStates } from '../shared/action/state.action';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnInit{
 
   @Select(ThemeOptionState.themeOptions) themeOption$: Observable<Option>;
   @Select(ThemeOptionState.cookies) cookies$: Observable<boolean>;
@@ -33,7 +35,6 @@ export class LayoutComponent {
 
     this.themeOptionService.preloader = true;
 
-    this.store.dispatch(new GetUserDetails());
 
     const getCategories$ = this.store.dispatch(new GetCategories({ status: 1 }));
     const getBlog$ = this.store.dispatch(new GetBlogs({ status: 1, paginate: 10 }));
@@ -46,6 +47,12 @@ export class LayoutComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.store.dispatch(new GetUserDetails());
+    this.store.dispatch(new GetCities());
+    this.store.dispatch(new GetCountries());
+    this.store.dispatch(new GetStates());
+  }
   setLogo() {
     var headerLogo;
     var footerLogo;

@@ -20,7 +20,7 @@ export class CountryService {
       // 'authorization': `Bearer ${userToken}`,
     };
 
-    const apiUrl = `${environment.apiBaseUrl}/api/getcitiesdetails`;
+    const apiUrl = `${environment.apiBaseUrl}/api/getcountriesdetails`;
 
     return this.http.get<any>(apiUrl, { headers });
   }
@@ -34,7 +34,7 @@ export class CountryService {
       // 'authorization': `Bearer ${userToken}`,
     };
 
-    const apiUrl = `${environment.apiBaseUrl}/api/getcountriesdetails`;
+    const apiUrl = `${environment.apiBaseUrl}/api/getcitiesdetails`;
 
     return this.http.get<any>(apiUrl, { headers });
   }

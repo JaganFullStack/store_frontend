@@ -17,17 +17,19 @@ import * as data from '../../../../data/country-code';
   styleUrls: ['./address-modal.component.scss']
 })
 export class AddressModalComponent {
-
+  cityList: Array<any> = [];
   public form: FormGroup;
   public closeResult: string;
   public modalOpen: boolean = false;
 
-  public states$: Observable<Select2Data>;
+  public states$: Observable<any>;
   public address: UserAddress | null;
   public codes = data.countryCodes;
 
   @ViewChild("addressModal", { static: false }) AddressModal: TemplateRef<string>;
-  @Select(CountryState.countries) countries$: Observable<Select2Data>;
+  @Select(CountryState.countries) countries$: Observable<any>;
+  @Select(CountryState.cities) cities$: Observable<any>;
+  // @Select(StateState.state) states$: Observable<Select2Data>;
 
   constructor(private modalService: NgbModal,
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -39,18 +41,40 @@ export class AddressModalComponent {
       state_id: new FormControl('', [Validators.required]),
       country_id: new FormControl('', [Validators.required]),
       city: new FormControl('', [Validators.required]),
+      city_id: new FormControl('', [Validators.required]),
       pincode: new FormControl('', [Validators.required]),
       country_code: new FormControl('91', [Validators.required]),
       phone: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)])
     })
+    console.log("isss_triggerr")
   }
 
-  countryChange(data: Select2UpdateEvent) {
-    if(data && data?.value) {
+  countryChange(event:any) {
+    console.log("county", event)
+    // if (data && data?.value) {
+    //   this.states$ = this.store
+    //     .select(StateState.states)
+    //     .pipe(map(filterFn => filterFn(+data?.value)));
+
+    //   this.cities$.subscribe((data: any) => {
+    //     console.log("cities", data);
+    //     this.cityList = data;
+    //   });
+
+    //   if (!this.address)
+    //     this.form.controls['state_id'].setValue('');
+    // } else {
+    //   this.form.controls['state_id'].setValue('');
+    // }
+  };
+
+  stateChange(data: Select2UpdateEvent) {
+    console.log("county", data)
+    if (data && data?.value) {
       this.states$ = this.store
-          .select(StateState.states)
-          .pipe(map(filterFn => filterFn(+data?.value)));
-      if(!this.address)
+        .select(StateState.states)
+        .pipe(map(filterFn => filterFn(+data?.value)));
+      if (!this.address)
         this.form.controls['state_id'].setValue('');
     } else {
       this.form.controls['state_id'].setValue('');
@@ -85,7 +109,7 @@ export class AddressModalComponent {
   }
 
   patchForm(value?: UserAddress) {
-    if(value) {
+    if (value) {
       this.address = value;
       this.form.patchValue({
         user_id: value?.user_id,
@@ -105,30 +129,30 @@ export class AddressModalComponent {
     }
   }
 
-  submit(){
+  submit() {
 
     this.form.markAllAsTouched();
+    console.log(this.form.value)
+    // let action = new CreateAddress(this.form.value);
 
-    let action = new CreateAddress(this.form.value);
+    // if(this.address) {
+    //   action = new UpdateAddress(this.form.value, this.address.id);
+    // }
 
-    if(this.address) {
-      action = new UpdateAddress(this.form.value, this.address.id);
-    }
-
-    if(this.form.valid) {
-      this.store.dispatch(action).subscribe({
-        complete: () => {
-          this.form.reset();
-          if(!this.address){
-            this.form?.controls?.['country_code'].setValue('91');
-          }
-        }
-      });
-    }
+    // if(this.form.valid) {
+    //   this.store.dispatch(action).subscribe({
+    //     complete: () => {
+    //       this.form.reset();
+    //       if(!this.address){
+    //         this.form?.controls?.['country_code'].setValue('91');
+    //       }
+    //     }
+    //   });
+    // }
   }
 
   ngOnDestroy() {
-    if(this.modalOpen) {
+    if (this.modalOpen) {
       this.modalService.dismissAll();
     }
   }

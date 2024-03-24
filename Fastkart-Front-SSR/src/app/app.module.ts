@@ -95,15 +95,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ]),
     NgxsStoragePluginModule.forRoot({
       key: [
-        'auth',
-        'account',
-        'country',
-        'state',
-        'cart',
         'theme',
         'theme_option',
         'setting',
-        'notification'
       ]
     }),
     HttpClientModule,
