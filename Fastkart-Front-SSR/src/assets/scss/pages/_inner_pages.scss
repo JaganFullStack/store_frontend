@@ -5370,6 +5370,7 @@
 .no-data-added {
   text-align: center;
   padding: 60px 0;
+  
 
   img {
     width: 25%;
@@ -5453,4 +5454,8 @@
       padding: calc(9px + (12 - 9) * ((100vw - 320px) / (1920 - 320))) calc(16px + (22 - 16) * ((100vw - 320px) / (1920 - 320)));
     }
   }
+}
+
+.shoping-left-cart-empty{
+   padding-top: 275px;
 }
