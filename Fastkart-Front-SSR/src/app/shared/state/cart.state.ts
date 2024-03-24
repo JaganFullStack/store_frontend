@@ -246,7 +246,7 @@ export class CartState {
         next: result => {
           this.store.dispatch(new GetCartItems());
           const mockMessageObject = mockResponseData(result.messageobject);
-          alert(mockMessageObject?.message);
+          // alert(mockMessageObject?.message);
         },
         error: err => {
           const messageObject = mockResponseData(err.messageobject);

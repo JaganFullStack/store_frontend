@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { CategoryState } from '../../../../../shared/state/category.state';
@@ -10,23 +10,30 @@ import { CategoryModel, Category } from '../../../../../shared/interface/categor
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
-export class FooterCategoriesComponent {
+export class FooterCategoriesComponent  {
 
   @Input() data: Option | null;
 
-  @Select(CategoryState.category) category$: Observable<CategoryModel>;
+  @Select(CategoryState.category) category$: Observable<any>;
 
-  public categories: Category[];
-
-  ngOnChanges(changes: SimpleChanges) {
-    const ids = changes['data']?.currentValue?.footer?.footer_categories
-    if (Array.isArray(ids)) {
-      this.category$.subscribe(categories => {
-        if(Array.isArray(categories.data)) {
-          this.categories = categories.data.filter(category => ids?.includes(category.id));
-        }
-      })
-    }
+  public categories: any[];
+   
+  constructor(){
+    this.category$.subscribe((categories:any) => {
+      console.log("footer",categories);
+        this.categories = categories.data.slice(0,5);
+    })
   }
+
+  // ngOnChanges(changes: SimpleChanges) {
+  //   const ids = changes['data']?.currentValue?.footer?.footer_categories
+  //   if (Array.isArray(ids)) {
+  //     this.category$.subscribe(categories => {
+  //       if(Array.isArray(categories.data)) {
+  //         this.categories = categories.data.filter(category => ids?.includes(category.id));
+  //       }
+  //     })
+  //   }
+  // }
 
 }

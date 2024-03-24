@@ -43,7 +43,6 @@ export class CountryState {
   @Selector()
   static countries(state: CountryStateModel) {
     return state?.country?.data?.map(cn => {
-      console.log("cnnnn",cn)
       return { label: cn?.name, value: cn?.id }
     });
   }
