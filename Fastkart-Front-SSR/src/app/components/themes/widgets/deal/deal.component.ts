@@ -6,7 +6,7 @@ import { ProductState } from '../../../../shared/state/product.state';
 import { ProductModel } from '../../../../shared/interface/product.interface';
 import * as data from '../../../../shared/data/owl-carousel'
 import { Deal, DealOfDays } from '../../../../shared/interface/theme.interface';
-import { AddToWishlist } from '../../../../shared/action/wishlist.action';
+import { AddOrRemoveWishlist } from '../../../../shared/action/wishlist.action';
 import { AddToCompare } from '../../../../shared/action/compare.action';
 import { ProductDetailModalComponent } from 'src/app/shared/components/widgets/modal/product-detail-modal/product-detail-modal.component';
 
@@ -67,7 +67,7 @@ export class DealComponent {
 
 
   addToWishlist(id: number) {
-    this.store.dispatch(new AddToWishlist({ product_id: id }));
+    this.store.dispatch(new AddOrRemoveWishlist({ product_id: id }));
   }
 
   addToCompare(id: number) {

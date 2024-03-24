@@ -4,12 +4,12 @@ export class GetWishlist {
   static readonly type = "[Wishlist] Get";
 }
 
-export class AddToWishlist {
+export class AddOrRemoveWishlist {
   static readonly type = "[Wishlist] post";
-  constructor(public payload: Params) {}
+  constructor(public payload: any) {}
 }
 
 export class DeleteWishlist {
   static readonly type = "[Wishlist] delete";
-  constructor(public id: number) {}
+  constructor(public payload: any) {}
 }

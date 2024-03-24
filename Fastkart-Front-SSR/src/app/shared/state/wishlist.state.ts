@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Router } from '@angular/router';
 import { tap } from "rxjs";
-import { Action, Selector, State, StateContext } from "@ngxs/store";
+import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
 import { Product } from "../interface/product.interface";
-import { AddToWishlist, DeleteWishlist, GetWishlist } from "../action/wishlist.action";
+import { AddOrRemoveWishlist, DeleteWishlist, GetWishlist } from "../action/wishlist.action";
 import { WishlistService } from "../services/wishlist.service";
+import { mockResponseData } from "src/app/utilities/helper";
 
 export class WishlistStateModel {
   wishlist = {
@@ -27,7 +28,7 @@ export class WishlistStateModel {
 export class WishlistState {
 
   constructor(public router: Router,
-    private wishlistService: WishlistService){}
+    private wishlistService: WishlistService,private store:Store) { }
 
   @Selector()
   static wishlistItems(state: WishlistStateModel) {
@@ -40,12 +41,13 @@ export class WishlistState {
     return this.wishlistService.getWishlistItems().pipe(
       tap({
         next: result => {
-          ctx.patchState({
-            wishlist: {
-              data: result.data,
-              total: result?.total ? result?.total : result.data?.length
-            }
-          });
+          console.log(result);
+          // ctx.patchState({
+          //   wishlist: {
+          //     data: result.data,
+          //     total: result?.total ? result?.total : result.data?.length
+          //   }
+          // });
         },
         complete: () => {
           this.wishlistService.skeletonLoader = false;
@@ -57,21 +59,47 @@ export class WishlistState {
     );
   }
 
-  @Action(AddToWishlist)
-  add(ctx: StateContext<WishlistStateModel>, action: AddToWishlist){
+  @Action(AddOrRemoveWishlist)
+  add(ctx: StateContext<WishlistStateModel>, action: AddOrRemoveWishlist) {
     // Add Wishlist Logic Here
-    this.router.navigate(['/wishlist']);
-  }
+    return this.wishlistService.addOrRemoveWishlist(action.payload).pipe(
+      tap({
+        next: result => {
+          console.log("res",result)
+          this.store.dispatch(new GetWishlist());
+          const mockMessageObject = mockResponseData(result.messageobject);
+          alert(mockMessageObject?.message);
+        },
+        error: err => {
+          console.log("res",err)
+
+          const messageObject = mockResponseData(err.messageobject);
+          alert(messageObject?.message);
+          throw new Error(err?.error?.message);
+        }
+      })
+    );
+  };
 
   @Action(DeleteWishlist)
-  delete(ctx: StateContext<WishlistStateModel>, { id }: DeleteWishlist) {
-    const state = ctx.getState();
-    let item = state.wishlist.data.filter(value => value.id !== id);
-    ctx.patchState({
-      wishlist: {
-        data: item,
-        total: state.wishlist.total - 1
-      }
-    });
+  delete(ctx: StateContext<WishlistStateModel>, action: DeleteWishlist) {
+    return this.wishlistService.addOrRemoveWishlist(action.payload).pipe(
+      tap({
+        next: result => {
+          console.log("res",result)
+
+          this.store.dispatch(new GetWishlist());
+          const mockMessageObject = mockResponseData(result.messageobject);
+          alert(mockMessageObject?.message);
+        },
+        error: err => {
+          console.log("res",err)
+
+          const messageObject = mockResponseData(err.messageobject);
+          alert(messageObject?.message);
+          throw new Error(err?.error?.message);
+        }
+      })
+    );
   }
 }

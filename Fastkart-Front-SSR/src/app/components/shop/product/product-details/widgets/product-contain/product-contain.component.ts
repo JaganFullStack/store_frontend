@@ -7,7 +7,7 @@ import { Cart, CartAddOrUpdate } from '../../../../../../shared/interface/cart.i
 import { AddToCart } from '../../../../../../shared/action/cart.action';
 import { CartState } from '../../../../../../shared/state/cart.state';
 import { Option } from '../../../../../../shared/interface/theme-option.interface';
-import { AddToWishlist } from '../../../../../../shared/action/wishlist.action';
+import { AddOrRemoveWishlist } from '../../../../../../shared/action/wishlist.action';
 import { AddToCompare } from '../../../../../../shared/action/compare.action';
 
 @Component({
@@ -110,7 +110,7 @@ export class ProductContainComponent {
   }
 
   addToWishlist(id: number) {
-    this.store.dispatch(new AddToWishlist({ product_id: id }));
+    this.store.dispatch(new AddOrRemoveWishlist({ product_id: id }));
   }
 
   addToCompare(id: number) {
