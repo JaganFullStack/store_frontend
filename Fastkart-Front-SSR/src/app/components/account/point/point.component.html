@@ -3,7 +3,7 @@
         <h5>{{ 'points' | translate }}</h5>
     </div>
 </div>
-<div class="total-box mt-0" *ngIf="(point$ | async)?.transactions?.data?.length">
+<!-- <div class="total-box mt-0" *ngIf="(point$ | async)?.transactions?.data?.length">
     <div class="row">
         <div class="col-12">
             <div class="totle-contain wallet-bg">
@@ -51,11 +51,12 @@
             [pageSize]="filter['paginate']" (setPage)="setPaginate($event)">
         </app-pagination>
     </nav>
-</div>
+</div> -->
 <app-no-data
     [class]="'no-data-added'"
     [image]="'assets/svg/empty-items.svg'"
     [text]="'No Transaction Found'"
     [description]="'You have not earned any points yet'"
-    *ngIf="!(point$ | async)?.transactions?.data?.length">
+    >
+    <!-- *ngIf="!(point$ | async)?.transactions?.data?.length"> -->
 </app-no-data>
