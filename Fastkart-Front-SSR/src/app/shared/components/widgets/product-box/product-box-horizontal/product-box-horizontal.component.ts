@@ -7,13 +7,14 @@ import { Product } from '../../../../../shared/interface/product.interface';
 import { CartAddOrUpdate, Cart } from '../../../../../shared/interface/cart.interface';
 import { AddToWishlist, DeleteWishlist } from '../../../../../shared/action/wishlist.action';
 import { AddToCompare } from '../../../../../shared/action/compare.action';
-import { AddToCart, GetCartItems } from '../../../../../shared/action/cart.action';
+import { AddToCart, DeleteCart, GetCartItems } from '../../../../../shared/action/cart.action';
 import { CartState } from '../../../../../shared/state/cart.state';
 import { VariationModalComponent } from '../../modal/variation-modal/variation-modal.component';
 import { environment } from 'src/environments/environment';
 import { v4 as uuidv4 } from 'uuid';
 import { cartService } from 'src/app/shared/services/cart.service';
 import { CartModel } from '../../../../../shared/interface/cart.interface';
+import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/utilities/helper';
 
 
 @Component({
@@ -22,7 +23,7 @@ import { CartModel } from '../../../../../shared/interface/cart.interface';
   styleUrls: ['./product-box-horizontal.component.scss']
 })
 export class ProductBoxHorizontalComponent {
-
+  cartItems: Array<any> = [];
   @Input() product: Product;
   @Input() class: string;
   @Input() close: boolean;
@@ -53,14 +54,23 @@ export class ProductBoxHorizontalComponent {
   shippingCal: number;
   confetti: number;
 
+
+  // constructor(private store: Store,
+  //   config: NgbRatingConfig) {
+  // 	config.max = 5;
+  // 	config.readonly = true;
+  // }
+
   constructor(private store: Store, config: NgbRatingConfig, public cartService: cartService) {
 
-    config.max = 12;
-    config.readonly = true;
-    this.cartItem$.subscribe((items: any) => {
-      // this.cartItem = items.find(item => item.product.id == this.product.id)!;
-      this.cartItem = items;
+    this.cartItem$.subscribe(items => {
+      this.cartItems = items;
+      this.cartItem = items.find(item => item.product.id == this.product.id)!;
     });
+
+    config.max = 5;
+    config.readonly = true;
+
     // this.themeOption$.subscribe((option: { general: { cart_style: any; }; }) => this.cartStyle = option?.general?.cart_style);
 
     // // Calculation
@@ -84,74 +94,65 @@ export class ProductBoxHorizontalComponent {
   }
 
   ngOnInit() {
-    this.store.dispatch(new GetCartItems());
   }
 
+  addCart(product: any) {
 
+    const userId = getStringDataFromLocalStorage("user_id");
 
+    let responseObject = {
+      "user_id": userId,
+      "product_variation_id": product.variations.id,
+      "product_id": product.id,
+      "qty": 0
+    };
 
+    const itemFound = this.cartItems.find((item: any) => item.product_id === product.id);
 
-  // addToCart(product: Product, qty: number) {
-
-
-  //   const params: CartAddOrUpdate = {
-  //     id: this.cartItem ? this.cartItem.id : null,
-  //     product: product,
-  //     product_id: product?.id,
-  //     variation_id: this.cartItem ? this.cartItem?.variation_id : null,
-  //     variation: this.cartItem ? this.cartItem?.variation : null,
-  //     quantity: qty,
-  //     GuId: null
-  //   }
-  //   this.store.dispatch(new AddToCart(params));
-  // }
-
-
-  addToCart(product: Product, qty: number) {
-    let userEmailId = localStorage.getItem('UserEmail');
-    let GuId = localStorage.getItem('GuestId'); const generatedUuid = uuidv4();
-    console.log('Generated UUID:', generatedUuid);
-    console.log('Product Id:', product?.id); if (userEmailId) {
-      // const params: CartAddOrUpdate = {
-      //   // id: this.cartItem ? this.cartItem.id : null,
-      //   product: product,
-      //   product_id: product?.id,
-      //   // variation_id: this.cartItem ? this.cartItem?.variation_id : null,
-      //   // variation: this.cartItem ? this.cartItem?.variation : null,
-      //   quantity: qty,
-      //   GuId: null
-      // }
+    if (itemFound) {
+      responseObject.qty = convertStringToNumber(itemFound?.qty) + 1;
+    } else {
+      responseObject.qty = 1;
     }
-    // const params: CartAddOrUpdate = {
-    //   // id: this.cartItem ? this.cartItem.id : null,
-    //   // product: product,
-    //   // product_id: product?.id,
-    //   // variation_id: this.cartItem ? this.cartItem?.variation_id : null,
-    //   // variation: this.cartItem ? this.cartItem?.variation : null,
-    //   // quantity: qty,
-    //   // GuId: GuId ? GuId : generatedUuid
-    // }
-    // console.log(params)
-    // this.cartService.addToCart(params).subscribe({
-    //   next: (response: any) => {
-    //     this.responseError = null;
 
-    //     console.log(response);
-    //     localStorage.setItem('GuestId', response?.GuestId);
-    //     const redirectUrl = '/account/dashboard';
-    //     this.router.navigateByUrl(redirectUrl);
-    //     // window.location.reload();       
-    //   },
-    //   error: (error: any) => {
-    //     this.responseError = error?.error?.messages?.error ?? 'INVALID CREDENTIALS';
-    //     console.log("Api Error", error.error.messages.error);
-    //   },
-    // });
-    const redirectUrl = '/account/dashboard';
+    this.store.dispatch(new AddToCart(responseObject));
+  };
 
-    this.router.navigateByUrl(redirectUrl);
+  subractItemCount(product: any) {
+
+    const userId = getStringDataFromLocalStorage("user_id");
+
+    let requestObject = {
+      "user_id": userId,
+      "product_variation_id": product.variations.id,
+      "product_id": product.id,
+      "qty": 0
+    };
+    const itemFound = this.cartItems.find((item: any) => item.product_id === product.id);
+    const formattedQty = convertStringToNumber(itemFound.qty);
+    if ((formattedQty-1) === 0) {
+      const object = {
+        id: itemFound.id
+      };
+
+      this.store.dispatch(new DeleteCart(object));
+    } else {
+      requestObject.qty = formattedQty - 1;
+
+      this.store.dispatch(new AddToCart(requestObject));
+    }
+  };
+
+  removeCart(product: any) {
+    console.log("ts_product", product);
+    const responseObject = {
+      "user_id": 5,
+      "product_variation_id": 5,
+      "product_id": 2,
+      "qty": 5
+    }
+    this.store.dispatch(new AddToCart({ responseObject }));
   }
-
 
   addToWishlist(id: number) {
     this.store.dispatch(new AddToWishlist({ product_id: id }));

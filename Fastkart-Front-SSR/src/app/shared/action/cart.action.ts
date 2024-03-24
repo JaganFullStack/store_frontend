@@ -6,40 +6,40 @@ export class GetCartItems {
 
 export class AddToCartLocalStorage {
   static readonly type = "[Cart] Local Storage Add";
-  constructor(public payload: CartAddOrUpdate) {}
+  constructor(public payload: CartAddOrUpdate) { }
 }
 
 export class AddToCart {
   static readonly type = "[Cart] Add";
-  constructor(public payload: CartAddOrUpdate) {}
+  constructor(public payload: any) { }
 }
 
 export class UpdateCart {
   static readonly type = "[Cart] Update";
-  constructor(public payload: CartAddOrUpdate) {}
+  constructor(public payload: CartAddOrUpdate) { }
 }
 
 export class ReplaceCart {
   static readonly type = "[Cart] Replace";
-  constructor(public payload: CartAddOrUpdate) {}
+  constructor(public payload: CartAddOrUpdate) { }
 }
 
 export class DeleteCart {
   static readonly type = "[Cart] Delete";
-  constructor(public id: number) {}
+  constructor(public payload: any) { }
 }
 
 export class CloseStickyCart {
   static readonly type = "[Cart] Sticky Close";
-  constructor() {}
+  constructor() { }
 }
 
 export class ToggleSidebarCart {
   static readonly type = "[Cart] Toggle Sidebar";
-  constructor(public value: boolean) {}
+  constructor(public value: boolean) { }
 }
 
 export class ClearCart {
   static readonly type = "[Cart] Clear";
-  constructor() {}
+  constructor() { }
 }

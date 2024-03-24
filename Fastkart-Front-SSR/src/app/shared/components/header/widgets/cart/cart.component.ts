@@ -3,7 +3,7 @@ import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Cart, CartAddOrUpdate } from '../../../../interface/cart.interface';
 import { CartState } from '../../../../state/cart.state';
-import { DeleteCart, GetCartItems, ToggleSidebarCart, UpdateCart } from '../../../../action/cart.action';
+import { AddToCart, DeleteCart, GetCartItems, ToggleSidebarCart, UpdateCart } from '../../../../action/cart.action';
 import { ThemeOptionState } from '../../../../state/theme-option.state';
 import { Option } from '../../../../interface/theme-option.interface';
 import { SettingState } from '../../../../state/setting.state';
@@ -12,6 +12,7 @@ import { VariationModalComponent } from '../../../widgets/modal/variation-modal/
 import { cartService } from '../../../../services/cart.service';
 import { response } from 'express';
 import { Product } from 'src/app/shared/interface/product.interface';
+import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/utilities/helper';
 
 @Component({
   selector: 'app-header-cart',
@@ -19,6 +20,7 @@ import { Product } from 'src/app/shared/interface/product.interface';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent {
+  cartItems:Array<any>=[];
 
   @Select(CartState.cartItems) cartItem$: Observable<Cart[]>;
   @Select(CartState.cartTotal) cartTotal$: Observable<number>;
@@ -44,7 +46,12 @@ export class CartComponent {
   constructor(private store: Store, public cartService: cartService) {
     this.store.dispatch(new GetCartItems());
     this.themeOption$.subscribe(option => this.cartStyle = option?.general?.cart_style);
-
+    this.cartItem$.subscribe(items => {
+      this.cartItems = items;
+      console.log("cart_sho",this.cartItems)
+      console.log("cart_sho",this.cartItems.length)
+      // this.cartItem = items.find(item => item.product.id == this.product.id)!;
+    });
     // Calculation
     this.cartTotal$.subscribe(total => {
       this.setting$.subscribe(setting => this.shippingFreeAmt = setting?.general?.min_order_free_shipping);
@@ -151,5 +158,52 @@ export class CartComponent {
   delete(id: number) {
     this.store.dispatch(new DeleteCart(id));
   }
+
+  addCart(product: any) {
+
+    const userId = getStringDataFromLocalStorage("user_id");
+
+    let responseObject = {
+      "user_id": userId,
+      "product_variation_id": product.product_variation_id,
+      "product_id": product.product_id,
+      "qty": 0
+    };
+
+    const itemFound = this.cartItems.find((item: any) => item.product_id === product.product_id);
+
+    if (itemFound) {
+      responseObject.qty = convertStringToNumber(itemFound?.qty) + 1;
+    } else {
+      responseObject.qty = 1;
+    }
+
+    this.store.dispatch(new AddToCart(responseObject));
+  };
+
+  subractItemCount(product: any) {
+
+    const userId = getStringDataFromLocalStorage("user_id");
+
+    let requestObject = {
+      "user_id": userId,
+      "product_variation_id": product.product_variation_id,
+      "product_id": product.product_id,
+      "qty": 0
+    };
+    const itemFound = this.cartItems.find((item: any) => item.product_id === product.product_id);
+    const formattedQty = convertStringToNumber(itemFound.qty);
+    if ((formattedQty-1) === 0) {
+      const object = {
+        id: itemFound.id
+      };
+
+      this.store.dispatch(new DeleteCart(object));
+    } else {
+      requestObject.qty = formattedQty - 1;
+
+      this.store.dispatch(new AddToCart(requestObject));
+    }
+  };
 
 }

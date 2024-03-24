@@ -78,7 +78,7 @@ export class CheckoutComponent {
           this.formBuilder.group({
             product_id: new FormControl(item?.product_id, [Validators.required]),
             variation_id: new FormControl(item?.variation_id ? item?.variation_id : ''),
-            quantity: new FormControl(item?.quantity),
+            quantity: new FormControl(item?.qty),
           })
       ));
     });

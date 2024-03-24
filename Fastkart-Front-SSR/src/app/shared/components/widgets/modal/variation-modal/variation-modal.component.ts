@@ -31,7 +31,7 @@ export class VariationModalComponent {
     if (isPlatformBrowser(this.platformId)) { // For SSR 
       this.item = item;
       this.product = item.product;
-      this.productQty = item.quantity;
+      this.productQty = item.qty;
       this.modalOpen = true;
       this.modalService.open(this.VariationModal, {
         ariaLabelledBy: 'variation-Modal',

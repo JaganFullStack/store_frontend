@@ -64,7 +64,7 @@
         <div class="add-to-cart-box">
             <app-button [id]="'add-to-cart'+product.id" [class]="'btn btn-add-cart addcart-button'"
                 [iconClass]="'ri-add-line'" [spinner]="false"
-                (click)="product.type === 'classified' ? productDetailModal.openModal() : addToCart(product, 1)"
+                (click)="product.type === 'classified' ? productDetailModal.openModal() : addCart(product)"
                 *ngIf="product.stock_status == 'in_stock' else outStock">
                 {{ 'add' | translate }}
                 <span class="add-icon">
@@ -108,26 +108,20 @@
                 </div>
             </div>  -->
 
-            <div class="cart_qty qty-box" [class.open]="cartItem && cartItem.quantity > 0">
+            <div class="cart_qty qty-box" [class.open]="cartItem && cartItem.qty > 0">
                 <div class="input-group">
                     <app-button [id]="'qty-left-minus' + product.id" [spinner]="false" [class]="'qty-left-minus'"
-                        (click)="addToCart(product, -1)">
+                        (click)="subractItemCount(product)">
                         <i class="ri-subtract-line"></i>
                     </app-button>
                     <input class="form-control input-number qty-input" type="text" name="quantity"
-                        value="{{ cartItem?.quantity || 0 }}" readonly />
+                        value="{{ cartItem?.qty || 0 }}" readonly />
                     <app-button [id]="'qty-right-plus' + product.id" [spinner]="false" [class]="'qty-left-plus'"
-                        (click)="addToCart(product, 1)">
+                        (click)="addCart(product)">
                         <i class="ri-add-fill"></i>
                     </app-button>
                 </div>
-            </div>
-
-
-
-
-
-
+              </div>
         </div>
     </div>
 </div>

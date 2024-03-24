@@ -11,7 +11,8 @@ export interface Cart {
     variation: Variation;
     variation_id: number | null;
     consumer_id?: number;
-    quantity: number;
+    // quantity: number;
+    qty: number;
     sub_total: number;
     product: Product;
     created_by_id?: number;
