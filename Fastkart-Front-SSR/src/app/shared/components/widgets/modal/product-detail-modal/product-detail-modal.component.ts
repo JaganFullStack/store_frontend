@@ -8,7 +8,7 @@ import { Cart, CartAddOrUpdate } from '../../../../interface/cart.interface';
 import { AddToCart } from '../../../../action/cart.action';
 import { CartState } from '../../../../state/cart.state';
 import * as data from  '../../../../../shared/data/owl-carousel';
-
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-product-detail-modal',
   templateUrl: './product-detail-modal.component.html',
@@ -18,7 +18,7 @@ export class ProductDetailModalComponent {
 
   @ViewChild("productDetailModal", { static: false }) productDetailModal: TemplateRef<any>;
 
-  @Input() product: Product;
+  @Input() product: any;
 
   @Select(CartState.cartItems) cartItem$: Observable<Cart[]>;
 
@@ -36,8 +36,14 @@ export class ProductDetailModalComponent {
 
   constructor(private modalService: NgbModal,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private store: Store) {
+    private store: Store
+    
+    ) {
+
+      console.log("popuppp",this.product)
   }
+  apibaseurl:string=environment.apiBaseUrl;
+  ApiImageurl = environment.backendBaseImageUrl;
 
   ngOnInit() {
     this.cartItem$.subscribe(items => {

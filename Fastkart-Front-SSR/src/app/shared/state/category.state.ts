@@ -38,7 +38,7 @@ export class CategoryState {
     return this.categoryService.getCategories(action.payload).pipe(
       tap({
         next: result => { 
-          console.log("category",result.data);
+          console.log("categoryssssssssssssss",result.data);
           ctx.patchState({
             category: {
               data: result.data,

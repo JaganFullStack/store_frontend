@@ -8,12 +8,17 @@
         <div class="modal-body">
             <div class="row g-sm-4 g-2">
                 <div class="col-lg-6">
-                  <div class="view-image-slider">
+                <img src="{{apibaseurl}}/{{product?.thumbnail_image_url}}" class="img-fluid" alt="product">
+</div>
+                <!--<div class="col-lg-6">
+                  <div class="view-image-slider"> 
                     <owl-carousel-o [options]="productMainThumbSlider" #owlCar>
                         <ng-container *ngFor="let image of product?.product_galleries; index as i">
                             <ng-template carouselSlide [id]="image.id.toString()">
-                                <img [src]="( image ? image.original_url
-                                        : 'assets/images/product.png')" class="img-fluid" alt="product">
+                               
+                                        <img src="{{apibaseurl}}/{{image?.thumbnail_image_url}}" class="img-fluid" alt="product">
+
+
                             </ng-template>
                         </ng-container>
                     </owl-carousel-o>
@@ -34,24 +39,24 @@
                             </ng-container>
                         </owl-carousel-o>
                     </div>
-                </div>
-                </div>
+                </div> -->
+                <!-- </div> -->
                 <div class="col-lg-6">
                     <div class="right-sidebar-modal">
                         <h4 class="title-name">{{ selectedVariation ? selectedVariation.name : product.name }}</h4>
                         <h4 class="price">
                             {{ (selectedVariation ? selectedVariation.sale_price : product.sale_price) | currencySymbol }}
-                            <del *ngIf="selectedVariation ? selectedVariation.discount : product.discount">
+                            <!-- <del *ngIf="selectedVariation ? selectedVariation.discount : product.discount">
                                 {{ (selectedVariation ? selectedVariation.price : product.price) | currencySymbol }}
-                            </del>
-                            <label class="modal-label" *ngIf="selectedVariation ? selectedVariation.discount : product.discount">
+                            </del> -->
+                            <!-- <label class="modal-label" *ngIf="selectedVariation ? selectedVariation.discount : product.discount">
                                 {{ (selectedVariation ? selectedVariation.discount : product.discount) }}% {{ 'off' | translate }}
-                            </label>
+                            </label> -->
                         </h4>
-                        <div class="product-rating">
+                        <!-- <div class="product-rating">
                             <ngb-rating [rate]="product.rating_count"></ngb-rating>
                             <div class="fs-14 ms-2">{{ product.reviews_count }} {{ 'review' | translate }}</div>
-                        </div>
+                        </div> -->
                         <div class="product-detail mb-2">
                             <h4>{{ 'product_details' | translate }}:</h4>
                             <p [innerHTML]="product.short_description"></p>
@@ -59,21 +64,24 @@
                         <div class="pickup-box">
                             <div class="product-info">
                                 <ul class="product-info-list product-info-list-2">
-                                    <li *ngIf="product.sku">{{ 'sku' | translate }}: {{ product.sku }}</li>
+                                    <!-- <li *ngIf="product.sku">{{ 'sku' | translate }}: {{ product.sku }}</li> -->
                                     <li *ngIf="product.stock_status">{{ 'stock_status' | translate }}: {{ product.stock_status! | titleCase }}</li>
                                     <li *ngIf="product.quantity > 0">{{ 'quantity' | translate }}: {{ product.quantity }} {{ 'items_left' | translate }}</li>
                                 </ul>
                             </div>
                         </div>
+                        <!-- <div>
+                            {{product.description}}
+                        </div> -->
                         <div class="selection-section mt-3" *ngIf="product.attributes?.length">
-                            <app-variant-attributes
+                            <!-- <app-variant-attributes
                                 [product]="product"
                                 [attributes]="product.attributes || []"
                                 [owlCar]="owlCar"
                                 (selectVariation)="selectVariation($event!)">
-                            </app-variant-attributes>
+                            </app-variant-attributes> -->
                         </div>
-                        <div class="modal-button">
+                        <div class="modal-button" *ngIf="product.stock_status != 'out_stock'">
                             <div class="modal-qty">
                                 <div class="input-group">
                                   <app-button

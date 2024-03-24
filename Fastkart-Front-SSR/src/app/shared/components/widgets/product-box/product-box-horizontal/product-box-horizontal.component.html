@@ -76,7 +76,7 @@
                     {{ 'sold_out' | translate }}
                 </app-button>
             </ng-template>
-            <div class="cart_qty qty-box" [class.open]="cartItem && cartItem.qty > 0">
+            <!-- <div class="cart_qty qty-box" [class.open]="cartItem && cartItem.qty > 0">
                 <div class="input-group">
                     <app-button [id]="'qty-left-minus' + product.id" [spinner]="false" [class]="'qty-left-minus'"
                         (click)="subractItemCount(product)">
@@ -89,7 +89,7 @@
                         <i class="ri-add-fill"></i>
                     </app-button>
                 </div>
-              </div>
+              </div> -->
         </div>
     </div>
 </div>
