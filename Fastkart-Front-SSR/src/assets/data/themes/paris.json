@@ -198,8 +198,8 @@
           }
         },
         "section7_products": {
-          "title": "Our Best Seller",
-          "description": "A virtual assistant collects the products from your list.",
+          "title": "Best Selling Products",
+      
           "status": true,
           "product_ids": [
             6,

@@ -25,8 +25,8 @@ export class AboutUsComponent {
   @Select(BlogState.blog) blog$: Observable<BlogModel>;
 
   public breadcrumb: Breadcrumb = {
-    title: "About Us",
-    items: [{ label: 'About Us', active: true }]
+    title: "About us",
+    items: [{ label: 'About us', active: true }]
   }
 
   public productSlider = data.productSliderMargin;

@@ -24,6 +24,11 @@
     <div class="onhover-div onhover-div-login">
 
         <ul class="user-box-name">
+
+
+            <li class="product-box-contain" *ngIf="userData && userData?.id" >
+                <a [routerLink]="['/account/dashboard']"> {{ 'My Account' | translate }}</a>
+            </li>
             <li class="product-box-contain" *ngIf="!userData && !userData?.id">
                 <a [routerLink]="['/auth/login']">{{ 'LogIn' | translate }}</a>
             </li>
@@ -43,9 +48,7 @@
             <li class="product-box-contain" *ngIf="userData && userData?.id" >
                 <a [routerLink]="['checkout']"> {{ 'Checkout' | translate }}</a>
             </li>
-            <li class="product-box-contain" *ngIf="userData && userData?.id" >
-                <a [routerLink]="['/account/dashboard']"> {{ 'My Account' | translate }}</a>
-            </li>
+           
             
             <li class="product-box-contain" *ngIf="userData && userData?.id">
                 <!-- <a href="javascript:void(0)" (click)="confirmationModal.openModal()"><i class="ri-logout-box-r-line me-2"></i> {{ 'log_out' | translate }}</a> -->

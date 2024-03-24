@@ -512,12 +512,12 @@ export const menu: Menu[] = [
     // ]
   },
 
-  {
-    id: 9,
-    title: 'Cart',
-    active: false,
-    type: 'link',
-    path: 'cart',
+  // {
+  //   id: 9,
+  //   title: 'Cart',
+  //   active: false,
+  //   type: 'link',
+  //   path: 'cart',
     // children: [
     //   {
     //     title: 'Authentication',
@@ -565,7 +565,7 @@ export const menu: Menu[] = [
     //   },
 
     // ],
-  },
+  // },
 
 
 

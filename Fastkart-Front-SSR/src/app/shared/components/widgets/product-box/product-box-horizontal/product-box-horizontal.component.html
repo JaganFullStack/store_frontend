@@ -52,7 +52,7 @@
         </h5> -->
         <h5 class="sold text-content">
             <span class="theme-color price">{{ product.sale_price | currencySymbol }}</span>
-            <del *ngIf="product.discount">{{ product.price | currencySymbol }}</del>
+            <!-- <del *ngIf="product.discount">{{ product.price | currencySymbol }}</del> -->
         </h5>
         <!-- <div class="product-rating">
             <ngb-rating [rate]="product.rating_count"></ngb-rating>

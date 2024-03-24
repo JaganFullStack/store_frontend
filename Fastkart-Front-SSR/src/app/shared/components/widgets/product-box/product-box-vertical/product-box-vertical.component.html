@@ -13,7 +13,7 @@
             <span *ngIf="product.unit">{{ product.unit }}</span>
             <div class="vertical-price">
                 <h5 class="price theme-color">{{ product.sale_price | currencySymbol }}</h5>
-                <del class="text-content" *ngIf="product.discount">{{ product.price | currencySymbol }}</del>
+                <!-- <del class="text-content" *ngIf="product.discount">{{ product.price | currencySymbol }}</del> -->
             </div>
         </div>
     </div>

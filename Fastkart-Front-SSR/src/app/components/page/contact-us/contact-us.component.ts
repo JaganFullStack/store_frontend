@@ -17,8 +17,8 @@ export class ContactUsComponent {
   @Select(ThemeOptionState.themeOptions) themeOption$: Observable<Option>;
 
   public breadcrumb: Breadcrumb = {
-    title: "Contact Us",
-    items: [{ label: 'Contact Us', active: true }]
+    title: "Contact us",
+    items: [{ label: 'Contact us', active: true }]
   }
 
   public form: FormGroup;
