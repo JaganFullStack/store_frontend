@@ -68,7 +68,7 @@ export class AuthState {
           storeStringDataInLocalStorage("user_token", result?.data.authToken);
           storeStringDataInLocalStorage("user_id", result?.data.userId);
           this.router.navigate(["/home"]);
-          const mockMessageObject=mockResponseData(result.messageobject);
+          const mockMessageObject = mockResponseData(result.messageobject);
           alert(mockMessageObject?.message);
         },
         error: err => {
@@ -86,9 +86,9 @@ export class AuthState {
       tap({
         next: result => {
           storeStringDataInLocalStorage("user_token", result?.data.token);
-          storeStringDataInLocalStorage("user_id", result?.data.user_id);
+          storeStringDataInLocalStorage("user_id", result?.data.userId);
           this.router.navigate(["/home"]);
-          const mockMessageObject=mockResponseData(result.messageobject);
+          const mockMessageObject = mockResponseData(result.messageobject);
           alert(mockMessageObject?.message);
         },
         error: err => {

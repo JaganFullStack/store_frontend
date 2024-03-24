@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Store, Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
-import { GetUserDetails, UpdateUserProfile, UpdateUserPassword, 
-         CreateAddress, UpdateAddress, DeleteAddress, AccountClear } from "../action/account.action";
+import {
+  GetUserDetails, UpdateUserProfile, UpdateUserPassword,
+  CreateAddress, UpdateAddress, DeleteAddress, AccountClear
+} from "../action/account.action";
 import { AccountUser, AccountUserUpdatePassword } from "./../interface/account.interface";
 import { AccountService } from "../services/account.service";
 import { NotificationService } from "../services/notification.service";
@@ -16,16 +18,16 @@ export class AccountStateModel {
 }
 
 @State<AccountStateModel>({
-    name: "account",
-    defaults: {
-      user: null,
-      permissions: []
-    },
+  name: "account",
+  defaults: {
+    user: null,
+    permissions: []
+  },
 })
 @Injectable()
 export class AccountState {
 
-  constructor(private accountService: AccountService,private router:Router) {}
+  constructor(private accountService: AccountService, private router: Router) { }
 
   @Selector()
   static user(state: AccountStateModel) {
@@ -41,15 +43,15 @@ export class AccountState {
   getUserDetails(ctx: StateContext<AccountStateModel>) {
     return this.accountService.getUserDetails().pipe(
       tap({
-        next: result => { 
+        next: result => {
           ctx.patchState({
             user: result?.data[0],
             permissions: [],
           });
         },
-        error: err => { 
-          const messageObject=mockResponseData(err.messageobject);
-          alert(messageObject?.message);
+        error: err => {
+          const messageObject = mockResponseData(err.messageobject);
+          // alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
@@ -82,7 +84,7 @@ export class AccountState {
   }
 
   @Action(AccountClear)
-  accountClear(ctx: StateContext<AccountStateModel>){
+  accountClear(ctx: StateContext<AccountStateModel>) {
     ctx.patchState({
       user: null,
       permissions: []
