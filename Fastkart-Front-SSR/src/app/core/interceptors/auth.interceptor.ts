@@ -11,7 +11,7 @@ import { GetThemeOption } from '../../shared/action/theme-option.action';
 import { GetCurrencies } from '../../shared/action/currency.action';
 import { AuthClear } from '../../shared/action/auth.action';
 import { GetStates } from '../../shared/action/state.action';
-import { GetCountries } from '../../shared/action/country.action';
+import { GetCities, GetCountries } from '../../shared/action/country.action';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -24,6 +24,7 @@ export class AuthInterceptor implements HttpInterceptor {
     private notificationService: NotificationService) {
     this.store.dispatch(new GetCountries());
     this.store.dispatch(new GetStates());
+    this.store.dispatch(new GetCities());
     this.store.dispatch(new GetSettingOption());
     this.store.dispatch(new GetThemeOption());
     this.store.dispatch(new GetCurrencies({ status: 1 }));

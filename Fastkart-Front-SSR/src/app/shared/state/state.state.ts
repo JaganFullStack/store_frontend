@@ -21,8 +21,8 @@ export class StateStateModel {
 })
 @Injectable()
 export class StateState {
-  
-  constructor(private stateService: StateService) {}
+
+  constructor(private stateService: StateService) { }
 
   @Selector()
   static state(state: StateStateModel) {
@@ -32,7 +32,7 @@ export class StateState {
   @Selector()
   static states(state: StateStateModel) {
     return (country_id?: number | null) => {
-      if(country_id)
+      if (country_id)
         return state.state.data.filter(element => element.country_id == country_id).map(st => {
           return { label: st?.name, value: st?.id, country_id: st?.country_id }
         });
@@ -46,22 +46,21 @@ export class StateState {
   @Action(GetStates)
   getStates(ctx: StateContext<StateStateModel>, action: GetStates) {
     const state = ctx.getState();
-    if (state?.state?.data?.length) {
+    if (state?.state?.data?.length > 0) {
       // If the state has been already loaded
       // we just break the execution
       return true;
     }
     return this.stateService.getStates().pipe(
       tap({
-        next: result => { 
-          console.log("state",result)
-          // ctx.patchState({
-          //   state: {
-          //     data: result
-          //   }
-          // });
+        next: result => {
+          ctx.patchState({
+            state: {
+              data: result?.data ? result?.data : []
+            }
+          });
         },
-        error: err => { 
+        error: err => {
           throw new Error(err?.error?.message);
         }
       })

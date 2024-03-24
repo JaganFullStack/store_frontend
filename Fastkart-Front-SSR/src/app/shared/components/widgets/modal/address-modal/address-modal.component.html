@@ -1,6 +1,6 @@
 <ng-template #addressModal let-modal>
   <div class="modal-header">
-    <h3 class="fw-semibold"> {{ (!address ? 'add_address' : 'edit_address') | translate  }}</h3>
+    <h3 class="fw-semibold"> {{ (!address ? 'add_address' : 'edit_address') | translate }}</h3>
     <app-button [class]="'btn btn-close'" [spinner]="false" [id]="'address_modal_close_btn'"
       (click)="modal.dismiss('Cross click')">
       <i class="ri-close-line"></i>
@@ -34,9 +34,16 @@
         <div class="col-6">
           <div class="">
             <label class="form-label" for="address1">{{ 'country' | translate }}</label>
-            <select2 class="custom-select" [data]="(countries$ | async) ? (countries$ | async)! : []"
-              [placeholder]="'select_country' | translate" formControlName="country_id" (update)="countryChange($event)" resettable>
-            </select2>
+            <!-- <select2 class="custom-select" [data]="(countries$ | async) ? (countries$ | async)! : []"
+              [placeholder]="'select_country' | translate" formControlName="country_id" (update)="countryChange($event)"
+              resettable>
+            </select2> -->
+            <select class="custom-select"
+            formControlName="country_id" (change)="countryChange($event)">
+              <option selected>Open this select country</option>
+              <option *ngFor="let country of (countries$ | async)" [value]="country.id">
+                {{country.name}}</option>
+            </select>
             <div class="invalid-feedback"
               *ngIf="form?.controls?.['country_id']?.touched && form?.controls?.['country_id']?.errors?.['required']">
               {{ 'country_is_required' | translate }}
@@ -47,7 +54,8 @@
           <div class="">
             <label class="form-label" for="address1">{{ 'state' | translate }}</label>
             <select2 class="custom-select" [data]="(states$ | async) ? (states$ | async)! : []"
-              [placeholder]="'select_state' | translate" formControlName="state_id">
+              [placeholder]="'select_state' | translate" formControlName="state_id" (update)="stateChange($event)"
+              resettable>
             </select2>
             <div class="invalid-feedback"
               *ngIf="form?.controls?.['state_id']?.touched && form?.controls?.['state_id']?.errors?.['required']">
@@ -58,7 +66,10 @@
         <div class="col-6">
           <div class="">
             <label class="form-label" for="address1">{{ 'city' | translate }}</label>
-            <input class="form-control" id="city" type="text" placeholder="{{ 'enter_city' | translate }}" formControlName="city" />
+            <!-- <input class="form-control" id="city" type="text" placeholder="{{ 'enter_city' | translate }}" formControlName="city" /> -->
+            <select2 class="custom-select" [data]="(cityList.length>0) ? cityList : []"
+              [placeholder]="'select_city' | translate" formControlName="city_id">
+            </select2>
             <div class="invalid-feedback"
               *ngIf="form?.controls?.['city']?.touched && form.controls['city']?.errors?.['required']">
               {{ 'city_is_required' | translate }}

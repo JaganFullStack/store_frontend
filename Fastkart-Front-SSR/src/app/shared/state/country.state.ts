@@ -10,7 +10,7 @@ export class CountryStateModel {
     data: [] as Country[]
   };
   city = {
-    data: [] 
+    data: []
   };
 }
 
@@ -43,13 +43,14 @@ export class CountryState {
   @Selector()
   static countries(state: CountryStateModel) {
     return state?.country?.data?.map(cn => {
+      console.log("cnnnn",cn)
       return { label: cn?.name, value: cn?.id }
     });
   }
 
   @Selector()
   static cities(state: any) {
-    return state?.city?.data?.map((cn:any) => {
+    return state?.city?.data?.map((cn: any) => {
       return { label: cn?.name, value: cn?.id }
     });
   }
@@ -59,7 +60,8 @@ export class CountryState {
   @Action(GetCountries)
   getCountries(ctx: StateContext<CountryStateModel>, action: GetCountries) {
     const state = ctx.getState();
-    if (state?.country?.data?.length) {
+
+    if (state?.country?.data?.length > 0) {
       // If the country has been already loaded
       // we just break the execution
       return true;
@@ -67,13 +69,11 @@ export class CountryState {
     return this.countryService.getCountries().pipe(
       tap({
         next: result => {
-          console.log("county",result)
-
-          // ctx.patchState({
-          //   country: {
-          //     data: result
-          //   }
-          // });
+          ctx.patchState({
+            country: {
+              data: result?.data ? result.data : []
+            }
+          });
         },
         error: err => {
           throw new Error(err?.error?.message);
@@ -85,7 +85,7 @@ export class CountryState {
   @Action(GetCities)
   getCities(ctx: StateContext<CountryStateModel>, action: GetCities) {
     const state = ctx.getState();
-    if (state?.city?.data?.length) {
+    if (state?.city?.data?.length > 0) {
       // If the country has been already loaded
       // we just break the execution
       return true;
@@ -93,12 +93,11 @@ export class CountryState {
     return this.countryService.getCities().pipe(
       tap({
         next: result => {
-          console.log("city",result)
-          // ctx.patchState({
-          //   city: {
-          //     data: result
-          //   }
-          // });
+          ctx.patchState({
+            city: {
+              data: result.data ? result.data : []
+            }
+          });
         },
         error: err => {
           throw new Error(err?.error?.message);
