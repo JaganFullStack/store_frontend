@@ -138,7 +138,7 @@
   *ngIf="categories?.length && style == 'input_dropdown'">
  <select class="form-select locat-name">
     <option>{{ 'All Category' | translate }}</option>
-    <option *ngFor="let category of categories">
+    <option *ngFor="let category of categories" (change)="redirectToCollection(category.id)">
       {{ category.name }}
     </option>
   </select>
