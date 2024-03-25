@@ -92,7 +92,9 @@
                                       (click)="subractItemCount(product)">
                                       <i class="ri-subtract-fill"></i>
                                   </app-button>
-                                  <input class="form-control input-number qty-input" type="text" name="quantity" value="{{productQty}}" readonly>
+                                  <!-- <input class="form-control input-number qty-input" type="text" name="quantity" value="{{productQty}}" readonly> -->
+                                  <input class="form-control input-number qty-input" type="text" name="quantity"
+                                  value="{{ cartItem?.qty || 0 }}" readonly />
                                   <app-button
                                       [class]="'btn qty-left-minus'"
                                       [id]="'qty-left-minus'+product.id"

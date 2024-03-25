@@ -43,7 +43,6 @@ export class ProductDetailModalComponent {
 
   ngOnInit() {
     this.cartItem$.subscribe(items => {
-      console.log(this.product)
       this.cartItems=items;
       this.cartItem = items.find(item => item.product.id == this.product.id)!;
     });
@@ -129,7 +128,7 @@ export class ProductDetailModalComponent {
       this.store.dispatch(new AddToCart(requestObject));
     }
   };
-  
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
