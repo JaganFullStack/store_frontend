@@ -5,7 +5,9 @@
         <div class="label-tag" *ngIf="product.is_featured"><span>{{ 'featured' | translate }}</span></div>
     </ng-template>
     <div class="product-image">
-        <a [routerLink]="['/product/', product.slug]">
+        <!-- <a [routerLink]="['/product/', product.slug]"> -->
+        <a>
+
             <!-- <img [src]="product.product_thumbnail ?
                         product.product_thumbnail.product_thumbnail :
                         'assets/images/product.png'" class="img-fluid" [alt]="'product'"> -->

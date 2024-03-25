@@ -28,7 +28,7 @@ export class WishlistStateModel {
 export class WishlistState {
 
   constructor(public router: Router,
-    private wishlistService: WishlistService,private store:Store) { }
+    private wishlistService: WishlistService, private store: Store) { }
 
   @Selector()
   static wishlistItems(state: WishlistStateModel) {
@@ -41,12 +41,13 @@ export class WishlistState {
     return this.wishlistService.getWishlistItems().pipe(
       tap({
         next: result => {
-          // ctx.patchState({
-          //   wishlist: {
-          //     data: result.data,
-          //     total: result?.total ? result?.total : result.data?.length
-          //   }
-          // });
+
+          ctx.patchState({
+            wishlist: {
+              data: result.data,
+              total: result?.total ? result?.total : result.data?.length
+            }
+          });
         },
         complete: () => {
           this.wishlistService.skeletonLoader = false;
@@ -66,10 +67,11 @@ export class WishlistState {
         next: result => {
           this.store.dispatch(new GetWishlist());
           const mockMessageObject = mockResponseData(result.messageobject);
+          alert(mockMessageObject?.message);
         },
         error: err => {
           const messageObject = mockResponseData(err.messageobject);
-          alert(messageObject?.message);
+          // alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
@@ -83,10 +85,11 @@ export class WishlistState {
         next: result => {
           this.store.dispatch(new GetWishlist());
           const mockMessageObject = mockResponseData(result.messageobject);
+          alert(mockMessageObject?.message);
         },
         error: err => {
           const messageObject = mockResponseData(err.messageobject);
-          alert(messageObject?.message);
+          // alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })

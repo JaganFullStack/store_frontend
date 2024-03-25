@@ -24,7 +24,7 @@ export class WishlistService {
       'authorization': `Bearer ${userToken}`
     };
 
-    const url = `${environment.apiBaseUrl}/api/getWishlistdetails?user_id=${userId}`;
+    const url = `${environment.apiBaseUrl}/api/wishlist?user_id=${userId}`;
 
     return this.http.get<any>(url, { headers });
   }

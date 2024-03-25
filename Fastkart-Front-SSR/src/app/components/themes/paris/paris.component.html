@@ -3,7 +3,8 @@
 
 
   <!-- Home Section Start -->
-  <section class="home-section pt-2" *ngIf="data?.content?.home_banner">
+  <!-- <section class="home-section pt-2" *ngIf="data?.content?.home_banner"> -->
+    <section class="home-section pt-2" *ngIf="data?.content?.home_banner">
 
     <div class="container-fluid-lg ng-star-inserted">
       <owl-carousel-o [options]="customOptions">
@@ -11,7 +12,13 @@
           <img src="assets/images/banner/1.jpg">
         </ng-template>  
         <ng-template carouselSlide>
+          <img src="assets/images/banner/2.jpg">
+        </ng-template>  
+        <ng-template carouselSlide>
           <img src="assets/images/banner/3.jpg">
+        </ng-template>         
+        <ng-template carouselSlide>
+          <img src="assets/images/banner/4.jpg">
         </ng-template>  
       </owl-carousel-o>
     </div>
@@ -21,6 +28,7 @@
   </section>
   <!-- Home Section End -->
 
+  
   <!-- Banner Section Start -->
   <section class="banner-section ratio_60">
     <app-theme-banner [style]="'horizontal'" [banners]="data?.content?.featured_banners?.banners"></app-theme-banner>

@@ -68,11 +68,11 @@
                                     <li *ngIf="product.stock_status">{{ 'stock_status' | translate }}: {{ product.stock_status! | titleCase }}</li>
                                     <li *ngIf="product.quantity > 0">{{ 'quantity' | translate }}: {{ product.quantity }} {{ 'items_left' | translate }}</li>
                                 </ul>
-                            </div>
+                            </div> 
                         </div>
-                        <!-- <div>
-                            {{product.description}}
-                        </div> -->
+                            <!-- <div>
+                                {{product.description}}
+                            </div> -->
                         <div class="selection-section mt-3" *ngIf="product.attributes?.length">
                             <!-- <app-variant-attributes
                                 [product]="product"

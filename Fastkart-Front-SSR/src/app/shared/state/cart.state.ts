@@ -77,7 +77,7 @@ export class CartState {
         },
         error: err => {
           const messageObject = mockResponseData(err.messageobject);
-          alert(messageObject?.message);
+          // alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
@@ -92,11 +92,11 @@ export class CartState {
         next: (result: any) => {
           this.store.dispatch(new GetCartItems());
           const mockMessageObject = mockResponseData(result?.messageobject);
-          alert(mockMessageObject?.message);
+          // alert(mockMessageObject?.message);
         },
         error: err => {
           const messageObject = mockResponseData(err.messageobject);
-          alert(messageObject?.message);
+          // alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
@@ -249,7 +249,7 @@ export class CartState {
         },
         error: err => {
           const messageObject = mockResponseData(err.messageobject);
-          alert(messageObject?.message);
+          // alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
