@@ -30,7 +30,6 @@ export class ParisComponent {
   constructor(private store: Store,
     @Inject(PLATFORM_ID) private platformId: Object,
     private themeOptionService: ThemeOptionService) {
-      console.log("paris_html",this.data);
   }
 
   ngOnInit() {

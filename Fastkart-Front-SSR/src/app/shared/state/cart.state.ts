@@ -61,7 +61,6 @@ export class CartState {
 
   @Selector()
   static getCartModel(state: CartModel): CartModel {
-    console.log(state);
     return state;
   }
 

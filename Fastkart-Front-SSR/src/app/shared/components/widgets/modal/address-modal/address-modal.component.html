@@ -9,6 +9,17 @@
   <form [formGroup]="form" class="" (ngSubmit)="submit()">
     <div class="modal-body address-form">
       <div class="row g-4">
+        <div class="col-12">
+          <div class="">
+            <label class="form-label" for="address1">{{ 'Title' | translate }}</label>
+            <input class="form-control" id="address" type="text" placeholder="{{ 'enter_title' | translate }}"
+              formControlName="title" />
+            <div class="invalid-feedback"
+              *ngIf="form?.controls?.['title']?.touched && form.controls['title']?.errors?.['required']">
+              {{ 'Title is required' | translate }}
+            </div>
+          </div>
+        </div>
         <div class="col-xxl-12">
           <label class="form-label" for="address1">{{ 'Address Type' | translate }}</label>
           <select class="form-select h44 form-control"  formControlName="address_type" aria-label="Default select example" placeholder="Select Address Type" style="height: 44px;">

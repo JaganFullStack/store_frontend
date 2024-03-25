@@ -74,7 +74,6 @@ export class AccountState {
     return this.accountService.createAddress(action.payload).pipe(
       tap({
         next: result => {
-          console.log("address",result)
           this.store.dispatch(new GetUserDetails());
         },
         error: err => {
@@ -92,7 +91,6 @@ export class AccountState {
     return this.accountService.createAddress(action.payload).pipe(
       tap({
         next: result => {
-          console.log("address",result)
           this.store.dispatch(new GetUserDetails());
         },
         error: err => {

@@ -20,7 +20,7 @@
                                     </div>
                                     <div class="checkout-detail">
                                         <app-address-block
-                                            [addresses]="(user$ | async)?.address"
+                                            [addresses]="shippingAddressList"
                                             [type]="'shipping'"
                                             (selectAddress)="selectShippingAddress($event)">
                                         </app-address-block>
@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="checkout-detail">
                                         <app-address-block
-                                            [addresses]="(user$ | async)?.address"
+                                            [addresses]="billingAddressList"
                                             [type]="'billing'"
                                             (selectAddress)="selectBillingAddress($event)">
                                         </app-address-block>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="checkout-box">
                                     <div class="checkout-title">
-                                        <h4>{{ 'payment options' | translate }}</h4>
+                                        <h4>{{ 'Payment Options' | translate }}</h4>
                                     </div>
                                     <div class="empty-box" *ngIf="!(user$ | async)">
                                         <h2>{{ 'no payment options found' | translate }}</h2>
@@ -103,18 +103,19 @@
                             </app-no-data>
                             <ul class="cart-listing" *ngIf="(cartItem$ | async)?.length">
                                 <li *ngFor="let item of cartItem$ | async">
-                                    <img [src]="item?.variation && item?.variation?.variation_image
+                                    <!-- <img [src]="item?.variation && item?.variation?.variation_image
                                                 ? item?.variation?.variation_image?.original_url
                                                 : item?.product?.product_thumbnail
                                                 ? item?.product?.product_thumbnail?.original_url
-                                                : 'assets/images/product.png'" class="img-fluid" alt="product">
+                                                : 'assets/images/product.png'" class="img-fluid" alt="product"> -->
+                                    <img src="{{apiBaseurl}}/{{item?.product?.thumbnail_image_url}}" class="img-fluid" alt="product">
                                     <div class="cart-content">
                                         <h4>{{ item?.variation ? item?.variation?.name : item?.product?.name }}</h4>
                                         <h5 class="text-theme">
-                                            {{ (item?.variation ? item.variation.sale_price : item.product.sale_price) | currencySymbol }} X {{ item.qty }}
+                                            {{ (item?.variation ? item.variation.sale_price : item.product.min_price) | currencySymbol }} X {{ item.qty }}
                                         </h5>
                                         <h5 class="price">
-                                            {{ (item?.variation ? item.variation.sale_price : item.product.sale_price) * item.qty | currencySymbol }}
+                                            {{ (item?.variation ? item.variation.sale_price : item.product.min_price) * item.qty | currencySymbol }}
                                         </h5>
                                     </div>
                                 </li>
@@ -130,22 +131,25 @@
                                         <li>
                                             <h4>{{ 'subtotal' | translate }}</h4>
                                             <h4 class="price">
-                                                {{ (checkoutTotal ? (checkoutTotal.total.sub_total | currencySymbol) : 'Not Yet Calculated' | translate ) }}
+                                                <!-- {{ (checkoutTotal ? (checkoutTotal.total.sub_total | currencySymbol) : 'Not Yet Calculated' | translate ) }} -->
+                                                {{ ((cartTotal$ | async) ? ((cartTotal$ | async) | currencySymbol) : 'Not Yet Calculated' | translate ) }}
                                             </h4>
                                         </li>
                                         <li>
                                             <h4>{{ 'shipping' | translate }}</h4>
                                             <h4 class="price">
-                                                {{ (checkoutTotal ? (checkoutTotal.total.shipping_total | currencySymbol) : 'Not Yet Calculated' | translate) }}
+                                                0
+                                                <!-- {{ (checkoutTotal ? (checkoutTotal.total.shipping_total | currencySymbol) : 'Not Yet Calculated' | translate) }} -->
                                             </h4>
                                         </li>
                                         <li>
                                             <h4>{{ 'tax' | translate  }}</h4>
                                             <h4 class="price">
-                                                {{ (checkoutTotal ? (checkoutTotal.total.tax_total | currencySymbol) : 'Not Yet Calculated' | translate ) }}
+                                                0
+                                                <!-- {{ (checkoutTotal ? (checkoutTotal.total.tax_total | currencySymbol) : 'Not Yet Calculated' | translate ) }} -->
                                             </h4>
                                         </li>
-                                        <li *ngIf="(user$ | async) && checkoutTotal && (user$ | async)?.point?.balance">
+                                        <!-- <li *ngIf="(user$ | async) && checkoutTotal && (user$ | async)?.point?.balance">
                                             <h4 [class]="form.controls['points_amount'].value ? 'txt-primary fw-bold' : 'text-muted'">
                                                 {{ 'points' | translate  }}
                                             </h4>
@@ -202,18 +206,20 @@
                                                 </div>
                                                 <a href="javascript:void(0)" (click)="couponRemove()">{{ 'remove'}}</a>
                                             </div>
-                                        </li>
+                                        </li> -->
                                         <li class="list-total">
                                             <h4>{{ 'total' | translate }}</h4>
                                             <h4 class="price">
-                                                {{ (checkoutTotal ? (checkoutTotal.total.total | currencySymbol) : 'Not Yet Calculated' | translate ) }}
+                                                <!-- {{ (checkoutTotal ? (checkoutTotal.total.total | currencySymbol) : 'Not Yet Calculated' | translate ) }} -->
+                                                {{ ((cartTotal$ | async) ? ((cartTotal$ | async) | currencySymbol) : 'Not Yet Calculated' | translate ) }}
                                             </h4>
                                         </li>
                                     </ul>
                                     <app-button
                                         [class]="'btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold'"
                                         [id]="'place_order'"
-                                        [disabled]="form.valid && checkoutTotal ? false : true">
+                                        [disabled]="(cartTotal$ | async) ? false : true">
+                                        <!-- [disabled]="form.valid && checkoutTotal ? false : true"> -->
                                         {{ 'Place Order' | translate }}
                                     </app-button>
                                 </div>

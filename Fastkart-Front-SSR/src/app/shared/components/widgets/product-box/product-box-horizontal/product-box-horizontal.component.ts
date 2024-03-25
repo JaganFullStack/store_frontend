@@ -144,7 +144,7 @@ export class ProductBoxHorizontalComponent {
   };
 
   removeCart(product: any) {
-    console.log("ts_product", product);
+
     const responseObject = {
       "user_id": 5,
       "product_variation_id": 5,
@@ -165,8 +165,7 @@ export class ProductBoxHorizontalComponent {
       user_id: userId,
       product_id: product.id
     };
-    console.log("wish_pro",product)
-    console.log("wish_pro",requestObject)
+
     this.store.dispatch(new AddOrRemoveWishlist(requestObject));
 
   };
@@ -178,8 +177,7 @@ export class ProductBoxHorizontalComponent {
       user_id: userId,
       product_id: product.id
     };
-console.log("wish_pro",product)
-console.log("wish_pro",requestObject)
+
     this.store.dispatch(new DeleteWishlist(requestObject));
   }
 

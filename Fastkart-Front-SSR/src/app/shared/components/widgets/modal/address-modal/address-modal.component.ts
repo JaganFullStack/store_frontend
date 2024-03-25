@@ -48,7 +48,7 @@ export class AddressModalComponent {
     private store: Store,
     private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      // title: new FormControl('hekllo', [Validators.required]),
+      title: new FormControl('', [Validators.required]),
       street: new FormControl('', [Validators.required]),
       state_id: new FormControl('', [Validators.required]),
       country_id: new FormControl('', [Validators.required]),
@@ -73,13 +73,10 @@ export class AddressModalComponent {
       this.form.controls['state_id'].setValue('');
     }
 
-    this.states$.subscribe(data => console.log("state_list", data));
   };
 
   slectedAddressType(event: any) {
-    console.log(event)
     this.form.controls['address_type'].setValue('');
-
   };
 
   fetchCity(event: any) {
@@ -157,7 +154,7 @@ export class AddressModalComponent {
       is_default: 1,
       phone: this.form.value.phone,
       address_type: this.form.value.address_type,
-      title:"hello",
+      title:this.form.value.title,
       pincode: this.form.value.pincode,
     };
 
@@ -166,13 +163,12 @@ export class AddressModalComponent {
     if (this.address) {
       action = new UpdateAddress(requestObject, this.address.id);
     }
-    console.log(action)
-    console.log(this.form.valid)
 
     if (this.form.valid) {
       this.store.dispatch(action).subscribe({
         complete: () => {
           this.form.reset();
+          this.ngOnDestroy();
           if (!this.address) {
             this.form?.controls?.['country_code'].setValue('91');
           }

@@ -15,6 +15,8 @@ import { SettingState } from '../../../shared/state/setting.state';
 import { GetSettingOption } from '../../../shared/action/setting.action';
 import { OrderCheckout } from '../../../shared/interface/order.interface';
 import { Values, DeliveryBlock } from '../../../shared/interface/setting.interface';
+import { environment } from 'src/environments/environment';
+import { getStringDataFromLocalStorage } from 'src/app/utilities/helper';
 
 @Component({
   selector: 'app-checkout',
@@ -22,14 +24,17 @@ import { Values, DeliveryBlock } from '../../../shared/interface/setting.interfa
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent {
-
+  apiBaseurl: string = environment.apiBaseUrl;
+  shippingAddressList: Array<any> = [];
+  billingAddressList: Array<any> = [];
   public breadcrumb: Breadcrumb = {
     title: "Checkout",
     items: [{ label: 'Checkout', active: true }]
   }
 
   @Select(AccountState.user) user$: Observable<AccountUser>;
-  @Select(CartState.cartItems) cartItem$: Observable<Cart[]>;
+  @Select(CartState.cartItems) cartItem$: Observable<any[]>;
+  @Select(CartState.cartTotal) cartTotal$: Observable<any>;
   @Select(OrderState.checkout) checkout$: Observable<OrderCheckout>;
   @Select(SettingState.setting) setting$: Observable<Values>;
 
@@ -49,6 +54,11 @@ export class CheckoutComponent {
     this.store.dispatch(new GetCartItems());
     this.store.dispatch(new GetSettingOption());
 
+    this.user$.subscribe((data: any) => {
+      this.shippingAddressList = data?.address.filter((address: any) => address.type === "Shipping");
+      this.billingAddressList = data?.address.filter((address: any) => address.type === "Billing");
+    });
+
     this.form = this.formBuilder.group({
       products: this.formBuilder.array([], [Validators.required]),
       shipping_address_id: new FormControl('', [Validators.required]),
@@ -60,6 +70,7 @@ export class CheckoutComponent {
       delivery_interval: new FormControl(),
       payment_method: new FormControl('', [Validators.required])
     });
+   
   }
 
   get productControl(): FormArray {
@@ -69,7 +80,7 @@ export class CheckoutComponent {
   ngOnInit() {
     this.checkout$.subscribe(data => this.checkoutTotal = data);
     this.cartItem$.subscribe(items => {
-      if(!items?.length) {
+      if (!items?.length) {
         return;
       }
       this.productControl.clear();
@@ -80,19 +91,20 @@ export class CheckoutComponent {
             variation_id: new FormControl(item?.variation_id ? item?.variation_id : ''),
             quantity: new FormControl(item?.qty),
           })
-      ));
+        ));
     });
+
   }
 
   selectShippingAddress(id: number) {
-    if(id) {
+    if (id) {
       this.form.controls['shipping_address_id'].setValue(Number(id));
       this.checkout();
     }
   }
 
   selectBillingAddress(id: number) {
-    if(id) {
+    if (id) {
       this.form.controls['billing_address_id'].setValue(Number(id));
       this.checkout();
     }
@@ -126,7 +138,7 @@ export class CheckoutComponent {
   setCoupon(value?: string) {
     this.couponError = null;
 
-    if(value)
+    if (value)
       this.form.controls['coupon'].setValue(value);
     else
       this.form.controls['coupon'].reset();
@@ -149,13 +161,13 @@ export class CheckoutComponent {
   checkout() {
 
     // If has coupon error while checkout
-    if(this.couponError){
+    if (this.couponError) {
       this.couponError = null;
       this.cpnRef.nativeElement.value = '';
       this.form.controls['coupon'].reset();
     }
 
-    if(this.form.valid) {
+    if (this.form.valid) {
       this.loading = true;
       this.store.dispatch(new Checkout(this.form.value)).subscribe({
         error: (err) => {
@@ -170,12 +182,26 @@ export class CheckoutComponent {
   }
 
   placeorder() {
-    if(this.form.valid) {
-      if(this.cpnRef && !this.cpnRef.nativeElement.value) {
-        this.form.controls['coupon'].reset();
-      }
-      this.store.dispatch(new PlaceOrder(this.form.value));
+
+    const user_id = getStringDataFromLocalStorage("user_id");
+
+    if (this.form.value.shippingAddressList == '' || this.form.value?.shippingAddressList) {
+      const defaulShipId = (this.shippingAddressList.length > 0) ? this.shippingAddressList[0].id : '';
+      this.form.controls['shipping_address_id'].setValue(defaulShipId);
     }
+
+    if(this.form.value.billing_address_id == '' || this.form.value?.billing_address_id){
+      const defaulBillId = (this.shippingAddressList.length > 0) ? this.billingAddressList[0].id : '';
+      this.form.controls['billing_address_id'].setValue(defaulBillId);
+    }
+
+    const requestObject = {
+      user_id: user_id,
+      billing_address_id: this.form.value.billing_address_id,
+      shipping_address_id: this.form.value.shipping_address_id
+    };
+
+    this.store.dispatch(new PlaceOrder(requestObject))
   }
 
   ngOnDestroy() {

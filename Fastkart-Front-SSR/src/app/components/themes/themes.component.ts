@@ -27,7 +27,6 @@ export class ThemesComponent {
       this.store.dispatch(new GetHomePage(params['slug'] ? params['slug'] : 'paris'));
     });
     this.homePage$.subscribe((data: any) => {
-      console.log("home page data", data);
       this.homePageData=data;
     })
   }

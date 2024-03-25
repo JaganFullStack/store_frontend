@@ -8,7 +8,7 @@ import { UserAddress } from '../../../../shared/interface/user.interface';
 })
 export class AddressBlockComponent {
 
-  @Input() addresses?: UserAddress[] = [];
+  @Input() addresses?: any[] = [];
   @Input() type: string = 'shipping';
 
   @Output() selectAddress: EventEmitter<number> = new EventEmitter();

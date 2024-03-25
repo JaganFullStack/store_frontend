@@ -15,7 +15,7 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
-  getOrders(payload?: Params): Observable<OrderModel> {
+  getOrders(payload?: Params): Observable<any> {
 
     const userToken = getStringDataFromLocalStorage("user_token");
     const userId = getStringDataFromLocalStorage("user_id");
@@ -27,7 +27,20 @@ export class OrderService {
 
     const apiUrl = `${environment.apiBaseUrl}/api/orderlist?user_id=${userId}`;
     return this.http.get<any>(apiUrl, { headers });
-    // return this.http.get<OrderModel>(`${environment.URL}/order.json`, { params: payload });
+  };
+
+  placeOrder(data: any): Observable<any> {
+
+    const userToken = getStringDataFromLocalStorage("user_token");
+    const userId = getStringDataFromLocalStorage("user_id");
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'authorization': `Bearer ${userToken}`,
+    };
+
+    const apiUrl = `${environment.apiBaseUrl}/api/placeorder`;
+    return this.http.post<any>(apiUrl, data, { headers });
   }
 
 }

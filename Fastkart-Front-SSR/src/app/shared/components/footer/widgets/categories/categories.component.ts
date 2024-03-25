@@ -10,18 +10,17 @@ import { CategoryModel, Category } from '../../../../../shared/interface/categor
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
-export class FooterCategoriesComponent  {
+export class FooterCategoriesComponent {
 
   @Input() data: Option | null;
 
   @Select(CategoryState.category) category$: Observable<any>;
 
   public categories: any[];
-   
-  constructor(){
-    this.category$.subscribe((categories:any) => {
-      console.log("footer",categories);
-        this.categories = categories.data.slice(0,5);
+
+  constructor() {
+    this.category$.subscribe((categories: any) => {
+      this.categories = categories.data.slice(0, 5);
     })
   }
 

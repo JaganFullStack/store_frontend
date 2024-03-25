@@ -49,8 +49,6 @@ export class CartComponent {
     this.themeOption$.subscribe(option => this.cartStyle = option?.general?.cart_style);
     this.cartItem$.subscribe(items => {
       this.cartItems = items;
-      console.log("cart_sho",this.cartItems)
-      console.log("cart_sho",this.cartItems.length)
       // this.cartItem = items.find(item => item.product.id == this.product.id)!;
     });
     // Calculation
@@ -103,13 +101,11 @@ export class CartComponent {
                 GuId: null
               }
 
-              console.log(params)
+
               this.cartService.addToCart(params).subscribe({
                 next: (response: any) => {  
                   this.responseError=null;
                     
-                    console.log(response);
-
                     localStorage.setItem('AuthToken', response?.token);
                     localStorage.setItem('UserEmail',response?.Email)
 

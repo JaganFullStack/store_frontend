@@ -36,12 +36,7 @@ export class ProductDetailModalComponent {
 
   constructor(private modalService: NgbModal,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private store: Store
-    
-    ) {
-
-      console.log("popuppp",this.product)
-  }
+    private store: Store) { }
   apibaseurl:string=environment.apiBaseUrl;
   ApiImageurl = environment.backendBaseImageUrl;
 

@@ -77,7 +77,7 @@ export class ProductState {
     return this.productService.getProducts(action.payload).pipe(
       tap({
         next: (result: any) => {
-          console.log("product model :", result)
+
           let products = result.data || [];
           if (action?.payload) {
             // Note:- For Internal filter purpose only, once you apply filter logic on server side then you can remove  it as per your requirement.

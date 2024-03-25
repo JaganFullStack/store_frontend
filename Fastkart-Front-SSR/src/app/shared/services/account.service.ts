@@ -30,7 +30,7 @@ export class AccountService {
   createAddress(data: any): Observable<any> {
     const userToken = getStringDataFromLocalStorage("user_token");
     const userId = getStringDataFromLocalStorage("user_id");
-console.log(data)
+    
     const headers = {
       'Content-Type': 'application/json',
       'authorization': `Bearer ${userToken}`,
