@@ -10,6 +10,7 @@ import { CountryState } from '../../../../state/country.state';
 import { StateState } from '../../../../state/state.state';
 import { UserAddress } from '../../../../interface/user.interface';
 import * as data from '../../../../data/country-code';
+import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/utilities/helper';
 
 @Component({
   selector: 'address-modal',
@@ -18,66 +19,78 @@ import * as data from '../../../../data/country-code';
 })
 export class AddressModalComponent {
   cityList: Array<any> = [];
+  stateList: Array<any> = [];
+  addressTypes: Array<any> = [
+    {
+      "label": "Billing",
+      "value": "Billing"
+    },
+    {
+      "label": "Shipping",
+      "value": "Shipping"
+    }
+  ];
+
   public form: FormGroup;
   public closeResult: string;
   public modalOpen: boolean = false;
 
   public states$: Observable<any>;
+  public cities$: Observable<any>;
   public address: UserAddress | null;
   public codes = data.countryCodes;
 
   @ViewChild("addressModal", { static: false }) AddressModal: TemplateRef<string>;
   @Select(CountryState.countries) countries$: Observable<any>;
-  @Select(CountryState.cities) cities$: Observable<any>;
-  // @Select(StateState.state) states$: Observable<Select2Data>;
 
   constructor(private modalService: NgbModal,
     @Inject(PLATFORM_ID) private platformId: Object,
     private store: Store,
     private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      title: new FormControl('', [Validators.required]),
+      // title: new FormControl('hekllo', [Validators.required]),
       street: new FormControl('', [Validators.required]),
       state_id: new FormControl('', [Validators.required]),
       country_id: new FormControl('', [Validators.required]),
-      city: new FormControl('', [Validators.required]),
+      address_type: new FormControl('', [Validators.required]),
+      // city: new FormControl('', [Validators.required]),
       city_id: new FormControl('', [Validators.required]),
       pincode: new FormControl('', [Validators.required]),
       country_code: new FormControl('91', [Validators.required]),
       phone: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)])
     })
-    console.log("isss_triggerr")
   }
 
-  countryChange(event:any) {
-    console.log("county", event)
-    // if (data && data?.value) {
-    //   this.states$ = this.store
-    //     .select(StateState.states)
-    //     .pipe(map(filterFn => filterFn(+data?.value)));
-
-    //   this.cities$.subscribe((data: any) => {
-    //     console.log("cities", data);
-    //     this.cityList = data;
-    //   });
-
-    //   if (!this.address)
-    //     this.form.controls['state_id'].setValue('');
-    // } else {
-    //   this.form.controls['state_id'].setValue('');
-    // }
-  };
-
-  stateChange(data: Select2UpdateEvent) {
-    console.log("county", data)
-    if (data && data?.value) {
+  fetchState(event: any) {
+    if (event && event?.value) {
       this.states$ = this.store
         .select(StateState.states)
-        .pipe(map(filterFn => filterFn(+data?.value)));
+        .pipe(map(filtern => filtern(+event.value)));
+
       if (!this.address)
         this.form.controls['state_id'].setValue('');
     } else {
       this.form.controls['state_id'].setValue('');
+    }
+
+    this.states$.subscribe(data => console.log("state_list", data));
+  };
+
+  slectedAddressType(event: any) {
+    console.log(event)
+    this.form.controls['address_type'].setValue('');
+
+  };
+
+  fetchCity(event: any) {
+    if (data && event?.value) {
+      this.cities$ = this.store
+        .select(CountryState.cities)
+        .pipe(map(filtern => filtern(+event.value)));
+      if (!this.address)
+        this.form.controls['city_id'].setValue('');
+    } else {
+      this.form.controls['city_id'].setValue('');
     }
   }
 
@@ -132,23 +145,40 @@ export class AddressModalComponent {
   submit() {
 
     this.form.markAllAsTouched();
-    console.log(this.form.value)
-    // let action = new CreateAddress(this.form.value);
+   
+    const user_id = getStringDataFromLocalStorage("user_id");
 
-    // if(this.address) {
-    //   action = new UpdateAddress(this.form.value, this.address.id);
-    // }
+    let requestObject = {
+      user_id: user_id,
+      country_id: this.form.value.country_id,
+      state_id: this.form.value.state_id,
+      city_id: this.form.value.city_id,
+      address: this.form.value.street,
+      is_default: 1,
+      phone: this.form.value.phone,
+      address_type: this.form.value.address_type,
+      title:"hello",
+      pincode: this.form.value.pincode,
+    };
 
-    // if(this.form.valid) {
-    //   this.store.dispatch(action).subscribe({
-    //     complete: () => {
-    //       this.form.reset();
-    //       if(!this.address){
-    //         this.form?.controls?.['country_code'].setValue('91');
-    //       }
-    //     }
-    //   });
-    // }
+    let action = new CreateAddress(requestObject);
+
+    if (this.address) {
+      action = new UpdateAddress(requestObject, this.address.id);
+    }
+    console.log(action)
+    console.log(this.form.valid)
+
+    if (this.form.valid) {
+      this.store.dispatch(action).subscribe({
+        complete: () => {
+          this.form.reset();
+          if (!this.address) {
+            this.form?.controls?.['country_code'].setValue('91');
+          }
+        }
+      });
+    }
   }
 
   ngOnDestroy() {

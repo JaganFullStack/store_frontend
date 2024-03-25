@@ -31,7 +31,9 @@ export class StateState {
 
   @Selector()
   static states(state: StateStateModel) {
-    return (country_id?: number | null) => {
+    return (country_id?: any) => {
+      console.log("issss state",country_id)
+
       if (country_id)
         return state.state.data.filter(element => element.country_id == country_id).map(st => {
           return { label: st?.name, value: st?.id, country_id: st?.country_id }

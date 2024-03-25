@@ -27,7 +27,7 @@ export class AccountStateModel {
 @Injectable()
 export class AccountState {
 
-  constructor(private accountService: AccountService, private router: Router) { }
+  constructor(private accountService: AccountService, private router: Router,private store:Store) { }
 
   @Selector()
   static user(state: AccountStateModel) {
@@ -71,11 +71,37 @@ export class AccountState {
   @Action(CreateAddress)
   createAddress(ctx: StateContext<AccountStateModel>, action: CreateAddress) {
     // Create Address Logic Here
+    return this.accountService.createAddress(action.payload).pipe(
+      tap({
+        next: result => {
+          console.log("address",result)
+          this.store.dispatch(new GetUserDetails());
+        },
+        error: err => {
+          const messageObject = mockResponseData(err.messageobject);
+          // alert(messageObject?.message);
+          throw new Error(err?.error?.message);
+        }
+      })
+    );
   }
 
   @Action(UpdateAddress)
   updateAddress(ctx: StateContext<AccountStateModel>, action: UpdateAddress) {
     // Update Address Logic Here
+    return this.accountService.createAddress(action.payload).pipe(
+      tap({
+        next: result => {
+          console.log("address",result)
+          this.store.dispatch(new GetUserDetails());
+        },
+        error: err => {
+          const messageObject = mockResponseData(err.messageobject);
+          // alert(messageObject?.message);
+          throw new Error(err?.error?.message);
+        }
+      })
+    );
   }
 
   @Action(DeleteAddress)

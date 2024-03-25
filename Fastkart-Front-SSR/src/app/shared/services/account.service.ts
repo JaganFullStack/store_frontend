@@ -27,4 +27,18 @@ export class AccountService {
     return this.http.get<any>(apiUrl, { headers });
   }
 
+  createAddress(data: any): Observable<any> {
+    const userToken = getStringDataFromLocalStorage("user_token");
+    const userId = getStringDataFromLocalStorage("user_id");
+console.log(data)
+    const headers = {
+      'Content-Type': 'application/json',
+      'authorization': `Bearer ${userToken}`,
+    };
+
+    const apiUrl = `${environment.apiBaseUrl}/api/addeditaddress`;
+
+    return this.http.post<any>(apiUrl, data, { headers });
+  }
+
 }

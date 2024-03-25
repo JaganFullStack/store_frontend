@@ -18,12 +18,12 @@ export class UpdateUserPassword {
 
 export class CreateAddress {
   static readonly type = "[Account] Address Create";
-  constructor(public payload: UserAddress) {}
+  constructor(public payload: any) {}
 }
 
 export class UpdateAddress {
   static readonly type = "[Account] Address Edit";
-  constructor(public payload: UserAddress, public id: number) {}
+  constructor(public payload: any, public id: number) {}
 }
 
 export class DeleteAddress {
