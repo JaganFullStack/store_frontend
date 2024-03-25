@@ -25,6 +25,7 @@ import { CollectionComponent } from './collection/collection.component';
 // Checkout
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ScrollPositionGuard } from '../../shared/guard/scroll.guard';
+import { TrackingComponent } from './tracking/tracking.component';
 
 const routes: Routes = [
   {
@@ -73,7 +74,14 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: CheckoutComponent
+  },
+  {
+    path: 'order-tracking',
+    component: TrackingComponent
   }
+
+  
+
 ];
 
 @NgModule({
