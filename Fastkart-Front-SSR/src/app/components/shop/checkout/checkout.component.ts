@@ -201,7 +201,9 @@ export class CheckoutComponent {
       shipping_address_id: this.form.value.shipping_address_id
     };
 
-    this.store.dispatch(new PlaceOrder(requestObject))
+    this.store.dispatch(new PlaceOrder(requestObject)).subscribe((data:any)=>{
+      console.log("paying",data)
+    })
   }
 
   ngOnDestroy() {

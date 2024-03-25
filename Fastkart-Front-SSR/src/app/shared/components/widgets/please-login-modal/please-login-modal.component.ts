@@ -9,6 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class PleaseLoginModalComponent {
 
   @Output() closeModalEvent = new EventEmitter<void>();
+  // @Output() openModalEvent = new EventEmitter<void>();
 constructor(private modalService: NgbModal,){
   
 }
@@ -18,6 +19,12 @@ constructor(private modalService: NgbModal,){
     setTimeout(() => {
       this.modalService.dismissAll();
     }, 1);
+  }
+
+  openModal() {
+    // this.openModalEvent.emit();
+    console.log("error")
+    this.modalService.open("Success");
   }
 
 }

@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store, Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
@@ -6,15 +6,19 @@ import { GetOrders, ViewOrder, Checkout, PlaceOrder, Clear, VerifyPayment, RePay
 import { Order, OrderCheckout } from "../interface/order.interface";
 import { OrderService } from "../services/order.service";
 import { ClearCart, GetCartItems } from "../action/cart.action";
+import { PleaseLoginModalComponent } from "../components/widgets/please-login-modal/please-login-modal.component";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 export class OrderStateModel {
+
   order = {
     data: [] as Order[],
     total: 0
   }
-  selectedOrder: Order | null
+  selectedOrder: Order | null;
   checkout: OrderCheckout | null
 }
+
 
 @State<OrderStateModel>({
   name: "order",
@@ -29,6 +33,7 @@ export class OrderStateModel {
 })
 @Injectable()
 export class OrderState {
+  @ViewChild("Place Order") PopupModal:PleaseLoginModalComponent;
 
   constructor(private store: Store,
     private router: Router,
@@ -128,6 +133,7 @@ export class OrderState {
         next: result => {
           this.store.dispatch(new GetOrders());
           this.store.dispatch(new GetCartItems());
+          this.PopupModal.openModal();
           this.router.navigate(['/home']);
         },
         error: err => {
