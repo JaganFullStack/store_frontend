@@ -11,6 +11,7 @@ import { NewsletterModalComponent } from '../../../shared/components/widgets/mod
 import { ExitModalComponent } from '../../../shared/components/widgets/modal/exit-modal/exit-modal.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { GetCartItems } from 'src/app/shared/action/cart.action';
+import { GetUserDetails } from 'src/app/shared/action/account.action';
 
 @Component({
   selector: 'app-paris',
@@ -33,6 +34,8 @@ export class ParisComponent {
   }
 
   ngOnInit() {
+    this.store.dispatch(new GetUserDetails());
+
     if (isPlatformBrowser(this.platformId)) { // For SSR 
       if(this.data?.slug == this.slug) {
         // Get Products

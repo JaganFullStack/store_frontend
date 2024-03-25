@@ -65,7 +65,8 @@
                             <div class="product-info">
                                 <ul class="product-info-list product-info-list-2">
                                     <!-- <li *ngIf="product.sku">{{ 'sku' | translate }}: {{ product.sku }}</li> -->
-                                    <li *ngIf="product.stock_status">{{ 'stock_status' | translate }}: {{ product.stock_status! | titleCase }}</li>
+                                    <li *ngIf="product.stock_status === 'out_stock'">{{ 'stock_status' | translate }}: {{ product.stock_status! | titleCase }}</li>
+                                    <li *ngIf="product.stock_status === 'in_stock'">{{ 'stock_status' | translate }}: {{ product.stock_status! | titleCase }}</li>
                                     <li *ngIf="product.quantity > 0">{{ 'quantity' | translate }}: {{ product.quantity }} {{ 'items_left' | translate }}</li>
                                 </ul>
                             </div> 
@@ -88,7 +89,7 @@
                                       [class]="'btn qty-left-minus'"
                                       [id]="'add-to-cart'+product.id"
                                       [spinner]="false"
-                                      (click)="updateQuantity(-1)">
+                                      (click)="subractItemCount(product)">
                                       <i class="ri-subtract-fill"></i>
                                   </app-button>
                                   <input class="form-control input-number qty-input" type="text" name="quantity" value="{{productQty}}" readonly>
@@ -96,16 +97,15 @@
                                       [class]="'btn qty-left-minus'"
                                       [id]="'qty-left-minus'+product.id"
                                       [spinner]="false"
-                                      (click)="updateQuantity(1)">
+                                      (click)="addCart(product)">
                                       <i class="ri-add-line"></i>
                                   </app-button>
                                 </div>
                             </div>
                             <app-button [id]="'addcartDetailsbtnVariation'+product.id"
                                 [class]="'btn theme-bg-color view-button icon text-white fw-bold btn-md'"
-                                (click)="addToCart(product)"
-                                *ngIf="(selectedVariation && selectedVariation?.stock_status == 'in_stock'
-                                    || product?.stock_status == 'in_stock' && product?.type && product?.type === 'simple') else outStock">
+                                (click)="addCart(product)"
+                                *ngIf="product?.stock_status != 'out_stock' else outStock">
                                     <i class="ri-shopping-cart-line me-1"></i> {{ 'add_to_cart' | translate }}
                             </app-button>
                             <ng-template #outStock>

@@ -5,17 +5,18 @@ import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Product, Variation } from '../../../../interface/product.interface';
 import { Cart, CartAddOrUpdate } from '../../../../interface/cart.interface';
-import { AddToCart } from '../../../../action/cart.action';
+import { AddToCart, DeleteCart } from '../../../../action/cart.action';
 import { CartState } from '../../../../state/cart.state';
 import * as data from  '../../../../../shared/data/owl-carousel';
 import { environment } from 'src/environments/environment';
+import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/utilities/helper';
 @Component({
   selector: 'app-product-detail-modal',
   templateUrl: './product-detail-modal.component.html',
   styleUrls: ['./product-detail-modal.component.scss']
 })
 export class ProductDetailModalComponent {
-
+  cartItems:Array<any>=[];
   @ViewChild("productDetailModal", { static: false }) productDetailModal: TemplateRef<any>;
 
   @Input() product: any;
@@ -42,6 +43,8 @@ export class ProductDetailModalComponent {
 
   ngOnInit() {
     this.cartItem$.subscribe(items => {
+      console.log(this.product)
+      this.cartItems=items;
       this.cartItem = items.find(item => item.product.id == this.product.id)!;
     });
   }
@@ -79,26 +82,54 @@ export class ProductDetailModalComponent {
     }
   }
 
-  addToCart(product: Product) {
-    if(product) {
-      const params: CartAddOrUpdate = {
-        id: this.cartItem && (this.selectedVariation && this.cartItem?.variation &&
-          this.selectedVariation?.id == this.cartItem?.variation?.id) ? this.cartItem.id : null,
-        product_id: product?.id!,
-        product: product ? product : null,
-        variation: this.selectedVariation ? this.selectedVariation : null,
-        variation_id: this.selectedVariation?.id ? this.selectedVariation?.id! : null,
-        quantity: this.productQty,
-        GuId: null
-      }
-      this.store.dispatch(new AddToCart(params)).subscribe({
-        complete: () => {
-          this.modalService.dismissAll();
-        }
-      });
-    }
-  }
 
+  addCart(product: any) {
+
+    const userId = getStringDataFromLocalStorage("user_id");
+
+    let responseObject = {
+      "user_id": userId,
+      "product_variation_id": product.variations.id,
+      "product_id": product.id,
+      "qty": 0
+    };
+
+    const itemFound = this.cartItems.find((item: any) => item.product_id === product.id);
+
+    if (itemFound) {
+      responseObject.qty = convertStringToNumber(itemFound?.qty) + 1;
+    } else {
+      responseObject.qty = 1;
+    }
+
+    this.store.dispatch(new AddToCart(responseObject));
+  };
+
+  subractItemCount(product: any) {
+
+    const userId = getStringDataFromLocalStorage("user_id");
+
+    let requestObject = {
+      "user_id": userId,
+      "product_variation_id": product.variations.id,
+      "product_id": product.id,
+      "qty": 0
+    };
+    const itemFound = this.cartItems.find((item: any) => item.product_id === product.id);
+    const formattedQty = convertStringToNumber(itemFound.qty);
+    if ((formattedQty - 1) === 0) {
+      const object = {
+        id: itemFound.id
+      };
+
+      this.store.dispatch(new DeleteCart(object));
+    } else {
+      requestObject.qty = formattedQty - 1;
+
+      this.store.dispatch(new AddToCart(requestObject));
+    }
+  };
+  
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
