@@ -89,7 +89,7 @@ export class AccountState {
       user: null,
       permissions: []
     });
-    alert("Logout Successfully");
+    // alert("Logout Successfully");
   }
 
 }

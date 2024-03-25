@@ -68,13 +68,13 @@ export class WishlistState {
           console.log("res",result)
           this.store.dispatch(new GetWishlist());
           const mockMessageObject = mockResponseData(result.messageobject);
-          alert(mockMessageObject?.message);
+          // alert(mockMessageObject?.message);
         },
         error: err => {
           console.log("res",err)
 
           const messageObject = mockResponseData(err.messageobject);
-          alert(messageObject?.message);
+          // alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
@@ -90,13 +90,13 @@ export class WishlistState {
 
           this.store.dispatch(new GetWishlist());
           const mockMessageObject = mockResponseData(result.messageobject);
-          alert(mockMessageObject?.message);
+          // alert(mockMessageObject?.message);
         },
         error: err => {
           console.log("res",err)
 
           const messageObject = mockResponseData(err.messageobject);
-          alert(messageObject?.message);
+          // alert(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })

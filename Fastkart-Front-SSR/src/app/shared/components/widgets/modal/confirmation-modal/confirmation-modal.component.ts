@@ -46,6 +46,11 @@ export class ConfirmationModalComponent {
 
   confirm() {
     this.confirmed.emit(true);
+  
+
+    setTimeout(() => {
+      this.modalService.dismissAll();
+    }, 1);
   }
 
   ngOnDestroy() {

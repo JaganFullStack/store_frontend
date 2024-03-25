@@ -94,6 +94,7 @@ import { RefundModalComponent } from './components/widgets/modal/refund-modal/re
 
 import { VariantAttributesComponent } from './components/widgets/variant-attributes/variant-attributes.component';
 import { PayModalComponent } from './components/widgets/modal/pay-modal/pay-modal.component';
+import { PleaseLoginModalComponent } from './components/widgets/please-login-modal/please-login-modal.component';
 
 @NgModule({
   declarations: [
@@ -169,7 +170,8 @@ import { PayModalComponent } from './components/widgets/modal/pay-modal/pay-moda
     ProductDetailModalComponent,
     RefundModalComponent,
     VariantAttributesComponent,
-    PayModalComponent
+    PayModalComponent,
+    PleaseLoginModalComponent
   ],
 
   imports: [
@@ -182,7 +184,8 @@ import { PayModalComponent } from './components/widgets/modal/pay-modal/pay-moda
     NgxSliderModule,
     Select2Module,
     SwiperModule,
-    TranslateModule
+    TranslateModule,
+    // RouterModule.forRoot([]),
   ],
   providers: [CurrencyPipe],
   exports: [
@@ -229,7 +232,8 @@ import { PayModalComponent } from './components/widgets/modal/pay-modal/pay-moda
     SkeletonProductBoxComponent,
     RefundModalComponent,
     VariantAttributesComponent,
-    PayModalComponent
+    PayModalComponent,
+    PleaseLoginModalComponent
   ]
 })
 export class SharedModule { }

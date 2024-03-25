@@ -31,6 +31,9 @@ export class ButtonComponent {
   }
 
   public onClick(id: string) {
+
+
+    
     this.buttonId = id;
   }
 
