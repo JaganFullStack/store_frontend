@@ -15,7 +15,7 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(payload?: Params): Observable<any> {
-    // return this.http.get<ProductModel>(`${environment.URL}/product.json`, { params: payload });
+
     const url = `${environment.apiBaseUrl}/api/getProductsdetails`;
 
     const headers = {
@@ -23,7 +23,19 @@ export class ProductService {
       'AUTHKEY': 'StoreWeb'
     };
 
-    return this.http.get<any>(url, {headers});
+    return this.http.get<any>(url, { headers });
+  }
+
+  getProductByCategoryId(payload?: string): Observable<any> {
+
+    const url = `${environment.apiBaseUrl}/api/getcategoriesproduct?categoryId=${payload}`;
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'AUTHKEY': 'StoreWeb'
+    };
+
+    return this.http.get<any>(url, { headers });
   }
 
 }

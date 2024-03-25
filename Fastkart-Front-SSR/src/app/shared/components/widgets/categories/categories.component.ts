@@ -1,12 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Category, CategoryModel } from '../../../interface/category.interface';
 import { CategoryState } from '../../../state/category.state';
 import { environment } from 'src/environments/environment';
 import { convertStringToNumber } from 'src/app/utilities/helper';
+import { GetProductBySlug } from 'src/app/shared/action/product.action';
 
 @Component({
   selector: 'app-categories',
@@ -14,7 +15,7 @@ import { convertStringToNumber } from 'src/app/utilities/helper';
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent {
-  apiBaseUrl:string=environment.apiBaseUrl;
+  apiBaseUrl: string = environment.apiBaseUrl;
   @Select(CategoryState.category) category$: Observable<CategoryModel>;
 
   @Input() categoryIds: number[] = [];
@@ -35,7 +36,7 @@ export class CategoriesComponent {
   ApiImageurl = environment.backendCategoryImageUrl;
 
   constructor(private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router, private store: Store) {
 
     this.category$.subscribe(res => {
       this.categories = res.data;
@@ -48,21 +49,23 @@ export class CategoriesComponent {
 
   ngOnChanges() {
     if (this.categoryIds && this.categoryIds.length) {
-      this.category$.subscribe(res =>{
-         this.categories = res.data.filter(category => this.categoryIds?.includes(convertStringToNumber(category?.id)));
+      this.category$.subscribe(res => {
+        this.categories = res.data.filter(category => this.categoryIds?.includes(convertStringToNumber(category?.id)));
       });
     }
   }
 
   selectCategory(id: number) {
+    console.log(id);
     this.selectedCategory.emit(id);
   }
 
-  redirectToCollection(slug: string) {
-    let index = this.selectedCategorySlug.indexOf(slug);
-    
+  redirectToCollection(categoryId: string) {
+
+    let index = this.selectedCategorySlug.indexOf(categoryId);
+
     if (index === -1)
-      this.selectedCategorySlug.push(slug);
+      this.selectedCategorySlug.push(categoryId);
     else
       this.selectedCategorySlug.splice(index, 1);
 

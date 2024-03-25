@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Params } from '../../../shared/interface/core.interface';
 import { Breadcrumb } from '../../../shared/interface/breadcrumb';
 import { ProductModel } from '../../../shared/interface/product.interface';
-import { GetProducts } from '../../../shared/action/product.action';
+import { GetProductBySlug, GetProducts } from '../../../shared/action/product.action';
 import { ProductState } from '../../../shared/state/product.state';
 import { ThemeOptionState } from '../../../shared/state/theme-option.state';
 import { Option } from '../../../shared/interface/theme-option.interface';
@@ -62,7 +62,8 @@ export class CollectionComponent {
         'attribute': params['attribute'] ? params['attribute'] : '',
       }
 
-      this.store.dispatch(new GetProducts(this.filter));
+      // this.store.dispatch(new GetProducts(this.filter));
+      this.store.dispatch(new GetProductBySlug(this.filter['category']));
 
       // Params For Demo Purpose only
       if(params['layout']) {

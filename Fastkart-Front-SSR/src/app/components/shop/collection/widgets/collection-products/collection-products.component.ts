@@ -13,7 +13,7 @@ import { Params } from '../../../../../shared/interface/core.interface';
 })
 export class CollectionProductsComponent {
 
-  @Select(ProductState.product) product$: Observable<ProductModel>;
+  @Select(ProductState.product) product$: Observable<any>;
 
   @Input() filter: Params;
   @Input() gridCol: string;
@@ -23,6 +23,7 @@ export class CollectionProductsComponent {
   public skeletonItems = Array.from({ length: 40 }, (_, index) => index);
 
   constructor(public productService: ProductService) {
+    console.log("products",this.product$.subscribe((data:any)=>console.log(data)))
   }
 
   setGridClass(gridClass: string) {

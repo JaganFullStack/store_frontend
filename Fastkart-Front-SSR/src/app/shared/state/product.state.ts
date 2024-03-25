@@ -13,7 +13,7 @@ import { mockResponseData } from "src/app/utilities/helper";
 
 export class ProductStateModel {
   product = {
-    data: [] as Product[],
+    data: [] ,
     total: 0
   }
   selectedProduct: Product | null;
@@ -79,90 +79,90 @@ export class ProductState {
         next: (result: any) => {
 
           let products = result.data || [];
-          if (action?.payload) {
-            // Note:- For Internal filter purpose only, once you apply filter logic on server side then you can remove  it as per your requirement.
-            // Note:- we have covered only few filters as demo purpose
-            products = result.data.filter((product:any) =>
-              (action?.payload?.['store_slug'] && product?.store?.slug == action?.payload?.['store_slug']) ||
-              (
-                action?.payload?.['category'] && product?.categories?.length &&
-                product?.categories?.some((category:any) => action?.payload?.['category']?.split(',')?.includes(category.slug))
-              )
-            )
+          // if (action?.payload) {
+          //   // Note:- For Internal filter purpose only, once you apply filter logic on server side then you can remove  it as per your requirement.
+          //   // Note:- we have covered only few filters as demo purpose
+          //   products = result.data.filter((product: any) =>
+          //     (action?.payload?.['store_slug'] && product?.store?.slug == action?.payload?.['store_slug']) ||
+          //     (
+          //       action?.payload?.['category'] && product?.categories?.length &&
+          //       product?.categories?.some((category: any) => action?.payload?.['category']?.split(',')?.includes(category.slug))
+          //     )
+          //   )
 
-            products = products.length ? products : result.data;
+          //   products = products.length ? products : result.data;
 
-            if (action?.payload?.['sortBy']) {
-              if (action?.payload?.['sortBy'] === 'asc') {
-                products = products.sort((a:any, b:any) => {
-                  if (a.id < b.id) {
-                    return -1;
-                  } else if (a.id > b.id) {
-                    return 1;
-                  }
-                  return 0;
-                })
-              } else if (action?.payload?.['sortBy'] === 'desc') {
-                products = products.sort((a:any, b:any) => {
-                  if (a.id > b.id) {
-                    return -1;
-                  } else if (a.id < b.id) {
-                    return 1;
-                  }
-                  return 0;
-                })
-              } else if (action?.payload?.['sortBy'] === 'a-z') {
-                products = products.sort((a:any, b:any) => {
-                  if (a.name < b.name) {
-                    return -1;
-                  } else if (a.name > b.name) {
-                    return 1;
-                  }
-                  return 0;
-                })
-              } else if (action?.payload?.['sortBy'] === 'z-a') {
-                products = products.sort((a:any, b:any) => {
-                  if (a.name > b.name) {
-                    return -1;
-                  } else if (a.name < b.name) {
-                    return 1;
-                  }
-                  return 0;
-                })
-              } else if (action?.payload?.['sortBy'] === 'low-high') {
-                products = products.sort((a:any, b:any) => {
-                  if (a.sale_price < b.sale_price) {
-                    return -1;
-                  } else if (a.price > b.price) {
-                    return 1;
-                  }
-                  return 0;
-                })
-              } else if (action?.payload?.['sortBy'] === 'high-low') {
-                products = products.sort((a:any, b:any) => {
-                  if (a.sale_price > b.sale_price) {
-                    return -1;
-                  } else if (a.price < b.price) {
-                    return 1;
-                  }
-                  return 0;
-                })
-              }
-            } else if (!action?.payload?.['ids']) {
-              products = products.sort((a:any, b:any) => {
-                if (a.id < b.id) {
-                  return -1;
-                } else if (a.id > b.id) {
-                  return 1;
-                }
-                return 0;
-              })
-            }
+          //   if (action?.payload?.['sortBy']) {
+          //     if (action?.payload?.['sortBy'] === 'asc') {
+          //       products = products.sort((a: any, b: any) => {
+          //         if (a.id < b.id) {
+          //           return -1;
+          //         } else if (a.id > b.id) {
+          //           return 1;
+          //         }
+          //         return 0;
+          //       })
+          //     } else if (action?.payload?.['sortBy'] === 'desc') {
+          //       products = products.sort((a: any, b: any) => {
+          //         if (a.id > b.id) {
+          //           return -1;
+          //         } else if (a.id < b.id) {
+          //           return 1;
+          //         }
+          //         return 0;
+          //       })
+          //     } else if (action?.payload?.['sortBy'] === 'a-z') {
+          //       products = products.sort((a: any, b: any) => {
+          //         if (a.name < b.name) {
+          //           return -1;
+          //         } else if (a.name > b.name) {
+          //           return 1;
+          //         }
+          //         return 0;
+          //       })
+          //     } else if (action?.payload?.['sortBy'] === 'z-a') {
+          //       products = products.sort((a: any, b: any) => {
+          //         if (a.name > b.name) {
+          //           return -1;
+          //         } else if (a.name < b.name) {
+          //           return 1;
+          //         }
+          //         return 0;
+          //       })
+          //     } else if (action?.payload?.['sortBy'] === 'low-high') {
+          //       products = products.sort((a: any, b: any) => {
+          //         if (a.sale_price < b.sale_price) {
+          //           return -1;
+          //         } else if (a.price > b.price) {
+          //           return 1;
+          //         }
+          //         return 0;
+          //       })
+          //     } else if (action?.payload?.['sortBy'] === 'high-low') {
+          //       products = products.sort((a: any, b: any) => {
+          //         if (a.sale_price > b.sale_price) {
+          //           return -1;
+          //         } else if (a.price < b.price) {
+          //           return 1;
+          //         }
+          //         return 0;
+          //       })
+          //     }
+          //   } else if (!action?.payload?.['ids']) {
+          //     products = products.sort((a: any, b: any) => {
+          //       if (a.id < b.id) {
+          //         return -1;
+          //       } else if (a.id > b.id) {
+          //         return 1;
+          //       }
+          //       return 0;
+          //     })
+          //   }
 
-            if (action?.payload?.['search']) {
-              products = products.filter((product:any) => product.name.toLowerCase().includes(action?.payload?.['search'].toLowerCase()))
-            }
-          }
+          //   if (action?.payload?.['search']) {
+          //     products = products.filter((product: any) => product.name.toLowerCase().includes(action?.payload?.['search'].toLowerCase()))
+          //   }
+          // }
 
           ctx.patchState({
             product: {
@@ -188,9 +188,9 @@ export class ProductState {
       tap({
         next: (result: any) => {
           const state = ctx.getState();
-          const products = result.data.filter((product:any) =>
+          const products = result.data.filter((product: any) =>
             action?.payload?.['ids']?.split(',')?.map((id: number) => Number(id)).includes(product.id) ||
-            (product?.categories?.length && product?.categories?.map((category:any) => category.id).includes(Number(action?.payload?.['category_ids'])))
+            (product?.categories?.length && product?.categories?.map((category: any) => category.id).includes(Number(action?.payload?.['category_ids'])))
           );
           ctx.patchState({
             ...state,
@@ -215,7 +215,7 @@ export class ProductState {
       tap({
         next: (result: any) => {
           const state = ctx.getState();
-          const products = result.data.filter((product:any) =>
+          const products = result.data.filter((product: any) =>
             action?.payload?.['store_ids']?.split(',')?.map((id: number) => Number(id)).includes(product.store_id));
           ctx.patchState({
             ...state,
@@ -232,43 +232,30 @@ export class ProductState {
   }
 
   @Action(GetProductBySlug)
-
-
-
-  getProductBySlug(ctx: StateContext<ProductStateModel>, { slug }: GetProductBySlug) {
-    this.themeOptionService.preloader = true;
-    // return this.productService.getProducts().pipe(
-    //   tap({
-    //     next: results => {
-    //       const result = results.data.find(product => product.slug == slug);
-    //       console.log("results", result);
-
-    //       if (result) {
-    //         result.related_products = result.related_products && result.related_products.length ? result.related_products : [];
-    //         result.cross_sell_products = result.cross_sell_products && result.cross_sell_products.length ? result.cross_sell_products : [];
-
-    //         const ids = [...result.related_products, ...result.cross_sell_products];
-    //         const categoryIds = [...result?.categories?.map(category => category.id)];
-    //         this.store.dispatch(new GetRelatedProducts({ ids: ids.join(','), category_ids: categoryIds.join(','), status: 1 }));
-
-    //         const state = ctx.getState();
-    //         ctx.patchState({
-    //           ...state,
-    //           selectedProduct: result
-    //         });
-    //       } else {
-    //         this.router.navigate(['/404']);
-    //       }
-
-    //     },
-    //     complete: () => {
-    //       this.themeOptionService.preloader = false;
-    //     },
-    //     error: err => {
-    //       throw new Error(err?.error?.message);
-    //     }
-    //   })
-    // );
+  getProductBySlug(ctx: StateContext<ProductStateModel>, { filterString }: any) {
+    // this.themeOptionService.preloader = true;
+    this.productService.skeletonLoader = true;
+    console.log(filterString)
+    return this.productService.getProductByCategoryId(filterString).pipe(
+      tap({
+        next: results => {
+          console.log("results", results);
+          ctx.patchState({
+            product: {
+              data: (results?.data || (results?.data.length > 0)) ? results.data : [],
+              total: results?.total ? results?.total : results.data?.length,
+            }
+          });
+        },
+        complete: () => {
+          // this.themeOptionService.preloader = false;
+          this.productService.skeletonLoader = false;
+        },
+        error: err => {
+          throw new Error(err?.error?.message);
+        }
+      })
+    );
   }
 
   @Action(GetDealProducts)
@@ -277,7 +264,7 @@ export class ProductState {
       tap({
         next: (result: any) => {
           const state = ctx.getState();
-          const products = result.data.filter((product:any) => 
+          const products = result.data.filter((product: any) =>
             action?.payload?.['ids']?.split(',')?.map((id: number) => Number(id)).includes(product.id));
           ctx.patchState({
             ...state,

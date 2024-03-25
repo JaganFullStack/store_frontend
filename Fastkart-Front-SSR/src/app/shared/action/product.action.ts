@@ -17,7 +17,7 @@ export class GetStoreProducts {
 
 export class GetProductBySlug {
   static readonly type = "[Product] Get By Slug";
-  constructor(public slug: string) {}
+  constructor(public filterString: string) {}
 }
 
 export class GetDealProducts {
