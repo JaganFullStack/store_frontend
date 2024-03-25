@@ -63,10 +63,14 @@ export class CollectionComponent {
       }
 
       // this.store.dispatch(new GetProducts(this.filter));
-      this.store.dispatch(new GetProductBySlug(this.filter['category']));
+      if (this.filter['category'] === '') {
+        this.store.dispatch(new GetProducts({}));
+      } else {
+        this.store.dispatch(new GetProductBySlug(this.filter['category']));
+      }
 
       // Params For Demo Purpose only
-      if(params['layout']) {
+      if (params['layout']) {
         this.layout = params['layout'];
       } else {
         // Get Collection Layout

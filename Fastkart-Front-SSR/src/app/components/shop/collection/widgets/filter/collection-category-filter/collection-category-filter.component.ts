@@ -17,7 +17,7 @@ export class CollectionCategoryFilterComponent {
 
   @Input() filter: Params;
 
-  public categories: Category[];
+  public categories: any[];
   public selectedCategories: string[] = [];
 
   constructor(private route: ActivatedRoute,
