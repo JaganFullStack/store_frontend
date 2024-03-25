@@ -3,8 +3,8 @@
         <div class="form-check ps-0 m-0 category-list-box">
             <input class="checkbox_animated" type="checkbox" 
                 id="category-{{category.index}}"
-                [value]="category.slug"
-                [checked]="checked(category.slug!)"
+                [value]="category.id"
+                [checked]="checked(category.id!)"
                 (change)="applyFilter($event)">
             <label class="form-check-label" for="category-{{category.index}}">
                 <span class="name">{{ category.name }}</span>

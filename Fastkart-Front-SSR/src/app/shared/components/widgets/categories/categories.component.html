@@ -9,7 +9,7 @@
         <img src="{{apiBaseUrl}}/{{category?.thumbnail_image_url}}"
              [alt]="category?.name">
         <h5>
-          <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)">{{ category?.name }}</a>
+          <a href="javascript:void(0)" (click)="redirectToCollection(category.id!)">{{ category?.name }}</a>
         </h5>
       </div>
     </li>
@@ -21,10 +21,10 @@
   <ul class="nav nav-pills mb-3 custom-nav-tab">
     <li class="nav-item" *ngFor="let category of categories">
       <app-button
-        [class]="selectedCategorySlug.length && selectedCategorySlug.includes(category.slug!) ? 'nav-link active' : 'nav-link'"
+        [class]="selectedCategorySlug.length && selectedCategorySlug.includes(category.id!) ? 'nav-link active' : 'nav-link'"
         [id]="'nav_link_btn'"
         [spinner]="false"
-        (click)="redirectToCollection(category.slug!)">
+        (click)="redirectToCollection(category.id!)">
         {{ category.name }}
         <img [src]="category?.category_icon ? ApiImageurl+category?.category_image : 'assets/images/category1.png'"
              [alt]="category?.name">
@@ -41,9 +41,9 @@
     <ng-template carouselSlide *ngFor="let category of categories">
       <div *ngIf="theme == 'paris'">
         <a href="javascript:void(0)"
-          (click)="redirectToCollection(category.slug!)"
+          (click)="redirectToCollection(category.id!)"
           class="category-box category-dark"
-          [class.active]="selectedCategorySlug.length && selectedCategorySlug.includes(category.slug!)">
+          [class.active]="selectedCategorySlug.length && selectedCategorySlug.includes(category.id!)">
           <!-- <img [src]="image ? image : 'assets/images/shape.png'" class="background-image" alt="shape"> -->
           <!-- <img [src]="category?.category_image ?  ApiImageurl+category?.category_image : 'assets/images/category.png'"
                [alt]="" > -->
@@ -55,12 +55,12 @@
       </div>
       <div *ngIf="theme == 'madrid'">
         <div class="category-box-list">
-          <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)" class="category-name">
+          <a href="javascript:void(0)" (click)="redirectToCollection(category.id!)" class="category-name">
               <h4>{{ category.name }}</h4>
               <h6>{{ category.products_count }} {{ 'items' | translate }}</h6>
           </a>
           <div class="category-box-view">
-            <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)">
+            <a href="javascript:void(0)" (click)="redirectToCollection(category.id!)">
               <img [src]="category?.category_image ? ApiImageurl+category?.category_image : 'assets/images/category.png'"
                    class="img-fluid"
                    [alt]="category?.name">
@@ -74,7 +74,7 @@
       </div>
       <div *ngIf="theme == 'rome'">
         <div class="shop-category-box border-0">
-            <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)" class="circle-1">
+            <a href="javascript:void(0)" (click)="redirectToCollection(category.id!)" class="circle-1">
               <img [src]="category?.category_image ? ApiImageurl+category?.category_image : 'assets/images/category.png'"
                    [alt]="category?.name">
             </a>
@@ -93,7 +93,7 @@
     <ng-template carouselSlide *ngFor="let category of categories">
       <div>
         <div class="shop-category-box border-0 wow fadeIn">
-            <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)" class="circle-1">
+            <a href="javascript:void(0)" (click)="redirectToCollection(category.id!)" class="circle-1">
               <img [src]="category?.category_icon ? ApiImageurl+category?.category_image : 'assets/images/category.png'"
                    [alt]="category?.name">
             </a>
@@ -122,7 +122,7 @@
 <!--- Category Style Dropdown -->
 <ul class="category-list" *ngIf="categories?.length && style == 'dropdown'">
   <li class="onhover-category-list" *ngFor="let category of categories">
-    <a href="javascript:void(0)" (click)="redirectToCollection(category.slug!)" class="category-name">
+    <a href="javascript:void(0)" (click)="redirectToCollection(category.id!)" class="category-name">
       <img [src]="category?.category_icon ? ApiImageurl+category?.category_image : 'assets/images/category.png'" [alt]="category?.name">
       <h6>{{ category?.name }}</h6>
     </a>
@@ -138,7 +138,7 @@
   *ngIf="categories?.length && style == 'input_dropdown'">
  <select class="form-select locat-name">
     <option>{{ 'All Category' | translate }}</option>
-    <option *ngFor="let category of categories">
+    <option *ngFor="let category of categories" (change)="redirectToCollection(category.id)">
       {{ category.name }}
     </option>
   </select>
