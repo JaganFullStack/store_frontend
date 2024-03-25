@@ -71,8 +71,8 @@ export class CartState {
         next: result => {
           // Set Selected Varaint
           ctx.patchState({
-            items: result.data?.items.length>0 ? result.data?.items : [],
-            total: result.data?.total ? result.data.total : 0,
+            items: (result?.data?.items && result?.data?.items.length > 0) ? result?.data?.items : [],
+            total: result?.data?.total ? result?.data?.total : 0,
           });
         },
         error: err => {

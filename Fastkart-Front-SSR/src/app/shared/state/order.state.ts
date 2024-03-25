@@ -133,7 +133,6 @@ export class OrderState {
         next: result => {
           this.store.dispatch(new GetOrders());
           this.store.dispatch(new GetCartItems());
-          this.PopupModal.openModal();
           this.router.navigate(['/home']);
         },
         error: err => {
