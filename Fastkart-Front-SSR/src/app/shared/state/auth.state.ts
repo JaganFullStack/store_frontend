@@ -92,8 +92,10 @@ export class AuthState {
           // alert(mockMessageObject?.message);
         },
         error: err => {
+          // console.log(err);
+          // console.log(err.error.messageobject.message);
           const messageObject = mockResponseData(err.messageobject);
-          // alert(messageObject?.message);
+          alert(err.error.messageobject.message);
           throw new Error(err?.error?.message);
         }
       }));
