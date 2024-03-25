@@ -38,11 +38,8 @@ export class ForgotPasswordComponent {
         this.authService.Emailvalidation(EmailId).subscribe({
           next: (response: any) => {  
             this.responseError=null;
-              
-              console.log(response);
               localStorage.setItem('ForgetEmailId',EmailId);
               this.router.navigateByUrl('/auth/update-password');
-             
           },
           error: (error) => {
             this.responseError=  error?.error?.message?? 'INVAILD EMAILID ';

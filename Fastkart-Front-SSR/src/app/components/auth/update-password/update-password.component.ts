@@ -56,7 +56,6 @@ export class UpdatePasswordComponent {
       
       this.authService.isUpdatedUserPassword(reqData).subscribe({
         next: (response: any) => {  
-            console.log(response);
             this.registerErrorMsg=null;
             // this.router.navigateByUrl('/account/dashboard');
             const redirectUrl = this.authService.redirectUrl || '/account/dashboard';

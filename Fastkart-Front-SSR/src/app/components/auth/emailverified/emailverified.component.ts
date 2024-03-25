@@ -28,8 +28,7 @@ export class EmailverifiedComponent {
     public formBuilder: FormBuilder,private authService: AuthService ) 
     {
       this.token = this.route.snapshot.queryParams['token'];
-      console.log(this.token);
-      
+
     this.form = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]]
     });
@@ -38,8 +37,6 @@ export class EmailverifiedComponent {
   submit() {
       this.authService.verificationEmail(this.token).subscribe({
         next: (response: any) => {  
-            console.log(response);
-
             localStorage.setItem('AuthToken', response?.token);
             localStorage.setItem('UserEmail',response?.Email)
             // this.registerErrorMsg=null;

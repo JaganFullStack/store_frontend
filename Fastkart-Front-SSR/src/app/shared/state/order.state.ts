@@ -5,7 +5,7 @@ import { tap } from "rxjs";
 import { GetOrders, ViewOrder, Checkout, PlaceOrder, Clear, VerifyPayment, RePayment } from "../action/order.action";
 import { Order, OrderCheckout } from "../interface/order.interface";
 import { OrderService } from "../services/order.service";
-import { ClearCart } from "../action/cart.action";
+import { ClearCart, GetCartItems } from "../action/cart.action";
 
 export class OrderStateModel {
   order = {
@@ -75,7 +75,7 @@ export class OrderState {
       tap({
         next: result => {
           const state = ctx.getState();
-          const order = result.data.find(order => order.id == id);
+          const order = result.data.find((order: any) => order.id == id);
 
           ctx.patchState({
             ...state,
@@ -121,8 +121,23 @@ export class OrderState {
   }
 
   @Action(PlaceOrder)
-  placeOrder(ctx: StateContext<OrderStateModel>, action: PlaceOrder) {
-    this.router.navigateByUrl(`/account/order/details/1000`);
+  placeOrder(ctx: StateContext<OrderStateModel>, action: any) {
+
+    return this.orderService.placeOrder(action.payload).pipe(
+      tap({
+        next: result => {
+          this.store.dispatch(new GetOrders());
+          this.store.dispatch(new GetCartItems());
+          this.router.navigate(['/home']);
+        },
+        error: err => {
+          throw new Error(err?.error?.message);
+        },
+        complete: () => {
+          this.orderService.skeletonLoader = false;
+        }
+      })
+    );
   }
 
   @Action(RePayment)

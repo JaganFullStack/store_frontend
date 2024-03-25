@@ -37,13 +37,13 @@ export class SettingState {
   getSettingOptions(ctx: StateContext<SettingStateModel>) { 
     return this.settingService.getSettingOption().pipe(
       tap({
-        next: (result) => {
+        next: (result:any) => {
           const state = ctx.getState();
          
           if(!state.selectedCurrency && result){
             state.selectedCurrency = result?.values?.general?.default_currency;
           }
-
+          result.values.payment_methods=result.values.payment_methods.filter((e:any)=>e.name == "cod");
           ctx.patchState({
             ...state,
             setting: result.values,

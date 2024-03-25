@@ -49,9 +49,16 @@ export class CountryState {
 
   @Selector()
   static cities(state: any) {
-    return state?.city?.data?.map((cn: any) => {
-      return { label: cn?.name, value: cn?.id }
-    });
+    return (state_id?: any) => {
+      if (state_id)
+        return state.city.data.filter((element:any) => element.state_id == state_id).map((st:any) => {
+          return { label: st?.name, value: st?.id, state_id: st?.state_id }
+        });
+      else
+        return state.state.data.map((st:any) => {
+          return { label: st?.name, value: st?.id, state_id: st?.state_id }
+        });
+    };
   }
 
 

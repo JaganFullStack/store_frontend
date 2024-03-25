@@ -28,14 +28,10 @@ export class CartComponent {
   constructor(private store: Store) {
     this.cartItem$.subscribe(items => {
       this.cartItems = items;
-      console.log(this.cartItems)
-
       // this.cartItem = items.find(item => item.product.id == this.product.id)!;
     });
     this.cartTotal$.subscribe(items => {
       // this.cartItems = items;
-      console.log(items)
-
       // this.cartItem = items.find(item => item.product.id == this.product.id)!;
     });
   }
@@ -111,7 +107,6 @@ export class CartComponent {
   };
 
   removeCart(product: any) {
-    console.log("ts_product", product);
     const responseObject = {
       "user_id": 5,
       "product_variation_id": 5,
