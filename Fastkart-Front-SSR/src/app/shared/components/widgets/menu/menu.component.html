@@ -14,11 +14,18 @@
           <label *ngIf="menu.badge" class="new-dropdown">{{ menu.badge | translate }}</label>
         </a>
         
+
+
+<!-- mahesh -->
         <a class="dropdown-item" [routerLink]="menu.path" [class.show]="menu.active" [queryParams]="menu.params"
           *ngIf="menu.type === 'link'">
           {{ menu.title | translate }}
           <label class="menu-label {{ menu.labelClass }}" *ngIf="menu.label">{{ menu.label | translate }}</label>
         </a>
+
+
+
+
         <div class="dropdown-menu dropdown-menu-2" [class.show]="menu.active"
           *ngIf="menu.megaMenu && menu.megaMenuType === 'link'">
           <div class="row">

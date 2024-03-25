@@ -13,12 +13,22 @@ export class UpdateUserProfile {
 
 export class UpdateUserPassword {
   static readonly type = "[Account] User Update Password";
-  constructor(public payload: AccountUserUpdatePassword) {}
+  constructor(public payload:AccountUserUpdatePassword) {}
 }
+
+
+
 
 export class CreateAddress {
   static readonly type = "[Account] Address Create";
   constructor(public payload: any) {}
+}
+
+
+
+export class forgetpasssword {
+  static readonly type = "[Account] Forget Password";
+  constructor(public payload: AccountUserUpdatePassword) {}
 }
 
 export class UpdateAddress {

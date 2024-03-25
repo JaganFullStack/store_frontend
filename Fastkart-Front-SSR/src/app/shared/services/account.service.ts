@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
-import { AccountUser } from "../interface/account.interface";
+import { AccountUser, AccountUserUpdatePassword } from "../interface/account.interface";
 import { getStringDataFromLocalStorage } from "src/app/utilities/helper";
 
 
@@ -27,18 +27,31 @@ export class AccountService {
     return this.http.get<any>(apiUrl, { headers });
   }
 
-  createAddress(data: any): Observable<any> {
+
+
+
+
+
+  UpdateUserPassword(payload: AccountUserUpdatePassword): Observable<any> {
     const userToken = getStringDataFromLocalStorage("user_token");
     const userId = getStringDataFromLocalStorage("user_id");
-    
     const headers = {
       'Content-Type': 'application/json',
-      'authorization': `Bearer ${userToken}`,
+      'Authorization': `Bearer ${userToken}`,
     };
-
-    const apiUrl = `${environment.apiBaseUrl}/api/addeditaddress`;
-
-    return this.http.post<any>(apiUrl, data, { headers });
+  
+    const apiUrl = `${environment.apiBaseUrl}/api/changepassword`;
+  
+    const body = {
+      user_id: userId,
+      old_password: payload.old_password,
+      new_password: payload.new_password,
+    };
+  
+    return this.http.post<any>(apiUrl, body, { headers });
   }
+  
+  
+  
 
 }

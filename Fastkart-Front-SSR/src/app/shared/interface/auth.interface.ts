@@ -5,6 +5,7 @@ export interface AuthUserStateModel {
 
 export interface AuthUserForgotModel {
   email: string;
+  password: string;
 }
 
 export interface VerifyEmailOtpModel {

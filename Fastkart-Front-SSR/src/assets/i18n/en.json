@@ -206,6 +206,8 @@
   "send": "Send",
   "register_your_account": "Register Your Account",
   "password_is_required": "Password is required",
+  "invalid_Password": "Invalid password",
+
   "remember_me": "Remember me",
   "log_in": "Log In",
   "or": "or",

@@ -31,7 +31,17 @@ export interface AccountUser {
 }
 
 export interface AccountUserUpdatePassword {
-    current_password: string;
+    user_id: string;
+    old_password: string;
     new_password: string;
     confirm_password: string;
-}
+  }
+
+
+
+  export interface AccountUserforgetpassword {
+    email: string;
+    password: string;
+
+  }
+  

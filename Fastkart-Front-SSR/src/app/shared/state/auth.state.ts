@@ -101,10 +101,31 @@ export class AuthState {
       }));
   }
 
+ 
+
   @Action(ForgotPassWord)
-  forgotPassword(ctx: StateContext<AuthStateModel>, action: ForgotPassWord) {
-    // Forgot Password Logic Here
+  
+
+  forgetpasswordd(ctx: StateContext<AuthStateModel>, {payload}: ForgotPassWord) {
+ 
+    console.log(payload);
+    return this.authService.Emailvalidation(payload).pipe(
+     
+      tap({
+        next: result => {
+          console.log("Update password success", result);
+
+       this.router.navigate(['/auth/login']);
+        },
+        error: err => {
+          console.log("Update password error", err);
+          throw new Error(err?.error?.message);
+        },
+      })
+    );
+
   }
+
 
   @Action(VerifyEmailOtp)
   verifyEmail(ctx: StateContext<AuthStateModel>, action: VerifyEmailOtp) {

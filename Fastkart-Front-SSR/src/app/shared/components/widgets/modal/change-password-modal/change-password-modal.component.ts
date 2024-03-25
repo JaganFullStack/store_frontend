@@ -5,6 +5,8 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngxs/store';
 import { UpdateUserPassword } from '../../../../action/account.action';
 import { CustomValidators } from '../../../../validator/password-match';
+import { getStringDataFromLocalStorage } from 'src/app/utilities/helper';
+import { AccountUserUpdatePassword } from 'src/app/shared/interface/account.interface';
 
 @Component({
   selector: 'app-change-password-modal',
@@ -63,16 +65,33 @@ export class ChangePasswordModalComponent {
     );
   }
 
-  submit(){
+  submit() {
     this.form.markAllAsTouched();
-    if(this.form.valid) {
-      this.store.dispatch(new UpdateUserPassword(this.form.value)).subscribe({
+    if (this.form.valid) {
+
+      const user_id = getStringDataFromLocalStorage("user_id");
+      const payload: AccountUserUpdatePassword = {
+        user_id: user_id,
+        old_password: this.form.value.current_password,
+        new_password: this.form.value.password,
+        confirm_password: this.form.value.confirm_password
+      };
+      this.store.dispatch(new UpdateUserPassword(payload)).subscribe({
         complete: () => {
+          console.log();
           this.form.reset();
+          this.ngOnDestroy();
         }
       });
     }
   }
+  
+  
+  
+  
+  
+  
+  
 
   ngOnDestroy() {
     if(this.modalOpen) {

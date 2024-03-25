@@ -14,12 +14,17 @@ export class Register {
 export class Login {
   static readonly type = "[Auth] Login";
   constructor(public payload: AuthUserStateModel) {
+    // console.log("action",this.payload);
   }
 }
 
 export class ForgotPassWord {
   static readonly type = "[Auth] Forgot";
-  constructor(public payload: AuthUserForgotModel) {}
+  constructor(public payload: AuthUserForgotModel) {
+
+    console.log("ForgotPassWord actionnn",this.payload);
+
+  }
 }
 
 export class VerifyEmailOtp {

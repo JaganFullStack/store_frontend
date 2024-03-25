@@ -24,46 +24,19 @@ export class ForgotPasswordComponent {
     public router: Router, 
     public formBuilder: FormBuilder,private authService: AuthService  ) {
     this.form = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]]
+      email: ["", [Validators.required, Validators.email]],
+      password: ["",]
+
     });
   }
 
   submit() {
     this.form.markAllAsTouched();
-
     if (this.form.valid) {
-      const EmailId = this.form.get('email')!.value; 
-    try {
-      
-        this.authService.Emailvalidation(EmailId).subscribe({
-          next: (response: any) => {  
-            this.responseError=null;
-              localStorage.setItem('ForgetEmailId',EmailId);
-              this.router.navigateByUrl('/auth/update-password');
-          },
-          error: (error) => {
-            this.responseError=  error?.error?.message?? 'INVAILD EMAILID ';
-            console.log("Api Error",error);
-          },  
-        });
-    } catch (Error: any) {
-      console.log("catch Error",Error);
-    }
-  } else {
-    // Form is invalid, display errors if needed
-    console.log('Invalid form submission');
-  }
+      const formData = this.form.value;
 
-
+      this.store.dispatch(new ForgotPassWord(this.form.value))
     
-
-    // if(this.form.valid) {
-    if(false) {
-      this.store.dispatch(new ForgotPassWord(this.form.value)).subscribe({
-        complete: () => { 
-          this.router.navigateByUrl('/auth/update-password'); 
-        }     
-      });
     }
   }
 
