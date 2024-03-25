@@ -6,14 +6,15 @@
             </div>
         </div>
         <div class="dashboard-user-name">
-            <h6 class="text-content">{{ 'hello' | translate }}, <b class="text-title">{{ (user$ | async)?.name! | titleCase }}</b></h6>
+            <h6 class="text-content">{{ 'hello' | translate }}, <b class="text-title">{{ (user$ | async)?.name! |
+                    titleCase }}</b></h6>
             <!-- <p class="text-content">
                 {{ "welcome_to_your_personalized_my_account_dashboard_here_you_have_the_power_to_manage_your_entire_e-commerce_experience_in_one_place_whether_you're_exploring_the_latest_products_checking_your_wallet_balance_or_updating_your_profile_everything_is_at_your_fingertips"| translate}}
             </p> -->
         </div>
         <div class="total-box">
             <div class="row row-cols-xxl-3 g-sm-4 g-3">
-                <div>
+                <!-- <div>
                     <div class="totle-contain">
                         <div class="wallet-point-box">
                             <img src="assets/images/svg/wallet.svg" class="img-1 " alt="wallet">
@@ -25,22 +26,22 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div>
+                </div> -->
+                <!-- <div>
                     <div class="totle-contain">
                         <div class="wallet-point-box">
                             <img src="assets/images/svg/coin.svg" class="img-1 " alt="coin">
                             <img src="assets/images/svg/coin.svg" alt="coin">
                             <div class="totle-detail">
                                 <h5>{{ 'total_points'| translate}}</h5>
-                                <!-- <h3>{{ (user$ | async)?.point ? (user$ | async)?.point?.balance : 0 }}</h3> -->
+                                <h3>{{ (user$ | async)?.point ? (user$ | async)?.point?.balance : 0 }}</h3>
                                 <h3>{{ 0 }}</h3>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div>
-                    <div class="totle-contain">
+                    <div class="totle-contain" [routerLink]="['/account/order']">
                         <div class="wallet-point-box">
                             <img src="assets/images/svg/order.svg" class="img-1" alt="order">
                             <img src="assets/images/svg/order.svg" alt="order">
@@ -70,7 +71,7 @@
                                 <tr>
                                     <td>{{ 'phone'| translate}}:</td>
                                     <td>
-                                        +{{ (user$ | async)?.country_code }} {{ (user$ | async)?.phone }}
+                                        {{ (user$ | async)?.country_code }} {{ (user$ | async)?.phone }}
                                     </td>
                                 </tr>
                                 <tr *ngIf="address">
@@ -103,7 +104,8 @@
                                     <td>{{ 'password'| translate}} :</td>
                                     <td>
                                         ●●●●●●
-                                        <a href="javascript:void(0)" (click)="PasswordModal.openModal()">{{ 'edit' | translate }}</a>
+                                        <a href="javascript:void(0)" (click)="PasswordModal.openModal()">{{ 'edit' |
+                                            translate }}</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -112,7 +114,8 @@
                 </div>
                 <div class="col-xxl-5">
                     <div class="profile-image">
-                        <img src="assets/images/inner-page/dashboard-profile.png" class="img-fluid" alt="dashboard-profile">
+                        <img src="assets/images/inner-page/dashboard-profile.png" class="img-fluid"
+                            alt="dashboard-profile">
                     </div>
                 </div>
             </div>

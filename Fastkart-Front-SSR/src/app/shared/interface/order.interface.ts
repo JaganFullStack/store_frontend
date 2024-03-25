@@ -42,6 +42,7 @@ export interface Order {
     sub_orders: Order[];
     tax_total: number;
     total: number;
+    sub_total_amount: number;
     points_amount: number;
     wallet_balance: number;
     transactions: TransactionsData[];
@@ -98,8 +99,8 @@ export interface PlaceOrder {
 }
 
 export interface RePaymentPayload {
-  order_number: number,
-  payment_method: string
+    order_number: number,
+    payment_method: string
 }
 
 

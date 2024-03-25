@@ -32,7 +32,7 @@ export class OrderState {
 
   constructor(private store: Store,
     private router: Router,
-    private orderService: OrderService) {}
+    private orderService: OrderService) { }
 
   @Selector()
   static order(state: OrderStateModel) {
@@ -75,7 +75,7 @@ export class OrderState {
       tap({
         next: result => {
           const state = ctx.getState();
-          const order = result.data.find(order => order.order_number == id);
+          const order = result.data.find(order => order.id == id);
 
           ctx.patchState({
             ...state,
@@ -99,7 +99,7 @@ export class OrderState {
 
     // It Just Static Values as per cart default value (When you are using api then you need calculate as per your requirement)
     const order = {
-      total : {
+      total: {
         convert_point_amount: -10,
         convert_wallet_balance: -84.4,
         coupon_total_discount: 10,
@@ -117,7 +117,7 @@ export class OrderState {
       ...state,
       checkout: order
     });
-    
+
   }
 
   @Action(PlaceOrder)

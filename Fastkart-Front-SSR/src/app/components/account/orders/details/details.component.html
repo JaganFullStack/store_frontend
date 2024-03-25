@@ -4,13 +4,10 @@
             <h5>{{ 'order_number' | translate }}: #{{ order.order_number }}</h5>
             <div class="right-option">
                 <a href="javascript:void(0)" class="btn btn-md fw-bold text-light theme-bg-color"
-                  *ngIf="order?.payment_status === 'FAILED'"
-                  (click)="payModal.openModal(order)">{{ 'pay_now' | translate }}<i class="ri-refresh-line ms-2"></i></a>
-                <a
-                  href="{{order.invoice_url}}"
-                  class="btn btn-md fw-bold text-light theme-bg-color ms-auto"
-                  download="download"
-                  *ngIf="order.invoice_url && order.payment_status === 'COMPLETED'">
+                    *ngIf="order?.payment_status === 'FAILED'" (click)="payModal.openModal(order)">{{ 'pay_now' |
+                    translate }}<i class="ri-refresh-line ms-2"></i></a>
+                <a href="{{order.invoice_url}}" class="btn btn-md fw-bold text-light theme-bg-color ms-auto"
+                    download="download" *ngIf="order.invoice_url && order.payment_status === 'COMPLETED'">
                     {{ 'invoice' | translate }} <i class="ri-download-2-fill ms-2"></i>
                 </a>
             </div>
@@ -20,13 +17,11 @@
         <div class="tracking-panel">
             <ul *ngIf="order && !order.sub_orders.length">
                 <ng-container *ngFor="let orderStatus of (orderStatus$ | async)?.data">
-                    <li [class.active]="orderStatus?.sequence! <= order.order_status.sequence!"
-                        [ngClass]="{'d-none': (orderStatus?.sequence! >= order.order_status.sequence! && order.order_status.slug == 'cancelled') ||
+                    <li [class.active]="orderStatus?.sequence! <= order.order_status.sequence!" [ngClass]="{'d-none': (orderStatus?.sequence! >= order.order_status.sequence! && order.order_status.slug == 'cancelled') ||
                                             orderStatus?.slug == 'cancelled'}">
                         <div class="panel-content">
                             <div class="icon">
-                                <img src="assets/svg/tracking/{{orderStatus?.slug}}.svg" class="img-fluid"
-                                    alt="image">
+                                <img src="assets/svg/tracking/{{orderStatus?.slug}}.svg" class="img-fluid" alt="image">
                             </div>
                             <div class="status">{{ orderStatus?.name?.replace('_', ' ') | titlecase }}</div>
                         </div>
@@ -68,7 +63,8 @@
                                         : 'assets/images/product.png'" class="img-fluid" alt="product">
                             </td>
                             <td>
-                                <h6>{{ product?.pivot?.variation ? product?.pivot?.variation?.name : product?.name }}</h6>
+                                <h6>{{ product?.pivot?.variation ? product?.pivot?.variation?.name : product?.name }}
+                                </h6>
                             </td>
                             <td>
                                 <h6>{{ product?.pivot?.single_price | currencySymbol }}</h6>
@@ -80,13 +76,12 @@
                                 <h6>{{ product?.pivot?.subtotal | currencySymbol }}</h6>
                             </td>
                             <td>
-                              <a  href="javascript:void(0)"
-                                *ngIf="product?.is_return === 1 && product?.pivot?.is_refunded === 0 &&
+                                <a href="javascript:void(0)" *ngIf="product?.is_return === 1 && product?.pivot?.is_refunded === 0 &&
                                 order.payment_status === 'COMPLETED' && order.order_status.slug == 'delivered';
                                 else noRefund" (click)="refundModal.openModal(product)">
-                                  {{ 'ask_for_refund' | translate }}
+                                    {{ 'ask_for_refund' | translate }}
                                 </a>
-                              <ng-template #noRefund>-</ng-template>
+                                <ng-template #noRefund>-</ng-template>
                             </td>
                         </tr>
                     </tbody>
@@ -105,18 +100,22 @@
                                 <label>{{ 'billing_address' | translate }}:</label>
                                 <h4>
                                     {{ order.billing_address.street }}
-                                    {{ order.billing_address.city }} {{ order.billing_address.state.name }} {{ order.billing_address.country.name }}
+                                    {{ order.billing_address.city }} {{ order.billing_address.state.name }} {{
+                                    order.billing_address.country.name }}
                                     {{ order.billing_address.pincode }} <br>
-                                    {{ 'phone' }} : +{{ order.shipping_address.country_code }} {{ order.billing_address.phone }}
+                                    {{ 'phone' }} : +{{ order.shipping_address.country_code }} {{
+                                    order.billing_address.phone }}
                                 </h4>
                             </li>
                             <li class="col-sm-6" *ngIf="order.shipping_address">
                                 <label>{{ 'Shipping Address' | translate }}:</label>
                                 <h4>
                                     {{ order.shipping_address.street }}
-                                    {{ order.shipping_address.city }} {{ order.shipping_address.state.name }} {{ order.shipping_address.country.name }}
+                                    {{ order.shipping_address.city }} {{ order.shipping_address.state.name }} {{
+                                    order.shipping_address.country.name }}
                                     {{ order.shipping_address.pincode }} <br>
-                                    {{ 'phone' }} : +{{ order.shipping_address.country_code }} {{ order.shipping_address.phone }}
+                                    {{ 'phone' }} : +{{ order.shipping_address.country_code }} {{
+                                    order.shipping_address.phone }}
                                 </h4>
                             </li>
                             <li class="col-sm-6" *ngIf="order.delivery_description">
@@ -148,13 +147,22 @@
                     </h3>
                     <div class="tracking-total tracking-wrapper">
                         <ul>
-                            <li>{{ 'subtotal' | translate }} <span>{{ (order.amount ? order.amount : 0) | currencySymbol }}</span></li>
-                            <li>{{ 'shipping'| translate }} <span>{{ (order.shipping_total ? order.shipping_total : 0) | currencySymbol }}</span></li>
-                            <li>{{ 'tax'| translate }} <span>{{ (order.tax_total ? order.tax_total : 0) | currencySymbol }}</span></li>
-                            <li class="txt-primary fw-bold" *ngIf="order.points_amount != 0">{{ 'points'| translate }} <span>{{ order.points_amount | currencySymbol }}</span></li>
-                            <li class="txt-primary fw-bold" *ngIf="order.wallet_balance != 0">{{ 'wallet_balance'| translate }} <span>{{ order.wallet_balance | currencySymbol }}</span></li>
-                            <li class="txt-primary fw-bold" *ngIf="order.coupon_total_discount != 0">{{ 'coupon_discount'| translate }} <span>{{ order.coupon_total_discount | currencySymbol }}</span></li>
-                            <li>{{ 'total'| translate }} <span>{{ (order.total ? order.total : 0) | currencySymbol }}</span></li>
+                            <li>{{ 'subtotal' | translate }} <span>{{ (order.amount ? order.amount : 0) | currencySymbol
+                                    }}</span></li>
+                            <li>{{ 'shipping'| translate }} <span>{{ (order.shipping_total ? order.shipping_total : 0) |
+                                    currencySymbol }}</span></li>
+                            <li>{{ 'tax'| translate }} <span>{{ (order.tax_total ? order.tax_total : 0) | currencySymbol
+                                    }}</span></li>
+                            <li class="txt-primary fw-bold" *ngIf="order.points_amount != 0">{{ 'points'| translate }}
+                                <span>{{ order.points_amount | currencySymbol }}</span>
+                            </li>
+                            <li class="txt-primary fw-bold" *ngIf="order.wallet_balance != 0">{{ 'wallet_balance'|
+                                translate }} <span>{{ order.wallet_balance | currencySymbol }}</span></li>
+                            <li class="txt-primary fw-bold" *ngIf="order.coupon_total_discount != 0">{{
+                                'coupon_discount'| translate }} <span>{{ order.coupon_total_discount | currencySymbol
+                                    }}</span></li>
+                            <li>{{ 'total'| translate }} <span>{{ (order.total ? order.total : 0) | currencySymbol
+                                    }}</span></li>
                         </ul>
                     </div>
                 </div>
@@ -194,9 +202,10 @@
                                 </h6>
                             </td>
                             <td>
-                              <a href="javascript:void(0)" [routerLink]="['/account/order/details', subOrder.order_number]">
-                                <i [class]="'ri-eye-line'"></i>
-                              </a>
+                                <a href="javascript:void(0)"
+                                    [routerLink]="['/account/order/details', subOrder.order_number]">
+                                    <i [class]="'ri-eye-line'"></i>
+                                </a>
                             </td>
                         </tr>
                     </tbody>
