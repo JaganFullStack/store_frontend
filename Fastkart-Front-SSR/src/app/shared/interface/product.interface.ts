@@ -87,6 +87,7 @@ export interface Product {
     created_at?: string;
     updated_at?: string;
     deleted_at?: string;
+    thumbnail_image_url?: string;
 }
 
 export interface PivotProduct {

@@ -11,6 +11,7 @@ import { Order } from '../../../../shared/interface/order.interface';
 import { OrderStatusModel } from '../../../../shared/interface/order-status.interface';
 import { RefundModalComponent } from '../../../../shared/components/widgets/modal/refund-modal/refund-modal.component';
 import { PayModalComponent } from '../../../../shared/components/widgets/modal/pay-modal/pay-modal.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-order-details',
@@ -22,7 +23,7 @@ export class OrderDetailsComponent {
   @Select(OrderStatusState.orderStatus) orderStatus$: Observable<OrderStatusModel>;
   @ViewChild("refundModal") RefundModal: RefundModalComponent;
   @ViewChild("payModal") PayModal: PayModalComponent;
-
+  apiBaseUrl: string = environment.apiBaseUrl;
   private destroy$ = new Subject<void>();
 
   public order: Order;
@@ -36,16 +37,17 @@ export class OrderDetailsComponent {
     this.route.params
       .pipe(
         switchMap(params => {
-            if(!params['id']) return of();
-            return this.store
-                      .dispatch(new ViewOrder(params['id']))
-                      .pipe(mergeMap(() => this.store.select(OrderState.selectedOrder)))
-          }
+          if (!params['id']) return of();
+          return this.store
+            .dispatch(new ViewOrder(params['id']))
+            .pipe(mergeMap(() => this.store.select(OrderState.selectedOrder)))
+        }
         ),
         takeUntil(this.destroy$)
       )
       .subscribe(order => {
         this.order = order!
+        console.log(this.order.products);
       });
   }
 
