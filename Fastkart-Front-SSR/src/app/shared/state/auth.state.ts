@@ -9,6 +9,7 @@ import { getStringDataFromLocalStorage, mockResponseData, removeDataFromLocalSto
 import { AccountStateModel } from "./account.state";
 import { error } from "node:console";
 import { tap } from "rxjs";
+import { FailureResponse, SuccessResponse } from "../action/response.action";
 export interface AuthStateModel {
   email: String;
   token: String | Number;
@@ -69,11 +70,14 @@ export class AuthState {
           storeStringDataInLocalStorage("user_id", result?.data.userId);
           this.router.navigate(["/home"]);
           const mockMessageObject = mockResponseData(result.messageobject);
+          this.store.dispatch(new SuccessResponse(mockResponseData));
+          console.log("ddc",mockMessageObject);
           // alert(mockMessageObject?.message);
         },
         error: err => {
           const messageObject = mockResponseData(err.messageobject);
           // alert(messageObject?.message);
+          this.store.dispatch(new FailureResponse(messageObject));
           throw new Error(err?.error?.message);
         }
       }));
@@ -89,13 +93,11 @@ export class AuthState {
           storeStringDataInLocalStorage("user_id", result?.data.userId);
           this.router.navigate(["/home"]);
           const mockMessageObject = mockResponseData(result.messageobject);
-          // alert(mockMessageObject?.message);
+          this.store.dispatch(new SuccessResponse(mockMessageObject));
         },
         error: err => {
-          // console.log(err);
-          // console.log(err.error.messageobject.message);
           const messageObject = mockResponseData(err.messageobject);
-          alert(err.error.messageobject.message);
+          this.store.dispatch(new FailureResponse(messageObject));
           throw new Error(err?.error?.message);
         }
       }));

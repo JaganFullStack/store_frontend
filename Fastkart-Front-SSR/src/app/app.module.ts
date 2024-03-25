@@ -49,6 +49,7 @@ import { NotificationState } from './shared/state/notification.state';
 import { QuestionAnswersState } from './shared/state/questions-answers.state';
 import { ReviewState } from './shared/state/review.state';
 import { CouponState } from './shared/state/coupon.state';
+import { ResponseSate } from './shared/state/response.state';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -91,7 +92,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       NotificationState,
       QuestionAnswersState,
       ReviewState,
-      CouponState
+      CouponState,
+      ResponseSate
     ]),
     NgxsStoragePluginModule.forRoot({
       key: [

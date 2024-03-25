@@ -8,22 +8,22 @@ const mockResponseData = (errorObject: any) => {
         object = {
             statusCode: errorObject.status,
             message: errorObject.message ?? strings.commonErrors.systemError,
-            title: errorObject.title ?? strings.commonErrors.systemError,
-            property: errorObject.property ?? strings.commonErrors.systemError
+            title: errorObject?.title ?? strings.commonErrors.systemError,
+            property: errorObject?.property ?? strings.commonErrors.systemError
         }
     } else if (errorObject?.status === 400) {
         object = {
             statusCode: errorObject.status,
             message: errorObject.message ?? strings.commonErrors.failed,
-            title: errorObject.title ?? strings.commonErrors.failed,
-            property: errorObject.property ?? strings.commonErrors.failed
+            title: errorObject?.title ?? strings.commonErrors.failed,
+            property: errorObject?.property ?? strings.commonErrors.failed
         }
     } else if (errorObject?.status === 401) {
         object = {
             statusCode: errorObject.status,
             message: errorObject.message ?? strings.commonErrors.unauthorize,
-            title: errorObject.title ?? strings.commonErrors.unauthorize,
-            property: errorObject.property ?? strings.commonErrors.unauthorize
+            title: errorObject?.title ?? strings.commonErrors.unauthorize,
+            property: errorObject?.property ?? strings.commonErrors.unauthorize
         }
     } else if (errorObject?.status === 404) {
         object = {
@@ -32,19 +32,19 @@ const mockResponseData = (errorObject: any) => {
             title: strings.commonErrors.somethingWrong,
             property: strings.commonErrors.somethingWrong
         }
-    } else if (errorObject?.errorCode === 200) {
+    } else if (errorObject?.status === 200) {
         object = {
-            statusCode: errorObject.errorCode,
-            message: errorObject.message ?? strings.commonErrors.success,
-            title: errorObject.title ?? strings.commonErrors.success,
-            property: errorObject.property ?? strings.commonErrors.success
+            statusCode: errorObject?.status,
+            message: errorObject?.message ?? strings.commonErrors.success,
+            title: errorObject?.title ?? strings.commonErrors.success,
+            property: errorObject?.property ?? strings.commonErrors.success
         }
-    } else if (errorObject?.errorCode === 204) {
+    } else if (errorObject?.status === 204) {
         object = {
             statusCode: errorObject.status,
-            message: errorObject.message ?? strings.commonErrors.success,
-            title: errorObject.title ?? strings.commonErrors.success,
-            property: errorObject.property ?? strings.commonErrors.success
+            message: errorObject?.message ?? strings.commonErrors.success,
+            title: errorObject?.title ?? strings.commonErrors.success,
+            property: errorObject?.property ?? strings.commonErrors.success
         }
     }
 
