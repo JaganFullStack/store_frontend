@@ -8,7 +8,7 @@ export class GetOrders {
 
 export class ViewOrder {
   static readonly type = "[Order] View";
-  constructor(public id: number) {}
+  constructor(public order_id: number) {}
 }
 
 export class Checkout {

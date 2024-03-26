@@ -29,5 +29,11 @@ export class OrdersComponent {
     this.filter['page'] = page;
     this.store.dispatch(new GetOrders(this.filter));
   }
+// id:any
+//   click(id:any){
+
+
+//     alert(id)
+//   }
 
 }

@@ -12,6 +12,7 @@ export interface OrderModel extends PaginateModel {
 }
 
 export interface Order {
+    find(arg0: (order: any) => boolean): unknown;
     id: number;
     order_id: string;
     order_number: number;
@@ -104,3 +105,79 @@ export interface RePaymentPayload {
 }
 
 
+export interface getvieewwwOrders {
+    id: string;
+    order_group_id: string;
+    shop_id: string;
+    deliveryman_id: string | null;
+    user_id: string;
+    guest_user_id: string | null;
+    location_id: string | null;
+    delivery_status: string;
+    payment_status: string;
+    applied_coupon_code: string | null;
+    coupon_discount_amount: string;
+    admin_earning_percentage: string;
+    total_admin_earnings: string;
+    total_vendor_earnings: string;
+    logistic_id: string | null;
+    logistic_name: string | null;
+    pickup_or_delivery: string;
+    shipping_delivery_type: string;
+    scheduled_delivery_info: string | null;
+    pickup_hub_id: string | null;
+    shipping_cost: string;
+    tips_amount: string;
+    reward_points: string;
+    created_at: string | null;
+    updated_at: string | null;
+    note: string | null;
+    products: Product[];
+  }
+  
+//   export interface Product {
+//     id: string;
+//     shop_id: string;
+//     added_by: string;
+//     name: string;
+//     slug: string;
+//     brand_id: string | null;
+//     unit_id: string;
+//     thumbnail_image: string;
+//     gallery_images: string | null;
+//     product_tags: string | null;
+//     short_description: string;
+//     description: string;
+//     price: string;
+//     min_price: string;
+//     max_price: string;
+//     discount_value: string;
+//     discount_type: string;
+//     discount_start_date: string;
+//     discount_end_date: string;
+//     sell_target: string;
+//     stock_qty: string;
+//     is_published: string;
+//     is_featured: string;
+//     min_purchase_qty: string;
+//     max_purchase_qty: string;
+//     min_stock_qty: string | null;
+//     has_variation: string;
+//     has_warranty: string;
+//     total_sale_count: string;
+//     standard_delivery_hours: string;
+//     express_delivery_hours: string;
+//     size_guide: string | null;
+//     meta_title: string | null;
+//     meta_description: string | null;
+//     meta_img: string | null;
+//     reward_points: string;
+//     created_at: string;
+//     updated_at: string;
+//     deleted_at: string | null;
+//     vedio_link: string | null;
+//     created_by: string | null;
+//     updated_by: string | null;
+//     is_import: string;
+//   }
+  

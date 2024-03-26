@@ -61,6 +61,8 @@ export class OrderState {
     return this.orderService.getOrders(action?.payload).pipe(
       tap({
         next: result => {
+
+          console.log("result of get orders ",result);
           ctx.patchState({
             order: {
               data: result.data,
@@ -78,14 +80,17 @@ export class OrderState {
   }
 
   @Action(ViewOrder)
-  viewOrder(ctx: StateContext<OrderStateModel>, { id }: ViewOrder) {
+
+
+  viewOrder(ctx: StateContext<OrderStateModel>, { order_id }: ViewOrder) {
     this.orderService.skeletonLoader = true;
-    return this.orderService.getOrders().pipe(
+    return this.orderService.getvieewwwOrders(order_id).pipe(
       tap({
         next: result => {
+          // console.log(result, "viewww vorderrrrr");
           const state = ctx.getState();
-          const order = result.data.find((order: any) => order.id == id);
-
+          const order = result.data;
+          // console.log(order, "order which I have selected");
           ctx.patchState({
             ...state,
             selectedOrder: order
@@ -103,6 +108,40 @@ export class OrderState {
       })
     );
   }
+
+
+
+//   viewOrder(ctx: StateContext<OrderStateModel>, { id }: ViewOrder) {
+
+//     this.orderService.skeletonLoader = true;
+//     return this.orderService.getOrders().pipe(
+//       tap({
+//         next: result => {
+//           console.log(result,"viewww vorderrrrr")
+//           const state = ctx.getState();
+//           const order = result.data.find((order: any) => order.id == id);
+// console.log(order,"oder whiuch i hav selected")
+//           ctx.patchState({
+//             ...state,
+//             selectedOrder: order
+//           });
+//         },
+//         error: err => {
+//           throw new Error(err?.error?.message);
+//         },
+//         complete: () => {
+//           this.orderService.skeletonLoader = false;
+//         }
+//       })
+//     );
+
+    
+//   }
+
+
+
+
+
 
   @Action(Checkout)
   checkout(ctx: StateContext<OrderStateModel>, action: Checkout) {
