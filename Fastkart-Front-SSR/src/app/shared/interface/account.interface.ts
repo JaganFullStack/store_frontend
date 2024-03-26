@@ -45,3 +45,9 @@ export interface AccountUserUpdatePassword {
 
   }
   
+
+  export interface AccountUserAddressDelete {
+ id:number;
+
+  }
+  

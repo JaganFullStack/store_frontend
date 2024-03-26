@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
-import { AccountUser, AccountUserUpdatePassword } from "../interface/account.interface";
+import { AccountUser, AccountUserAddressDelete, AccountUserUpdatePassword } from "../interface/account.interface";
 import { getStringDataFromLocalStorage } from "src/app/utilities/helper";
 
 
@@ -60,5 +60,25 @@ export class AccountService {
   }
   
   
+
+
+
+  UserAddressDelete(id: number): Observable<any> {
+    const userToken = getStringDataFromLocalStorage("user_token");
+  
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${userToken}`,
+    };
+  
+    const apiUrl = `${environment.apiBaseUrl}/api/user/address/delete`;
+  
+    const body = { id: id }; // Include the ID in the request body
+  
+    return this.http.post<any>(apiUrl, body, { headers });
+  }
+  
+
+
 
 }

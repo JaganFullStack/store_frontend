@@ -38,6 +38,7 @@ export class UpdateAddress {
 
 export class DeleteAddress {
   static readonly type = "[Account] Address Delete";
+  payload: any;
   constructor(public id: number) {}
 }
 

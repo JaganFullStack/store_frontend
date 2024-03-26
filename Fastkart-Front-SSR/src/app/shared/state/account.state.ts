@@ -119,10 +119,28 @@ export class AccountState {
   }
 
 
+
+
+  // ,ma deleteee
   @Action(DeleteAddress)
   deleteAddress(ctx: StateContext<AccountStateModel>, action: DeleteAddress) {
-    // Delete Address Logic Here
+    return this.accountService.UserAddressDelete(action.payload.id).pipe(
+      tap({
+        next: result=> {
+          this.store.dispatch(new GetUserDetails());
+          const mockMessageObject = mockResponseData(result.messageobject);
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
+        },
+        error: (err) => {
+          const messageObject = mockResponseData(err?.error.messageobject);
+          this.store.dispatch(new FailureResponse(messageObject));
+        }
+      })
+    );
   }
+
+
+
 
   @Action(DeleteAddress)
   forgetPassword(ctx: StateContext<AccountStateModel>, action: DeleteAddress) {
