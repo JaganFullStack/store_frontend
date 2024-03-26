@@ -37,7 +37,8 @@
             </li>
             <li>
                 <a href="javascript:void(0)" class="notifi-wishlist" (click)="addOrRemoveWishList(product)">
-                    <i class="ri-heart-line"></i>
+                    <i class="ri-heart-fill" style="color: red;" *ngIf="product.isWishlisted"></i>
+                    <i class="ri-heart-line"  *ngIf="!product?.isWishlisted"></i>
                 </a>
             </li>
         </ul>

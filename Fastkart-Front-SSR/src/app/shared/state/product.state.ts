@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { Store, Action, Selector, State, StateContext } from "@ngxs/store";
-import { tap } from "rxjs";
+import { Store, Action, Selector, State, StateContext, Select } from "@ngxs/store";
+import { Observable, tap } from "rxjs";
 import {
   GetProducts, GetStoreProducts,
-  GetRelatedProducts, GetProductBySlug, GetDealProducts
+  GetRelatedProducts, GetProductBySlug, GetDealProducts, SearchProducts
 } from "../action/product.action";
 import { Product, ProductModel } from "../interface/product.interface";
 import { ProductService } from "../services/product.service";
@@ -13,7 +13,7 @@ import { mockResponseData } from "src/app/utilities/helper";
 
 export class ProductStateModel {
   product = {
-    data: [] ,
+    data: [],
     total: 0
   }
   selectedProduct: Product | null;
@@ -39,6 +39,8 @@ export class ProductStateModel {
 })
 @Injectable()
 export class ProductState {
+
+  @Select(ProductState.product) products$: Observable<any>;
 
   constructor(private store: Store, private router: Router,
     private productService: ProductService,
@@ -179,6 +181,28 @@ export class ProductState {
         }
       })
     );
+  }
+
+  @Action(SearchProducts)
+  searchProduct(ctx: StateContext<ProductStateModel>, action: SearchProducts) {
+    this.productService.skeletonLoader = true;
+    // Note :- You must need to call api for filter and pagination as of now we are using json data so currently get all data from json 
+    //          you must need apply this logic on server side
+    let filterProducts: Array<any> = [];
+
+    this.products$.subscribe((product: any) => {
+      console.log(product)  
+      filterProducts = product?.data.filter((pro: any) => pro.name.includes(action.payload.search.toLowerCase())); 
+    });
+    console.log(action);
+    console.log(filterProducts);
+    return;
+    // return ctx.patchState({
+    //   product: {
+    //     data: products,
+    //     total: result?.total ? result?.total : result.data?.length
+    //   }
+    // });
   }
 
   @Action(GetRelatedProducts)
