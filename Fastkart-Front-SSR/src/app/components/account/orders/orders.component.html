@@ -14,7 +14,7 @@
                     <th>{{ 'amount' | translate }}</th>
                     <th>{{ 'payment_status' | translate }}</th>
                     <th>{{ 'payment_method' | translate }}</th>
-                    <th>{{ 'option' | translate }}</th>
+                    <!-- <th>{{ 'option' | translate }}</th> -->
                 </thead>
                 <tbody>
                     <tr *ngFor="let order of (order$ | async)?.data let i = index">
@@ -36,7 +36,7 @@
                         <td *ngIf="!order?.payment_method">
                             {{ defaultOrderStatus }}
                         </td>
-                        <td><a [routerLink]="['/account/order/details', order.id]"><i class="ri-eye-line"></i></a></td>
+                        <!-- <td><a [routerLink]="['/account/order/details', order.id]"><i class="ri-eye-line"></i></a></td> -->
                         <!-- <td><a (click)="click(order.id)"><i class="ri-eye-line"></i></a></td> -->
 
                     </tr>

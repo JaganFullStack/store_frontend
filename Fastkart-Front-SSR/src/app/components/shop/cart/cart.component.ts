@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CartComponent {
   cartItems: Array<any> = [];
-  apiBaseUrl:string=environment.apiBaseUrl;
+  apiBaseUrl: string = environment.apiBaseUrl;
   @Select(CartState.cartItems) cartItem$: Observable<Cart[]>;
   @Select(CartState.cartTotal) cartTotal$: Observable<number>;
 
@@ -62,22 +62,29 @@ export class CartComponent {
 
     const userId = getStringDataFromLocalStorage("user_id");
 
-    let responseObject = {
-      "user_id": userId,
-      "product_variation_id": product.product_variation_id,
-      "product_id": product.product_id,
-      "qty": 0
-    };
+      let responseObject = {
+        "user_id": userId,
+        "product_variation_id": product.product_variation_id,
+        "product_id": product.product_id,
+        "qty": 0
+      };
 
-    const itemFound = this.cartItems.find((item: any) => item.product_id === product.product_id);
+      const itemFound = this.cartItems.find((item: any) => item.product_id === product.product_id);
 
-    if (itemFound) {
-      responseObject.qty = convertStringToNumber(itemFound.qty) + 1;
-    } else {
-      responseObject.qty = 1;
-    }
+      if (itemFound) {
+        responseObject.qty = convertStringToNumber(itemFound.qty) + 1;
+      } else {
+        responseObject.qty = 1;
+      }
 
-    this.store.dispatch(new AddToCart(responseObject));
+      if(userId){
+        this.store.dispatch(new AddToCart(responseObject));
+      }else{
+        product.qty=responseObject.qty;
+        console.log(product);
+        // this.store.dispatch(new AddToCart(responseObject));
+      }
+
   };
 
   subractFromItemCount(product: any) {
@@ -93,7 +100,7 @@ export class CartComponent {
 
     const itemFound = this.cartItems.find((item: any) => item.product_id === product.product_id);
     const formattedQty = convertStringToNumber(itemFound.qty);
-    if ((formattedQty-1) === 0) {
+    if ((formattedQty - 1) === 0) {
       const object = {
         id: itemFound.id
       };

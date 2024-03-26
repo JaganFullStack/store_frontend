@@ -6,7 +6,7 @@ export class GetCartItems {
 
 export class AddToCartLocalStorage {
   static readonly type = "[Cart] Local Storage Add";
-  constructor(public payload: CartAddOrUpdate) { }
+  constructor(public payload: any) { }
 }
 
 export class AddToCart {

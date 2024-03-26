@@ -60,13 +60,13 @@ const defaultError = () => {
     };
 };
 
-const getStringDataFromLocalStorage =  (key: string) => {
-    return  localStorage.getItem(key) || '';
+const getStringDataFromLocalStorage = (key: string) => {
+    return localStorage.getItem(key) || '';
 };
 
 const getObjectDataFromLocalStorage = (key: string) => {
     const stringData = localStorage.getItem(key) || '';
-    return JSON.parse(stringData);
+    return (stringData != '') ? JSON.parse(stringData) : null;
 };
 
 const storeObjectDataInLocalStorage = (key: string, value: object) => {
@@ -85,7 +85,7 @@ const clearLocalStorage = () => {
     return localStorage.clear();
 };
 
-const convertStringToNumber=(data:any)=>{
+const convertStringToNumber = (data: any) => {
     return Number(data);
 };
 

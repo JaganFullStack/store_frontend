@@ -7,7 +7,7 @@ import { Product } from '../../../../../shared/interface/product.interface';
 import { CartAddOrUpdate, Cart } from '../../../../../shared/interface/cart.interface';
 import { AddOrRemoveWishlist, DeleteWishlist } from '../../../../../shared/action/wishlist.action';
 import { AddToCompare } from '../../../../../shared/action/compare.action';
-import { AddToCart, DeleteCart, GetCartItems } from '../../../../../shared/action/cart.action';
+import { AddToCart, AddToCartLocalStorage, DeleteCart, GetCartItems } from '../../../../../shared/action/cart.action';
 import { CartState } from '../../../../../shared/state/cart.state';
 import { VariationModalComponent } from '../../modal/variation-modal/variation-modal.component';
 import { environment } from 'src/environments/environment';
@@ -122,7 +122,13 @@ export class ProductBoxHorizontalComponent {
       responseObject.qty = 1;
     }
 
-    this.store.dispatch(new AddToCart(responseObject));
+    if(userId){
+      this.store.dispatch(new AddToCart(responseObject));
+    }else{
+      product.qty=responseObject.qty;
+      console.log(product)
+      this.store.dispatch(new AddToCartLocalStorage(product));
+    }
   };
 
   subractItemCount(product: any) {

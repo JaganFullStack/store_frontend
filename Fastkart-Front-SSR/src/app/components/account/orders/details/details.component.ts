@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
-import { Observable, Subject, Subscribable, of } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { switchMap, mergeMap, takeUntil } from 'rxjs/operators';
 import { ViewOrder } from '../../../../shared/action/order.action';
 import { GetOrderStatus } from '../../../../shared/action/order-status.action';
@@ -25,13 +25,19 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   apiBaseUrl: string = environment.apiBaseUrl;
   private destroy$ = new Subject<void>();
   order: any;
-  selectedOrder: any = {};
+  order_data: any;
   products: Array<any> = [];
+  selectedOrder: any = null;
+  selectedProducts: Array<any> = [];
   @Select(OrderState.selectedOrder) selectedOrder$: Observable<any>;
 
   constructor(private store: Store, private route: ActivatedRoute) {
     this.selectedOrder$.subscribe((data: any) => {
-      console.log(data);
+      this.selectedOrder = data;
+      this.order_data = data;
+      this.selectedProducts = data?.products;
+      console.log(this.selectedProducts[0].name)
+      console.log(this.order_data)
     });
 
   }
@@ -41,15 +47,8 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
       switchMap(params => {
         if (!params['id']) return of(null);
         return this.store.dispatch(new ViewOrder(params['id']));
-      }),
-      switchMap(() => this.store.select(OrderState.selectedOrder)),
-      filter(order => !!order),
-      takeUntil(this.destroy$)
-    )
-      .subscribe(order => {
-        this.order = order;
-        this.products = this.order.products;
-      });
+      })
+    );
   }
 
   ngOnDestroy() {

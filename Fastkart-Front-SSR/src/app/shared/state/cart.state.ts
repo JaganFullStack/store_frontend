@@ -8,7 +8,7 @@ import {
 import { Cart, CartModel } from "../interface/cart.interface";
 import { cartService } from "../services/cart.service";
 import { NotificationService } from "../services/notification.service";
-import { getStringDataFromLocalStorage, mockResponseData } from "src/app/utilities/helper";
+import { convertStringToNumber, getObjectDataFromLocalStorage, getStringDataFromLocalStorage, mockResponseData, storeObjectDataInLocalStorage, storeStringDataInLocalStorage } from "src/app/utilities/helper";
 import { FailureResponse, SuccessResponse } from "../action/response.action";
 import { PleaseLoginModalComponent } from "../components/widgets/please-login-modal/please-login-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -69,22 +69,33 @@ export class CartState {
 
   @Action(GetCartItems)
   getCartItems(ctx: StateContext<CartStateModel>) {
-    return this.cartService.getCartItems().pipe(
-      tap({
-        next: result => {
-          // Set Selected Varaint
-          ctx.patchState({
-            items: (result?.data?.items && result?.data?.items.length > 0) ? result?.data?.items : [],
-            total: result?.data?.total ? result?.data?.total : 0,
-          });
-        },
-        error: err => {
-          const messageObject = mockResponseData(err?.error.messageobject);
-          console.log(messageObject?.message);
-          throw new Error(err?.error?.message);
-        }
-      })
-    );
+    const user_id = getStringDataFromLocalStorage("user_id");
+
+    if (user_id) {
+      return this.cartService.getCartItems().pipe(
+        tap({
+          next: result => {
+            // Set Selected Varaint
+            ctx.patchState({
+              items: (result?.data?.items && result?.data?.items.length > 0) ? result?.data?.items : [],
+              total: result?.data?.total ? result?.data?.total : 0,
+            });
+          },
+          error: err => {
+            const messageObject = mockResponseData(err?.error.messageobject);
+            console.log(messageObject?.message);
+            throw new Error(err?.error?.message);
+          }
+        })
+      );
+    } else {
+      const localCartData = getObjectDataFromLocalStorage("cart_data");
+
+      return ctx.patchState({
+        items: localCartData?.cartItems,
+        total: localCartData.total,
+      });
+    }
   }
 
   @Action(AddToCart)
@@ -110,49 +121,36 @@ export class CartState {
 
   @Action(AddToCartLocalStorage)
   addToLocalStorage(ctx: StateContext<CartStateModel>, action: AddToCartLocalStorage) {
+    let cartData: any = {
+      cartItems: [],
+      total: 0
+    };
 
-    // let salePrice = action.payload.variation ? action.payload.variation.sale_price : action.payload.product?.sale_price;
-    // let result: CartModel = {
-    //   items: [{
-    //     id: Number(Math.floor(Math.random() * 10000).toString().padStart(4, '0')), // Generate Random Id
-    //     quantity: action.payload.quantity,
-    //     sub_total: salePrice ? salePrice * action.payload.quantity : 0,
-    //     product: action.payload.product!,
-    //     product_id: action.payload.product_id,
-    //     variation: action.payload.variation!,
-    //     variation_id: action.payload.variation_id
-    //   }]
-    // }
+    const localCartData = getObjectDataFromLocalStorage("cart_data");
 
-    // const state = ctx.getState();
-    // const cart = [...state.items];
-    // const index = cart.findIndex(item => item.id === result.items[0].id);
+    cartData.cartItems = localCartData ? localCartData.cartItems : [];
+    cartData.total = localCartData ? localCartData.total : 0;
 
-    // let output = { ...state };
+    const indexOf = cartData?.cartItems.push(action.payload);
 
-    // if (index == -1) {
-    //   output.items = [...state.items, ...result.items];
-    // }
+    if (indexOf) {
+      cartData?.cartItems.push(action.payload);
+    }else{
 
-    // // Set Selected Varaint
-    // output.items.filter(item => {
-    //   if (item?.variation) {
-    //     item.variation.selected_variation = item?.variation?.attribute_values?.map(values => values.value).join('/');
-    //   }
-    // });
+    }
 
-    // // Calculate Total
-    // output.total = output.items.reduce((prev, curr: Cart) => {
-    //   return (prev + Number(curr.sub_total));
-    // }, 0);
+    const mockedData = cartData?.cartItems.map((cart: any) => {
+      const productTotal = convertStringToNumber(cart.qty) * convertStringToNumber(cart?.sale_price);
+      cartData.total += productTotal;
+      return cart;
+    });
 
-    // output.stickyCartOpen = true;
-    // output.sidebarCartOpen = true;
-    // ctx.patchState(output);
+    storeObjectDataInLocalStorage("cart_data", cartData);
 
-    // setTimeout(() => {
-    //   this.store.dispatch(new CloseStickyCart());
-    // }, 1500);
+    return ctx.patchState({
+      items: cartData?.cartItems,
+      total: cartData.total,
+    });
   }
 
   @Action(UpdateCart)
