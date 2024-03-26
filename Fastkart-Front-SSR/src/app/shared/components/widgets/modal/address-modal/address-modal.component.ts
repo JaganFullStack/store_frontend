@@ -11,6 +11,7 @@ import { StateState } from '../../../../state/state.state';
 import { UserAddress } from '../../../../interface/user.interface';
 import * as data from '../../../../data/country-code';
 import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/utilities/helper';
+import { PleaseLoginModalComponent } from '../../please-login-modal/please-login-modal.component';
 
 @Component({
   selector: 'address-modal',
@@ -144,12 +145,19 @@ export class AddressModalComponent {
     }
   }
 
-  submit() {
 
+
+
+
+  submit() {
+    const user_id = getStringDataFromLocalStorage("user_id");
+    if (!user_id) {
+      console.log("No access: user_id is not in local storage.");
+      return this.ngOnDestroy();; 
+    }
     this.form.markAllAsTouched();
    
-    const user_id = getStringDataFromLocalStorage("user_id");
-
+   
     let requestObject = {
       user_id: user_id,
       country_id: this.form.value.country_id,
@@ -163,7 +171,7 @@ export class AddressModalComponent {
       title:this.form.value.title,
       pincode: this.form.value.pincode,
     };
-console.log(requestObject);
+console.log(requestObject,"ojojojojojojojojo");
     let action = new CreateAddress(requestObject);
 
     if (this.address) {
@@ -171,6 +179,7 @@ console.log(requestObject);
     }
 
     if (this.form.valid) {
+      // this.store.dispatch(action);
       this.store.dispatch(action).subscribe({
         complete: () => {
           this.form.reset();
@@ -182,6 +191,15 @@ console.log(requestObject);
       });
     }
   }
+
+
+  opendata() {
+    const modalRef = this.modalService.open(PleaseLoginModalComponent, { centered: true });
+    modalRef.componentInstance.closeModalEvent.subscribe(() => {
+      modalRef.close();
+    });
+  }
+  
 
   ngOnDestroy() {
     if (this.modalOpen) {

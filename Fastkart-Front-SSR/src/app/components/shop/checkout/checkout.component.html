@@ -10,14 +10,26 @@
                                 <div class="checkout-icon">
                                     <i class="ri-map-pin-line"></i>
                                 </div>
+
+
+
                                 <div class="checkout-box">
+
+
+                                    
                                     <div href="javascript:void(0)" class="checkout-title">
                                         <h4>{{ 'Shipping Address' | translate }}</h4>
                                         <a href="javascript:void(0)" class="d-flex align-items-center fw-bold"
-                                            (click)="AddressModal.openModal()">
+                                            (click)="checkAndOpenModal()"
+                                            
+                                            >
                                             <i class="ri-add-line me-1"></i> {{ 'add new' | translate }}
                                         </a>
                                     </div>
+
+
+
+
                                     <div class="checkout-detail">
                                         <app-address-block
                                             [addresses]="shippingAddressList"
@@ -35,7 +47,7 @@
                                     <div href="javascript:void(0)" class="checkout-title">
                                         <h4>{{ 'Billing Address' | translate }}</h4>
                                         <a href="javascript:void(0)" class="d-flex align-items-center fw-bold"
-                                            (click)="AddressModal.openModal()">
+                                            (click)="checkAndOpenModal()">
                                             <i class="ri-add-line me-1"></i> {{ 'add new' | translate }}
                                         </a>
                                     </div>

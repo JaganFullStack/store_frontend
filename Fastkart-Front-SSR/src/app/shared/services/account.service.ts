@@ -73,7 +73,7 @@ export class AccountService {
   
     const apiUrl = `${environment.apiBaseUrl}/api/user/address/delete`;
   
-    const body = { id: id }; // Include the ID in the request body
+    const body = { id: id }; 
   
     return this.http.post<any>(apiUrl, body, { headers });
   }

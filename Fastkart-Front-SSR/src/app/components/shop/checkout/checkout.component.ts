@@ -17,6 +17,8 @@ import { OrderCheckout } from '../../../shared/interface/order.interface';
 import { Values, DeliveryBlock } from '../../../shared/interface/setting.interface';
 import { environment } from 'src/environments/environment';
 import { getStringDataFromLocalStorage } from 'src/app/utilities/helper';
+import { PleaseLoginModalComponent } from 'src/app/shared/components/widgets/please-login-modal/please-login-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-checkout',
@@ -31,6 +33,7 @@ export class CheckoutComponent {
     title: "Checkout",
     items: [{ label: 'Checkout', active: true }]
   }
+  public modalOpen: boolean = false;
 
   @Select(AccountState.user) user$: Observable<AccountUser>;
   @Select(CartState.cartItems) cartItem$: Observable<any[]>;
@@ -49,7 +52,7 @@ export class CheckoutComponent {
   public checkoutTotal: OrderCheckout;
   public loading: boolean = false;
 
-  constructor(private store: Store,
+  constructor(private modalService: NgbModal,private store: Store,
     private formBuilder: FormBuilder) {
     this.store.dispatch(new GetCartItems());
     this.store.dispatch(new GetSettingOption());
@@ -206,7 +209,29 @@ export class CheckoutComponent {
     })
   }
 
+  checkAndOpenModal() {
+    const user_id = getStringDataFromLocalStorage("user_id");
+    if (user_id) {
+      
+        this.AddressModal.openModal();
+    } else {
+     
+        this.opendata();
+    }
+}
+// modal
+  opendata() {
+    const modalRef = this.modalService.open(PleaseLoginModalComponent, { centered: true });
+    modalRef.componentInstance.closeModalEvent.subscribe(() => {
+      modalRef.close();
+    });
+  }
+
+
+ 
+
   ngOnDestroy() {
+
     this.store.dispatch(new Clear());
     this.form.reset();
   }
