@@ -1,0 +1,7 @@
+<ul>
+  <li *ngFor="let link of links">
+    <a *ngIf="checkUserId()" routerLink="/{{link.link}}" class="text-content">{{ link.label | titleCase }}</a>
+    <a *ngIf="!checkUserId()" (click)="openModal()" class="text-content">{{ link.label | titleCase }}</a>
+  </li>
+</ul>
+

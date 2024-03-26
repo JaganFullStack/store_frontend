@@ -1,0 +1,82 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { Category, CategoryModel } from '../../../interface/category.interface';
+import { CategoryState } from '../../../state/category.state';
+import { environment } from 'src/environments/environment';
+import { convertStringToNumber } from 'src/app/utilities/helper';
+import { GetProductBySlug } from 'src/app/shared/action/product.action';
+
+@Component({
+  selector: 'app-categories',
+  templateUrl: './categories.component.html',
+  styleUrls: ['./categories.component.scss']
+})
+export class CategoriesComponent {
+  apiBaseUrl: string = environment.apiBaseUrl;
+  @Select(CategoryState.category) category$: Observable<CategoryModel>;
+
+  @Input() categoryIds: number[] = [];
+  @Input() style: string = 'vertical';
+  @Input() title?: string;
+  @Input() image?: string;
+  @Input() theme: string;
+  @Input() sliderOption: OwlOptions;
+  @Input() selectedCategoryId: number;
+  @Input() bgImage: string;
+
+  @Output() selectedCategory: EventEmitter<number> = new EventEmitter();
+
+  public categories: any[];
+  public selectedCategorySlug: string[] = [];
+  assets: any;
+
+  ApiImageurl = environment.backendCategoryImageUrl;
+
+  constructor(private route: ActivatedRoute,
+    private router: Router, private store: Store) {
+
+    this.category$.subscribe(res => {
+      this.categories = res.data;
+    });
+
+    this.route.queryParams.subscribe(params => {
+      this.selectedCategorySlug = params['category'] ? params['category'].split(',') : [];
+    });
+  }
+
+  ngOnChanges() {
+    if (this.categoryIds && this.categoryIds.length) {
+      this.category$.subscribe(res => {
+        this.categories = res.data.filter(category => this.categoryIds?.includes(convertStringToNumber(category?.id)));
+      });
+    }
+  }
+
+  selectCategory(id: number) {
+    console.log(id);
+    this.selectedCategory.emit(id);
+  }
+
+  redirectToCollection(categoryId: string) {
+
+    let index = this.selectedCategorySlug.indexOf(categoryId);
+
+    if (index === -1)
+      this.selectedCategorySlug.push(categoryId);
+    else
+      this.selectedCategorySlug.splice(index, 1);
+
+    this.router.navigate(['/collections'], {
+      relativeTo: this.route,
+      queryParams: {
+        category: this.selectedCategorySlug.length ? this.selectedCategorySlug.join(',') : null
+      },
+      queryParamsHandling: 'merge', // preserve the existing query params in the route
+      skipLocationChange: false  // do trigger navigation
+    });
+  }
+
+}

@@ -1,0 +1,52 @@
+.rightside-box.topheader .right-side-menu{
+display: flex;
+align-items: center;
+justify-content: end;
+}
+
+.rightside-box{
+
+    .right-side-menu{
+        display: flex;
+        gap: 32px;
+        align-items: center;
+        justify-content: end;
+        color: #fff;
+       
+        }
+    
+}
+
+.avatar-img {
+    border-radius: 50%;
+    width: 40px; 
+    height: 40px; 
+    object-fit: cover;
+}
+li.right-side
+{
+    position: relative;
+}
+li.right-side::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 1px;
+    height: 24px;
+    right: 14px;
+    background-color: rgba(74, 85, 104, .5);
+    background-color: rgb(255 255 255 / 50%);
+    left: -16px;
+}
+ul.right-side-menu li:first-child::before{content: unset!important;}
+.align_center
+{
+    align-items: center;
+}
+.cal_icon_card
+{
+    display: inline-block;
+    margin-right: 8px;
+}
