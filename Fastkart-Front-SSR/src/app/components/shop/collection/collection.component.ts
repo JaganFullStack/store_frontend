@@ -21,8 +21,8 @@ export class CollectionComponent {
   @Select(ThemeOptionState.themeOptions) themeOptions$: Observable<Option>;
 
   public breadcrumb: Breadcrumb = {
-    title: "Collections",
-    items: [{ label: 'Collections', active: false }]
+    title: "Products",
+    items: [{ label: 'Products', active: false }]
   };
   public layout: string = 'collection_category_slider';
   public skeleton: boolean = true;
