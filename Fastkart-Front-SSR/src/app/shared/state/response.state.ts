@@ -7,16 +7,14 @@ import { RefundService } from "../services/refund.service";
 import { FailureResponse, SuccessResponse } from "../action/response.action";
 
 export class ResponseStateModel {
-    response = {
-        success: {
-            load: false,
-            content: null,
-        },
-        failure: {
-            load: false,
-            content: null,
-        },
-    }
+    success: {
+        load: boolean,
+        content: any | null,
+    };
+    failure: {
+        load: boolean,
+        content: any | null,
+    };
 }
 
 @State<any>({
@@ -40,44 +38,42 @@ export class ResponseSate {
 
     @Selector()
     static sucess(state: any) {
-        return state.reponse.sucess;
+        return state.success;
     }
 
     @Selector()
     static failure(state: any) {
-        return state.reponse.failure;
+        return state.failure;
     }
 
     @Action(SuccessResponse)
     setSuccessResponse(ctx: StateContext<ResponseStateModel>, action: SuccessResponse) {
         return ctx.patchState({
-            response: {
-                success: {
-                    load: true,
-                    content: action.payload,
-                },
-                failure: {
-                    load: false,
-                    content: null,
-                },
+            // response: {
+            success: {
+                load: true,
+                content: action.payload,
+            },
+            failure: {
+                load: false,
+                content: null,
+            },
 
-            }
+            // }
         });
     }
 
     @Action(FailureResponse)
     setFailureResponse(ctx: StateContext<ResponseStateModel>, action: FailureResponse) {
         return ctx.patchState({
-            response: {
-                success: {
-                    load: false,
-                    content: action.payload,
-                },
-                failure: {
-                    load: true,
-                    content: action.payload,
-                },
-            }
+            success: {
+                load: false,
+                content: action.payload,
+            },
+            failure: {
+                load: true,
+                content: action.payload,
+            },
         });
     }
 

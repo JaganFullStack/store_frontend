@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Store, Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
 
-import { catchError,  } from 'rxjs/operators';
+import { catchError, } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 import {
@@ -15,6 +15,9 @@ import { NotificationService } from "../services/notification.service";
 import { Permission } from "../interface/role.interface";
 import { Router } from "@angular/router";
 import { mockResponseData } from "src/app/utilities/helper";
+import { FailureResponse, SuccessResponse } from "../action/response.action";
+import { PleaseLoginModalComponent } from "../components/widgets/please-login-modal/please-login-modal.component";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 export class AccountStateModel {
   user: AccountUser | null;
@@ -31,7 +34,7 @@ export class AccountStateModel {
 @Injectable()
 export class AccountState {
 
-  constructor(private accountService: AccountService, private router: Router,private store:Store) { }
+  constructor(private accountService: AccountService, private router: Router, private modalService: NgbModal, private store: Store) { }
 
   @Selector()
   static user(state: AccountStateModel) {
@@ -55,7 +58,7 @@ export class AccountState {
         },
         error: err => {
           const messageObject = mockResponseData(err.messageobject);
-          // alert(messageObject?.message);
+          console.log(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
@@ -70,22 +73,25 @@ export class AccountState {
 
 
   @Action(UpdateUserPassword)
-updatePassword(ctx: StateContext<any>, { payload }: UpdateUserPassword) {
-  console.log(payload);
-  return this.accountService.UpdateUserPassword(payload).pipe(
-   
-    tap({
-      next: result => {
-        console.log("Update password success", result);
-      
-      },
-      error: err => {
-        console.log("Update password error", err);
-        throw new Error(err?.error?.message);
-      },
-    })
-  );
-}
+  updatePassword(ctx: StateContext<any>, { payload }: UpdateUserPassword) {
+
+    return this.accountService.UpdateUserPassword(payload).pipe(
+
+      tap({
+        next: result => {
+          const mockMessageObject = mockResponseData(result.messageobject);
+          this.store.dispatch(new SuccessResponse(mockMessageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
+        },
+        error: err => {
+          const messageObject = mockResponseData(err.messageobject);
+          this.store.dispatch(new FailureResponse(messageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
+          throw new Error(err?.error?.message);
+        },
+      })
+    );
+  }
 
   @Action(CreateAddress)
   createAddress(ctx: StateContext<AccountStateModel>, action: CreateAddress) {
@@ -94,10 +100,14 @@ updatePassword(ctx: StateContext<any>, { payload }: UpdateUserPassword) {
       tap({
         next: result => {
           this.store.dispatch(new GetUserDetails());
+          const mockMessageObject = mockResponseData(result.messageobject);
+          this.store.dispatch(new SuccessResponse(mockMessageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
           const messageObject = mockResponseData(err.messageobject);
-          // alert(messageObject?.message);
+          this.store.dispatch(new FailureResponse(messageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
         }
       })
@@ -112,7 +122,7 @@ updatePassword(ctx: StateContext<any>, { payload }: UpdateUserPassword) {
 
   @Action(DeleteAddress)
   forgetPassword(ctx: StateContext<AccountStateModel>, action: DeleteAddress) {
-  
+
   }
 
 

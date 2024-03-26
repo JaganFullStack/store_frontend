@@ -9,6 +9,9 @@ import { Cart, CartModel } from "../interface/cart.interface";
 import { cartService } from "../services/cart.service";
 import { NotificationService } from "../services/notification.service";
 import { getStringDataFromLocalStorage, mockResponseData } from "src/app/utilities/helper";
+import { FailureResponse, SuccessResponse } from "../action/response.action";
+import { PleaseLoginModalComponent } from "../components/widgets/please-login-modal/please-login-modal.component";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 export interface CartStateModel {
   items: Cart[];
@@ -31,7 +34,7 @@ export class CartState {
 
   constructor(private cartService: cartService,
     private notificationService: NotificationService,
-    private store: Store) {
+    private store: Store, private modalService: NgbModal) {
   }
 
   ngxsOnInit(ctx: StateContext<CartStateModel>) {
@@ -91,12 +94,14 @@ export class CartState {
       tap({
         next: (result: any) => {
           this.store.dispatch(new GetCartItems());
-          const mockMessageObject = mockResponseData(result?.messageobject);
-          // alert(mockMessageObject?.message);
+          // const mockMessageObject = mockResponseData(result.messageobject);
+          // this.store.dispatch(new SuccessResponse(mockMessageObject));
+          // this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
           const messageObject = mockResponseData(err.messageobject);
-          // alert(messageObject?.message);
+          this.store.dispatch(new FailureResponse(messageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
         }
       })
@@ -244,12 +249,14 @@ export class CartState {
       tap({
         next: result => {
           this.store.dispatch(new GetCartItems());
-          const mockMessageObject = mockResponseData(result.messageobject);
-          // alert(mockMessageObject?.message);
+          // const mockMessageObject = mockResponseData(result.messageobject);
+          // this.store.dispatch(new SuccessResponse(mockMessageObject));
+          // this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
           const messageObject = mockResponseData(err.messageobject);
-          // alert(messageObject?.message);
+          this.store.dispatch(new FailureResponse(messageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
         }
       })
