@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, Subject, Subscribable, of } from 'rxjs';
 import { switchMap, mergeMap, takeUntil } from 'rxjs/operators';
 import { ViewOrder } from '../../../../shared/action/order.action';
 import { GetOrderStatus } from '../../../../shared/action/order-status.action';
@@ -12,48 +12,44 @@ import { OrderStatusModel } from '../../../../shared/interface/order-status.inte
 import { RefundModalComponent } from '../../../../shared/components/widgets/modal/refund-modal/refund-modal.component';
 import { PayModalComponent } from '../../../../shared/components/widgets/modal/pay-modal/pay-modal.component';
 import { environment } from 'src/environments/environment';
-
+import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-order-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class OrderDetailsComponent {
 
-  @Select(OrderStatusState.orderStatus) orderStatus$: Observable<OrderStatusModel>;
-  @ViewChild("refundModal") RefundModal: RefundModalComponent;
-  @ViewChild("payModal") PayModal: PayModalComponent;
+
+export class OrderDetailsComponent implements OnInit, OnDestroy {
+  @ViewChild("refundModal") refundModal: RefundModalComponent;
   apiBaseUrl: string = environment.apiBaseUrl;
   private destroy$ = new Subject<void>();
-
-  public order: Order;
-
-  constructor(private store: Store,
-    private route: ActivatedRoute) {
-    this.store.dispatch(new GetOrderStatus());
-  }
+  order: any; 
+  products:any[];
+  constructor(private store: Store, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.route.params
-      .pipe(
-        switchMap(params => {
-          if (!params['id']) return of();
-          return this.store
-            .dispatch(new ViewOrder(params['id']))
-            .pipe(mergeMap(() => this.store.select(OrderState.selectedOrder)))
-        }
-        ),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(order => {
-        this.order = order!
-        console.log(this.order.products);
-      });
-  }
+    this.route.params.pipe(
+      switchMap(params => {
+        if (!params['id']) return of(null); 
+        return this.store.dispatch(new ViewOrder(params['id']));
+      }),
+      switchMap(() => this.store.select(OrderState.selectedOrder)),
+      filter(order => !!order), 
+      takeUntil(this.destroy$)
+    )
+    .subscribe(order => {
+      console.log('Order data:', order);
+      this.order = order;
 
+      this.products =  this.order.products
+      console.log(' this.products data:',  this.products);
+
+    });
+  }
+  
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
 }
