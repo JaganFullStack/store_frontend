@@ -6,6 +6,13 @@
       <i class="ri-close-line"></i>
     </app-button>
   </div>
+
+
+
+
+
+
+
   <form [formGroup]="form" class="" (ngSubmit)="submit()">
     <div class="modal-body address-form">
       <div class="row g-4">
@@ -70,9 +77,11 @@
           </div>
         </div>
         <div class="col-6">
+
+
           <div class="">
             <label class="form-label" for="address1">{{ 'city' | translate }}</label>
-            <!-- <input class="form-control" id="city" type="text" placeholder="{{ 'enter_city' | translate }}" formControlName="city" /> -->
+           
             <select2 class="custom-select" [data]="(cities$ | async) ? (cities$ | async)! : []"
               [placeholder]="'select_city' | translate" formControlName="city_id">
             </select2>
@@ -81,6 +90,8 @@
               {{ 'city_is_required' | translate }}
             </div>
           </div>
+
+          
         </div>
         <div class="col-6">
           <div class="">
@@ -131,4 +142,16 @@
       </div>
     </div>
   </form>
+
+
+
+
+
+
+
+
+
+
+
+  
 </ng-template>

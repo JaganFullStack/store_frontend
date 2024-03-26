@@ -51,10 +51,13 @@ export class AccountState {
     return this.accountService.getUserDetails().pipe(
       tap({
         next: result => {
+          console.log("frfrfrfrfr",result?.data[0],)
+
           ctx.patchState({
             user: result?.data[0],
             permissions: [],
           });
+
         },
         error: err => {
           const messageObject = mockResponseData(err.error.messageobject);
@@ -95,6 +98,7 @@ export class AccountState {
 
   @Action(CreateAddress)
   createAddress(ctx: StateContext<AccountStateModel>, action: CreateAddress) {
+
     // Create Address Logic Here
     return this.accountService.createAddresss(action.payload).pipe(
       tap({

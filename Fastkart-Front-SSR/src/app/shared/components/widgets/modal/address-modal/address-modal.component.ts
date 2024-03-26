@@ -121,17 +121,22 @@ export class AddressModalComponent {
   patchForm(value?: UserAddress) {
     if (value) {
       this.address = value;
+      console.log(this.address, ",addresssss")
       this.form.patchValue({
         user_id: value?.user_id,
         title: value?.title,
         street: value?.street,
         country_id: value?.country_id,
         state_id: value?.state_id,
-        city: value?.city,
+        city_id: value?.city?.id, 
+
+        // city: value?.city?.name, 
         pincode: value?.pincode,
-        country_code: value?.country_code,
-        phone: value?.phone
+        country_code: value?.country_id,
+        phone: value?.phone,
+        address_type: value?.type
       });
+      console.log('Form value after patching:', this.form.value); 
     } else {
       this.address = null;
       this.form.reset();
@@ -153,11 +158,12 @@ export class AddressModalComponent {
       address: this.form.value.street,
       is_default: 1,
       phone: this.form.value.phone,
+     
       address_type: this.form.value.address_type,
       title:this.form.value.title,
       pincode: this.form.value.pincode,
     };
-
+console.log(requestObject);
     let action = new CreateAddress(requestObject);
 
     if (this.address) {

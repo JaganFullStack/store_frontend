@@ -26,8 +26,6 @@ export class CountryService {
   }
 
   getCities(): Observable<any> {
-    // const userToken = getStringDataFromLocalStorage("user_token");
-    // const userId = getStringDataFromLocalStorage("user_id");
 
     const headers = {
       'Content-Type': 'application/json',

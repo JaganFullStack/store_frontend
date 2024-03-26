@@ -36,7 +36,7 @@ export interface UserAddress {
     title: string;
     street: string;
     type: string;
-    city: string;
+    city: City;
     pincode: string | number;
     state_id: number;
     state: States;
@@ -45,4 +45,17 @@ export interface UserAddress {
     phone: number;
     country_id: number;
     is_default: boolean;
+    city_id:number;
 }
+
+
+export interface City {
+    created_at: string;
+    deleted_at: string | null;
+    id: string;
+    is_active: string;
+    name: string;
+    state_id: string;
+    updated_at: string;
+  }
+  
