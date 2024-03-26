@@ -1,14 +1,14 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, filter, of, switchMap, takeUntil } from 'rxjs';
 import { Breadcrumb } from '../../../shared/interface/breadcrumb';
 import { AccountUser } from "../../../shared/interface/account.interface";
 import { AccountState } from '../../../shared/state/account.state';
 import { CartState } from '../../../shared/state/cart.state';
 import { GetCartItems } from '../../../shared/action/cart.action';
 import { OrderState } from '../../../shared/state/order.state';
-import { Checkout, PlaceOrder, Clear } from '../../../shared/action/order.action';
+import { Checkout, PlaceOrder, Clear, ViewOrder } from '../../../shared/action/order.action';
 import { AddressModalComponent } from '../../../shared/components/widgets/modal/address-modal/address-modal.component';
 import { Cart } from '../../../shared/interface/cart.interface';
 import { SettingState } from '../../../shared/state/setting.state';
@@ -18,6 +18,7 @@ import { Values, DeliveryBlock } from '../../../shared/interface/setting.interfa
 import { environment } from 'src/environments/environment';
 import { getStringDataFromLocalStorage } from 'src/app/utilities/helper';
 import { SharedModule } from "../../../shared/shared.module";
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-tracking',
@@ -37,9 +38,12 @@ export class TrackingComponent {
   apiBaseurl: string = environment.apiBaseUrl;
   shippingAddressList: Array<any> = [];
   billingAddressList: Array<any> = [];
+
+
   public breadcrumb: Breadcrumb = {
     title: "Tracking",
-    items: [{ label: 'Tracking', active: true }]
+    items: [{ label: 'Tracking', active: true }],
+    
   }
 
   @Select(AccountState.user) user$: Observable<AccountUser>;
@@ -58,6 +62,7 @@ export class TrackingComponent {
   public couponError: string | null;
   public checkoutTotal: OrderCheckout;
   public loading: boolean = false;
+  route: any;
 
   constructor(private store: Store,
     private formBuilder: FormBuilder) {
@@ -86,7 +91,9 @@ export class TrackingComponent {
   get productControl(): FormArray {
     return this.form.get("products") as FormArray;
   }
-
+  order: any; 
+  orderJson: string;
+  products:any[];
   ngOnInit() {
     this.checkout$.subscribe(data => this.checkoutTotal = data);
     this.cartItem$.subscribe(items => {
@@ -103,8 +110,33 @@ export class TrackingComponent {
           })
         ));
     });
+ 
 
   }
+
+
+
+
+// mahi searchhhhhhhhhhhhhhhh
+  searchOrder() {
+    const orderId = this.term.value;
+    if (orderId) {
+      this.store.dispatch(new ViewOrder(orderId)).subscribe(() => {
+      
+        this.store.select(OrderState.selectedOrder).subscribe(order => {
+          if (order) {
+            this.order = order;
+            // this.orderJson = JSON.stringify(this.order);
+
+            console.log(this.order,"searched order")
+          }
+        });
+      });
+    }
+  }
+
+
+
 
   selectShippingAddress(id: number) {
     if (id) {

@@ -70,9 +70,22 @@
                                 </tr>
                                 <tr>
                                     <td>{{ 'phone'| translate}}:</td>
-                                    <td>
+                                    <!-- <td>
                                         {{ (user$ | async)?.country_code }} {{ (user$ | async)?.phone }}
+                                    </td> -->
+
+
+                                    <td>
+                                     
+                                        <ng-container *ngIf="(user$ | async)?.phone; else noPhoneNumber">
+                                            {{ (user$ | async)?.country_code }} {{ (user$ | async)?.phone }}
+                                        </ng-container>
+                                      
+                                        <ng-template #noPhoneNumber>
+                                            No mobile number updated
+                                        </ng-template>
                                     </td>
+                                    
                                 </tr>
                                 <tr *ngIf="address">
                                     <td>{{ 'address'| translate}}:</td>

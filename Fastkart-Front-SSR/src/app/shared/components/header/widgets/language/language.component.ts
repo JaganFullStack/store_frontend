@@ -18,6 +18,11 @@ export class LanguageComponent {
       icon: 'us'
     },
     {
+      language: 'عربي',
+      code: 'ar',
+      icon: 'om' 
+    },
+    {
       language: 'Français',
       code: 'fr',
       icon: 'fr'

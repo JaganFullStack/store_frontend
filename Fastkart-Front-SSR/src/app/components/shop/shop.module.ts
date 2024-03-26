@@ -155,7 +155,8 @@ import { CollectionNoSidebarComponent } from './collection/collection-no-sidebar
     QuestionsAnswersComponent,
     ProductAccordionComponent,
     ProductDetailsAccordionComponent,
-    CollectionNoSidebarComponent
+    CollectionNoSidebarComponent,
+    
   ],
   imports: [
     CommonModule,

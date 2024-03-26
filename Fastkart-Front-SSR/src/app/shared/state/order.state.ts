@@ -2,8 +2,8 @@ import { Injectable, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store, Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
-import { GetOrders, ViewOrder, Checkout, PlaceOrder, Clear, VerifyPayment, RePayment } from "../action/order.action";
-import { Order, OrderCheckout } from "../interface/order.interface";
+import { GetOrders, ViewOrder, Checkout, PlaceOrder, Clear, VerifyPayment, RePayment, TrackOrder } from "../action/order.action";
+import { Order, OrderCheckout,  } from "../interface/order.interface";
 import { OrderService } from "../services/order.service";
 import { ClearCart, GetCartItems } from "../action/cart.action";
 import { PleaseLoginModalComponent } from "../components/widgets/please-login-modal/please-login-modal.component";
@@ -19,6 +19,8 @@ export class OrderStateModel {
   }
   selectedOrder: Order | null;
   checkout: OrderCheckout | null
+  // trackingorderlist: Trackinglist | null
+
 }
 
 
@@ -30,7 +32,9 @@ export class OrderStateModel {
       total: 0
     },
     selectedOrder: null,
-    checkout: null
+    checkout: null,
+
+    // trackingorderlist: null,
   },
 })
 @Injectable()
@@ -50,6 +54,13 @@ export class OrderState {
   static selectedOrder(state: OrderStateModel) {
     return state.selectedOrder;
   }
+
+  // @Selector()
+  // static trackedOrder(state: OrderStateModel) {
+  //   return state.trackingorderlist;
+  // }
+
+
 
   @Selector()
   static checkout(state: OrderStateModel) {
@@ -140,7 +151,32 @@ export class OrderState {
 
 
 
+// @Action(TrackOrder)
 
+
+// TrackOrder(ctx: StateContext<OrderStateModel>, { order_code }: TrackOrder) {
+//   this.orderService.skeletonLoader = true;
+//   return this.orderService.getTrackOrdersList(order_code).pipe(
+//     tap({
+//       next: result => {
+ 
+//         const state = ctx.getState();
+//         const order = result.data;
+   
+//         ctx.patchState({
+//           ...state,
+//           trackingorderlist: order
+//         });
+//       },
+//       error: err => {
+//         throw new Error(err?.error?.message);
+//       },
+//       complete: () => {
+//         this.orderService.skeletonLoader = false;
+//       }
+//     })
+//   );
+// }
 
 
   @Action(Checkout)

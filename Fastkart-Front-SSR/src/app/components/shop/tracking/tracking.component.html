@@ -22,7 +22,7 @@
                 <!-- Search Basic Style -->
         <div class="input-group" >
         <input type="search" class="form-control" placeholder="Enter Your Order Code" [formControl]="term">
-        <app-button [type]="'button'" [class]="'btn sty'" [spinner]="false" [id]="'basic_search_btn'" style="
+        <app-button [type]="'button'" [class]="'btn sty'" [spinner]="false"  (click)="searchOrder()" [id]="'basic_search_btn'" style="
         background: #2f9339;
         ">
           <i class="ri-search-line"></i>
@@ -33,42 +33,30 @@
         <div class="row mt-3">
             <div class="offset-3 col-sm-6">
         
-                <div class="total-box mt-0">
+                <div class="total-box mt-0" >
                     <div class="wallet-table mt-0">
                         <div class="table-responsive">
                             <table>
                                 <tbody>
-                                    <tr>
+                                    <tr >
                                         <th>Date</th>
                                         <th>Status Info</th>
-                                     
                                     </tr>
-                                    <tr>
-                                        
+                                 
+                                    <!-- <tr *ngIf="order">
                                         <td>16/3/2001</td>
-                                      
-                                        <td>
-                                           pending 
-                                        </td>
-                                       
-                                    
-                                    </tr>
-        
-                                    <tr>
-                                        
-                                        <td>16/3/2001</td>
-                                      
-                                        <td>
-                                           delivered
-                                        </td>
-                                       
-                                    
-                                    </tr>
-        
+                                   
+                                        <td>{{ order.id }}</td>
+                                    </tr> -->
+                                  
+                                    <!-- <tr *ngIf="!order" [class.disabled]="true">
+                                        <td colspan="2" class="text-muted">Order information not available</td>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    
                     <!-- <nav class="custome-pagination" *ngIf="(order$ | async)?.data?.length">
                         <app-pagination 
                          >

@@ -64,4 +64,21 @@ export class OrderService {
 
 
 
+
+  // getTrackOrdersList(order_id: any): Observable<any> {
+  //   const userToken = getStringDataFromLocalStorage("user_token");
+  //   const userId = getStringDataFromLocalStorage("user_id");
+  
+  //   const headers = {
+  //     'Content-Type': 'application/json',
+  //     'authorization': `Bearer ${userToken}`,
+  //   };
+  
+  //   const apiUrl = `${environment.apiBaseUrl}/api/ordertracklist?order_id=${order_id}`;
+  //   return this.http.get<any>(apiUrl, { headers });
+  // }
+
+
+
+
 }

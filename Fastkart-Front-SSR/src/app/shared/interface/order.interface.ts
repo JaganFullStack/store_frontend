@@ -134,6 +134,15 @@ export interface getvieewwwOrders {
     note: string | null;
     products: Product[];
   }
+
+
+//   export interface Trackinglist {
+//     id: number;
+//     order_code: number;
+//     date: number | null | String;
+//     status_info: String;
+// }
+
   
 //   export interface Product {
 //     id: string;

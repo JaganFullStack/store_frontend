@@ -35,3 +35,9 @@ export class VerifyPayment {
   static readonly type = "[Order] Verify";
   constructor(public id: number) {}
 }
+
+
+export class TrackOrder {
+  static readonly type = "[Order] Tracking";
+  constructor(public order_code: number) {}
+}
