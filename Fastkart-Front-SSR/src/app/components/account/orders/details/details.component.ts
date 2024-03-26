@@ -26,12 +26,12 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   order: any;
   selectedOrder: any = {};
-  products: Array<any> = [];
+  products: any;
+  test: any[] = [];
+  data$: Observable<any[]>;
   @Select(OrderState.selectedOrder) selectedOrder$: Observable<any>;
-
   constructor(private store: Store, private route: ActivatedRoute) {
     this.selectedOrder$.subscribe((data: any) => {
-      console.log(data);
     });
 
   }
@@ -39,16 +39,19 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.pipe(
       switchMap(params => {
+
         if (!params['id']) return of(null);
         return this.store.dispatch(new ViewOrder(params['id']));
       }),
       switchMap(() => this.store.select(OrderState.selectedOrder)),
-      filter(order => !!order),
-      takeUntil(this.destroy$)
+      filter(order => !!order)
     )
       .subscribe(order => {
         this.order = order;
-        this.products = this.order.products;
+        this.data$ = this.order.productslist
+        this.test = this.order.productslist
+        // this.selectedOrder$ = this.order.productslist;
+        console.log(this.data$)
       });
   }
 

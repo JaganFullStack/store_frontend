@@ -54,7 +54,7 @@
                 <table class="table product-table">
                     <thead>
                         <tr>
-                            <th scope="col">{{ 'image' | translate }}</th>
+                            <!-- <th scope="col">{{ 'image' | translate }}</th> -->
                             <th scope="col">{{ 'name' | translate }}</th>
                             <th scope="col">{{ 'price' | translate }}</th>
                             <th scope="col">{{ 'quantity' | translate }}</th>
@@ -62,23 +62,34 @@
                             <th scope="col">{{ 'action' | translate }}</th>
                         </tr>
                     </thead>
+                    <!-- {{data$.length == true}}{{data$.length}} -->
+                    <!-- {{test | json}} -->
+                    <div *ngIf="test">
+                        <ul *ngFor="let item of test">
+                            <li>1</li>
+                            <li>{{item.name}}</li>
+                            <li>{{item | json}}</li>
+
+                        </ul>
+                    </div>
+
                     <tbody>
-                        <tr *ngFor="let product of products">
-                            <td class="product-image">
+                        <tr *ngFor="let item of test">
+                            <!-- <td class="product-image">
                                 <img src="{{apiBaseUrl}}/{{product?.thumbnail_image_url}}" class="img-fluid"
                                     alt="product">
+                            </td> -->
+                            <td>
+                                <h6>{{ item.name}}</h6>
                             </td>
                             <td>
-                                <h6>{{ product.id }}</h6>
+                                <h6>{{ item?.min_price | currencySymbol }}</h6>
                             </td>
                             <td>
-                                <h6>{{ product?.min_price | currencySymbol }}</h6>
+                                <h6>2</h6>
                             </td>
                             <td>
-                                <h6>1</h6>
-                            </td>
-                            <td>
-                                <h6>{{ product?.subtotal | currencySymbol }}</h6>
+                                <h6>{{ item?.subtotal | currencySymbol }}</h6>
                             </td>
                             <!-- <td>
                                 <a href="javascript:void(0)" *ngIf="product?.is_return === 1 && product?.pivot?.is_refunded === 0 &&

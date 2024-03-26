@@ -30,7 +30,7 @@
                     <div class="total-box mt-0">
                         <div class="wallet-table mt-0">
                             <div class="table-responsive">
-                                <table class="table" *ngIf="order">
+                                <table class="table">
                                     <thead>
                                         <tr>
                                             <th scope="col">Order ID</th>
@@ -46,15 +46,14 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                              
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <app-no-data [class]="'no-data-added'" [image]="'assets/svg/empty-items.svg'"
-                [text]="'No Orders Found'" [description]="'No orders have been made yet'"
-                *ngIf="!order">
-            </app-no-data>
+                <app-no-data [class]="'no-data-added'" [image]="'assets/svg/empty-items.svg'" [text]="'No Orders Found'"
+                    [description]="'No orders have been made yet'" *ngIf="!order">
+                </app-no-data>
             </div>
         </div>
     </div>

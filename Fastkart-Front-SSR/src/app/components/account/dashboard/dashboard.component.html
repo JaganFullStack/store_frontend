@@ -12,9 +12,9 @@
                 {{ "welcome_to_your_personalized_my_account_dashboard_here_you_have_the_power_to_manage_your_entire_e-commerce_experience_in_one_place_whether_you're_exploring_the_latest_products_checking_your_wallet_balance_or_updating_your_profile_everything_is_at_your_fingertips"| translate}}
             </p> -->
         </div>
-        <div class="total-box">
-            <div class="row row-cols-xxl-3 g-sm-4 g-3">
-                <!-- <div>
+        <!-- <div class="total-box">
+            <div class="row row-cols-xxl-3 g-sm-4 g-3"> -->
+        <!-- <div>
                     <div class="totle-contain">
                         <div class="wallet-point-box">
                             <img src="assets/images/svg/wallet.svg" class="img-1 " alt="wallet">
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div> -->
-                <!-- <div>
+        <!-- <div>
                     <div class="totle-contain">
                         <div class="wallet-point-box">
                             <img src="assets/images/svg/coin.svg" class="img-1 " alt="coin">
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div> -->
-                <div>
+        <!-- <div>
                     <div class="totle-contain" [routerLink]="['/account/order']">
                         <div class="wallet-point-box">
                             <img src="assets/images/svg/order.svg" class="img-1" alt="order">
@@ -51,9 +51,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </div> -->
+        <!-- </div>
+        </div> -->
         <div class="profile-about dashboard-bg-box">
             <div class="row">
                 <div class="col-xxl-7">
@@ -76,16 +76,16 @@
 
 
                                     <td>
-                                     
+
                                         <ng-container *ngIf="(user$ | async)?.phone; else noPhoneNumber">
                                             {{ (user$ | async)?.country_code }} {{ (user$ | async)?.phone }}
                                         </ng-container>
-                                      
+
                                         <ng-template #noPhoneNumber>
                                             No mobile number updated
                                         </ng-template>
                                     </td>
-                                    
+
                                 </tr>
                                 <tr *ngIf="address">
                                     <td>{{ 'address'| translate}}:</td>
