@@ -56,10 +56,6 @@
   "delivery_return": "Delivery & Return",
   "payment_trust_badges": "Payment Trust Badges",
   "ask_an_expert": "Ask an Expert",
-
-
-
-
   "product_tags": "Product Tags",
   "product_information": "Product Information",
   "social_share": "Social Share",
@@ -93,10 +89,6 @@
   "grid_no_sidebar": "Grid No Sidebar",
   "blog_details": "Blog Details",
   "pages": "Pages",
-
-
-
-
   "authentication": "Authentication",
   "sign_in": "Sign In",
   "sign_up": "Sign Up",
@@ -156,9 +148,6 @@
   "enter_paypal_email": "Enter Paypal Email",
   "save": "Save",
   "hello": "Hello",
-
-
-
   "welcome_to_your_personalized_my_account_dashboard_here_you_have_the_power_to_manage_your_entire_e-commerce_experience_in_one_place_whether_you're_exploring_the_latest_products_checking_your_wallet_balance_or_updating_your_profile_everything_is_at_your_fingertips": "Welcome to your personalized My Account Dashboard. Here, you have the power to manage your entire e-commerce experience in one place. Whether you're exploring the latest products, checking your wallet balance, or updating your profile, everything is at your fingertips",
   "balance": "Balance",
   "total_points": "Total Points",
@@ -209,7 +198,7 @@
   "earning_points": "Earning Points",
   "logout": "Logout",
   "show_menu": "Show Menu",
-  "welcome_to_fastkart": "Welcome To KaveriStores",
+  "welcome_to_kaveri": "Welcome To KaveriStores",
   "forgot_your_password": "Forgot your password",
   "email_address": "Email Address",
   "email_is_required": "Email is required",
@@ -218,7 +207,6 @@
   "register_your_account": "Register Your Account",
   "password_is_required": "Password is required",
   "invalid_Password": "Invalid password",
-
   "remember_me": "Remember me",
   "log_in": "Log In",
   "or": "or",
@@ -243,11 +231,6 @@
   "reset_your_account_password": "Reset Your Account Password",
   "new_password": "New password",
   "new_password_is_required": "New Password is required",
-
-
-
-
-
   "confirm_password": "Confirm password",
   "submit": "Submit",
   "recent_posts": "Recent Posts",
@@ -261,19 +244,13 @@
   "what_we_do": "What We Do",
   "we_are_trusted_by_clients": "We are Trusted by Clients",
   "our_creative_team": "Our Creative Team",
-  "fastkart_team_member": "fastkart team member",
+  "kaveri_team_member": "kaveri team member",
   "latest_testimonials": "Latest Testimonials",
   "what_people_say": "What people say",
   "our_blog": "Our Blog",
   "our_latest_blog": "Our Latest Blog",
   "get_in_touch": "Get In Touch",
   "enter_full_name": "Enter Full Name",
-
-
-
-
-
-
   "subject": "Subject",
   "enter_subject": "Enter Subject",
   "subject_is_required": "Subject is required",
@@ -286,7 +263,7 @@
   "copy_code": "Copy Code",
   "search_for_products": "Search for products",
   "sold_by": "Sold By",
-  "fastkart": "Fastkart",
+  "kaveri": "Kaveri",
   "unit": "Unit",
   "saving": "Saving",
   "you_save": "You Save",
@@ -332,12 +309,6 @@
   "shipping_charges": "Shipping charges",
   "wallet_point": "Wallet Point",
   "usd": "USD",
-
-
-
-
-
-
   "pay_on_delivery_cash_card_cash_on_delivery_cod_available_card_net_banking_acceptance_subject_to_device_availability.": "Pay on Delivery (Cash/Card). Cash on delivery (COD) available. Card/Net banking acceptance subject to device availability.",
   "sale": "SALE",
   "guaranteed_safe_checkout": "Guaranteed Safe Checkout",
@@ -389,12 +360,6 @@
   "24_7_support_center": "24/7 Support Center",
   "unread_messages": "Unread messages",
   "shopping_cart": "Shopping Cart",
-
-
-
-
-
-
   "spend": "Spend",
   "more_and_enjoy": "more and enjoy",
   "free_shipping": "FREE SHIPPING",
@@ -470,9 +435,6 @@
   "minutes_ago": "minutes ago",
   "color": "Color",
   "theme_color": "Theme Color",
-
-
-  
   "dark": "Dark",
   "light": "Light",
   "rtl": "RTL",

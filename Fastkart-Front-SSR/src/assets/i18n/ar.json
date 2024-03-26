@@ -56,7 +56,6 @@
     "delivery_return": "التسليم والإرجاع",
     "payment_trust_badges": "شارات الثقة بالدفع",
     "ask_an_expert": "اسأل خبير",
-   
     "product_tags": "علامات المنتج",
     "product_information": "معلومات المنتج",
     "social_share": "مشاركة اجتماعية",
@@ -149,8 +148,6 @@
     "enter_paypal_email": "أدخل بريد PayPal",
     "save": "حفظ",
     "hello": "مرحبًا",
-    
-    
     "welcome_to_your_personalized_my_account_dashboard_here_you_have_the_power_to_manage_your_entire_e-commerce_experience_in_one_place_whether_you're_exploring_the_latest_products_checking_your_wallet_balance_or_updating_your_profile_everything_is_at_your_fingertips": "مرحبًا بك في لوحة تحكم حسابي المخصصة. هنا، لديك القدرة على إدارة تجربتك في التجارة الإلكترونية بأكملها في مكان واحد. سواء كنت تكتشف أحدث المنتجات، أو تتحقق من رصيد محفظتك، أو تحديث ملفك الشخصي، كل شيء بين يديك",
     "balance": "الرصيد",
     "total_points": "إجمالي النقاط",
@@ -201,7 +198,7 @@
     "earning_points": "كسب النقاط",
     "logout": "تسجيل الخروج",
     "show_menu": "إظهار القائمة",
-    "welcome_to_fastkart": "مرحبًا بك في KaveriStores",
+    "welcome_to_kavari": "مرحبًا بك في KaveriStores",
     "forgot_your_password": "هل نسيت كلمة المرور؟",
     "email_address": "عنوان البريد الإلكتروني",
     "email_is_required": "البريد الإلكتروني مطلوب",
@@ -210,7 +207,6 @@
     "register_your_account": "سجل حسابك",
     "password_is_required": "كلمة المرور مطلوبة",
     "invalid_Password": "كلمة مرور غير صالحة",
-  
     "remember_me": "تذكرني",
     "log_in": "تسجيل الدخول",
     "or": "أو",
@@ -235,7 +231,6 @@
     "reset_your_account_password": "إعادة تعيين كلمة مرور حسابك",
     "new_password": "كلمة مرور جديدة",
     "new_password_is_required": "كلمة المرور الجديدة مطلوب",
-
     "confirm_password": "تأكيد كلمة المرور",
     "submit": "إرسال",
     "recent_posts": "المشاركات الأخيرة",
@@ -249,14 +244,13 @@
     "what_we_do": "ماذا نقوم به",
     "we_are_trusted_by_clients": "نحن موثوقون من قبل العملاء",
     "our_creative_team": "فريقنا الإبداعي",
-    "fastkart_team_member": "عضو فريق Fastkart",
+    "kaveri_team_member": "عضو فريق Kaveri",
     "latest_testimonials": "آراء العملاء الأخيرة",
     "what_people_say": "ماذا يقول الناس",
     "our_blog": "مدونتنا",
     "our_latest_blog": "آخر مدونتنا",
     "get_in_touch": "تواصل معنا",
     "enter_full_name": "ادخل الاسم الكامل",
-
     "subject": "الموضوع",
     "enter_subject": "أدخل الموضوع",
     "subject_is_required": "الموضوع مطلوب",
@@ -315,8 +309,6 @@
     "shipping_charges": "رسوم الشحن",
     "wallet_point": "نقطة المحفظة",
     "usd": "دولار أمريكي",
-
-
     "pay_on_delivery_cash_card_cash_on_delivery_cod_available_card_net_banking_acceptance_subject_to_device_availability.": "الدفع عند التسليم (نقدًا/بطاقة). الدفع عند التسليم متاح (COD). قبول البطاقة/التحويل البنكي عبر الإنترنت يخضع لتوافر الجهاز.",
     "sale": "تخفيضات",
     "guaranteed_safe_checkout": "إنهاء آمن مضمون",
@@ -368,7 +360,6 @@
     "24_7_support_center": "مركز دعم 24/7",
     "unread_messages": "الرسائل غير المقروءة",
     "shopping_cart": "عربة التسوق",
-
     "spend": "أنفق",
     "more_and_enjoy": "المزيد واستمتع",
     "free_shipping": "الشحن مجاني",
@@ -461,18 +452,15 @@
     "we_use_cookies_to_make_your_experience_better": "نحن نستخدم ملفات تعريف الارتباط لتحسين تجربتك",
     "privacy_policy": "سياسة الخصوصية",
     "ok": "موافق",
-    "Tracking":"تتبع",
+    "Tracking": "تتبع",
     "Checkout": "الدفع",
-    "Home":"الرئيسية",
-    "About us":"حولنا",
-    "Products":"المنتجات",
+    "Home": "الرئيسية",
+    "About us": "حولنا",
+    "Products": "المنتجات",
     "Fruits": "فواكه ",
     "Vegetables": "خضروات",
-
     "Nuts": "مكسرات",
-
     "Canned Goods": "السلع المعلبة ",
-
     "Meat": " لحوم",
     "Seafoods": "مأكولات بحرية",
     "Spices": " توابل",
@@ -482,7 +470,6 @@
     "Cereals": " حبوب الإفطار",
     "Personal Care": " العناية الشخصية",
     "Healthcare": " الرعاية الصحية",
-
     "b": "ب",
     "c": "ج",
     "d": "د",
@@ -498,7 +485,6 @@
     "n": "ن",
     "o": "و",
     "p": "ب",
-
     "r": "ر",
     "s": "س",
     "t": "ت",
@@ -509,4 +495,3 @@
     "y": "ي",
     "z": "ز"
 }
-
