@@ -5,10 +5,10 @@
 export const environment = {
   production: true,
   baseURL: 'https://storeapi.fcglobal.in/public',
-  URL: 'https://angular.pixelstrap.net/fastkart/assets/data',
+  URL: 'https://demostore.fcglobal.in/assets/data',
   apiBaseUrl: "https://storeapi.fcglobal.in/public",
-  backendBaseImageUrl: "https://localhost:44346/ProductImages/Thumbnail/",
-  backendCategoryImageUrl: "https://localhost:44346/CategoryImage/"
+  backendBaseImageUrl: "https://demostore.fcglobal.in/ProductImages/Thumbnail/",
+  backendCategoryImageUrl: "https://demostore.fcglobal.in/CategoryImage/"
 };
 
 /*
