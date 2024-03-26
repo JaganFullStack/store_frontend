@@ -25,7 +25,7 @@ export class PleaseLoginModalComponent {
       if (data?.load) {
         setTimeout(() => {
           this.modalService.dismissAll();
-        }, 3);
+        }, 1);
       }
     });
 
@@ -34,7 +34,7 @@ export class PleaseLoginModalComponent {
       if (data?.load) {
         setTimeout(() => {
           this.modalService.dismissAll();
-        }, 3);
+        }, 1);
       }
     });
 

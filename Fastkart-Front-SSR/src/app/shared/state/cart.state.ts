@@ -79,8 +79,8 @@ export class CartState {
           });
         },
         error: err => {
-          const messageObject = mockResponseData(err.messageobject);
-          // alert(messageObject?.message);
+          const messageObject = mockResponseData(err?.error.messageobject);
+          console.log(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
@@ -99,7 +99,7 @@ export class CartState {
           // this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
-          const messageObject = mockResponseData(err.messageobject);
+          const messageObject = mockResponseData(err?.error.messageobject);
           this.store.dispatch(new FailureResponse(messageObject));
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
@@ -254,7 +254,7 @@ export class CartState {
           // this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
-          const messageObject = mockResponseData(err.messageobject);
+          const messageObject = mockResponseData(err?.error.messageobject);
           this.store.dispatch(new FailureResponse(messageObject));
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);

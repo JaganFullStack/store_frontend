@@ -69,6 +69,8 @@ export class OrderState {
           });
         },
         error: err => {
+          const messageObject = mockResponseData(err?.error.messageobject);
+          console.log(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
@@ -90,6 +92,9 @@ export class OrderState {
           });
         },
         error: err => {
+          const messageObject = mockResponseData(err?.error.messageobject);
+          this.store.dispatch(new FailureResponse(messageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
         },
         complete: () => {
@@ -141,9 +146,10 @@ export class OrderState {
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
-          const messageObject = mockResponseData(err.messageobject);
+          const messageObject = mockResponseData(err?.error.messageobject);
           this.store.dispatch(new FailureResponse(messageObject));
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
+          throw new Error(err?.error?.message);
         },
         complete: () => {
           this.orderService.skeletonLoader = false;

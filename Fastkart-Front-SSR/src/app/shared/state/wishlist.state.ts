@@ -44,7 +44,6 @@ export class WishlistState {
     return this.wishlistService.getWishlistItems().pipe(
       tap({
         next: result => {
-
           ctx.patchState({
             wishlist: {
               data: result.data,
@@ -56,6 +55,8 @@ export class WishlistState {
           this.wishlistService.skeletonLoader = false;
         },
         error: err => {
+          const messageObject = mockResponseData(err?.error.messageobject);
+          console.log(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
@@ -74,7 +75,7 @@ export class WishlistState {
           // this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
-          const messageObject = mockResponseData(err.messageobject);
+          const messageObject = mockResponseData(err?.error.messageobject);
           this.store.dispatch(new FailureResponse(messageObject));
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
@@ -89,12 +90,14 @@ export class WishlistState {
       tap({
         next: result => {
           this.store.dispatch(new GetWishlist());
-          const mockMessageObject = mockResponseData(result.messageobject);
-          // alert(mockMessageObject?.message);
+          // const mockMessageObject = mockResponseData(result.messageobject);
+          // this.store.dispatch(new SuccessResponse(mockMessageObject));
+          // this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
-          const messageObject = mockResponseData(err.messageobject);
-          // alert(messageObject?.message);
+          const messageObject = mockResponseData(err?.error.messageobject);
+          this.store.dispatch(new FailureResponse(messageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
         }
       })

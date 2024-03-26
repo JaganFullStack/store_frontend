@@ -78,7 +78,7 @@ export class AuthState {
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
-          const messageObject = mockResponseData(err.messageobject);
+          const messageObject = mockResponseData(err?.error.messageobject);
           this.store.dispatch(new FailureResponse(messageObject));
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
@@ -100,7 +100,7 @@ export class AuthState {
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
-          const messageObject = mockResponseData(err.messageobject);
+          const messageObject = mockResponseData(err?.error?.messageobject);
           this.store.dispatch(new FailureResponse(messageObject));
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
@@ -115,9 +115,7 @@ export class AuthState {
 
   forgetpasswordd(ctx: StateContext<AuthStateModel>, { payload }: ForgotPassWord) {
 
-    console.log(payload);
     return this.authService.Emailvalidation(payload).pipe(
-
       tap({
         next: result => {
           this.router.navigate(['/auth/login']);
@@ -126,7 +124,7 @@ export class AuthState {
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
-          const messageObject = mockResponseData(err.messageobject);
+          const messageObject = mockResponseData(err?.error.messageobject);
           this.store.dispatch(new FailureResponse(messageObject));
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);

@@ -19,13 +19,13 @@
     <!-- End logout -->
 
     <!-- Success -->
-    <i *ngIf="!successData?.load" class="ri-information-fill icon-box wo-bg"></i>
+    <i *ngIf="successData?.load" class="ri-information-fill icon-box wo-bg"></i>
     <h5 *ngIf="successData?.load" class="modal-title">{{successData?.content.message}}</h5>
     <!-- end Success --> 
 
     <!-- Falure -->
     <i *ngIf="failureData?.load" style="color:red" class="ri-information-fill icon-box wo-bg"></i>
-    <h5 *ngIf="!failureData?.load && !failureData?.load" class="modal-title">{{failureData?.content.message}}</h5>
+    <h5 *ngIf="failureData?.load" class="modal-title">{{failureData?.content.message}}</h5>
     <!-- Endfalire -->
 
     <!-- <p >Are you sure you want to proceed?</p> -->
