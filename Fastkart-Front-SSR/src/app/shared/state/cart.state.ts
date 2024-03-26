@@ -3,7 +3,7 @@ import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
 import { of, tap } from "rxjs";
 import {
   GetCartItems, AddToCartLocalStorage, AddToCart, UpdateCart, DeleteCart,
-  CloseStickyCart, ToggleSidebarCart, ClearCart, ReplaceCart
+  CloseStickyCart, ToggleSidebarCart, ClearCart, ReplaceCart, SubractFromCartLocalStorage
 } from "../action/cart.action";
 import { Cart, CartModel } from "../interface/cart.interface";
 import { cartService } from "../services/cart.service";
@@ -130,17 +130,62 @@ export class CartState {
 
     cartData.cartItems = localCartData ? localCartData.cartItems : [];
     cartData.total = localCartData ? localCartData.total : 0;
+    let mockProduct = {
+      product_variation_id: action?.payload?.variations?.id,
+      qty: action?.payload?.qty,
+      product_id: action?.payload?.id,
+      product: action?.payload,
+      shop: null,
+    };
 
-    const indexOf = cartData?.cartItems.push(action.payload);
+    mockProduct.product.min_price = action.payload.sale_price;
 
-    if (indexOf) {
-      cartData?.cartItems.push(action.payload);
-    }else{
+    const indexOf = cartData?.cartItems.findIndex((e: any) => e?.product_id === mockProduct?.product.id);
 
+    if (indexOf <= -1) {
+      cartData?.cartItems.push(mockProduct);
+    } else {
+      cartData.cartItems[indexOf].qty = action?.payload?.qty;
     }
 
-    const mockedData = cartData?.cartItems.map((cart: any) => {
-      const productTotal = convertStringToNumber(cart.qty) * convertStringToNumber(cart?.sale_price);
+    cartData?.cartItems.map((cart: any) => {
+      const productTotal = convertStringToNumber(cart.qty) * convertStringToNumber(cart?.product?.min_price);
+      cartData.total += productTotal;
+      return cart;
+    });
+
+    storeObjectDataInLocalStorage("cart_data", cartData);
+
+    return ctx.patchState({
+      items: cartData?.cartItems,
+      total: cartData.total,
+    });
+  }
+
+  @Action(SubractFromCartLocalStorage)
+  subractCartLocal(ctx: StateContext<CartStateModel>, action: SubractFromCartLocalStorage) {
+    let cartData: any = {
+      cartItems: [],
+      total: 0
+    };
+
+    const localCartData = getObjectDataFromLocalStorage("cart_data");
+
+    cartData.cartItems = localCartData ? localCartData.cartItems : [];
+    cartData.total = localCartData ? localCartData.total : 0;
+
+    const indexOf = cartData?.cartItems.findIndex((e: any) => e?.product_id === action?.payload?.id);
+    console.log(indexOf);
+
+    if (action?.payload?.qty || (action?.payload?.qty != 0)) {
+      cartData.cartItems[indexOf].qty = action?.payload?.qty;
+    } else {
+      cartData.cartItems.splice(indexOf, 1);
+    }
+    console.log(cartData.cartItems);
+
+    cartData?.cartItems.map((cart: any) => {
+      const productTotal = convertStringToNumber(cart.qty) * convertStringToNumber(cart?.product?.min_price);
       cartData.total += productTotal;
       return cart;
     });

@@ -8,6 +8,10 @@ export class AddToCartLocalStorage {
   static readonly type = "[Cart] Local Storage Add";
   constructor(public payload: any) { }
 }
+export class SubractFromCartLocalStorage {
+  static readonly type = "[Cart] Local Storage Delete";
+  constructor(public payload: any) { }
+}
 
 export class AddToCart {
   static readonly type = "[Cart] Add";
