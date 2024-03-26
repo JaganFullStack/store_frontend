@@ -461,6 +461,28 @@
     "we_use_cookies_to_make_your_experience_better": "نحن نستخدم ملفات تعريف الارتباط لتحسين تجربتك",
     "privacy_policy": "سياسة الخصوصية",
     "ok": "موافق",
-    "Tracking":"تتبع"
+    "Tracking":"تتبع",
+    "Checkout": "الدفع",
+    "Home":"الرئيسية",
+    "About us":"حولنا",
+    "Products":"المنتجات",
+    "Fruits": "فواكه ",
+    "Vegetables": "خضروات",
+
+    "Nuts": "مكسرات",
+
+    "Canned Goods": "السلع المعلبة ",
+
+    "Meat": " لحوم",
+    "Seafoods": "مأكولات بحرية",
+    "Spices": " توابل",
+    "Oils": "زيوت ",
+    "Snacks": " وجبات خفيفة",
+    "Bakery": " المخبوزات",
+    "Cereals": " حبوب الإفطار",
+    "Personal Care": " العناية الشخصية",
+    "Healthcare": " الرعاية الصحية"
+
+
 }
 
