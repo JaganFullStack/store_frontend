@@ -10,17 +10,29 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-success" (click)="closeModal()">OK</button>
   </div> -->
-  
-  <div class="modal-content center">
-    <div  class="modal-body" style="text-align: center;">
-       <i  class="ri-information-fill icon-box wo-bg"></i>
-       <h5  class="modal-title">Please log in to continue.</h5>
-       <!-- <p >Are you sure you want to proceed?</p> -->
-       <div  class="button-box">
-        <button  class="btn btn-md btn-theme-outline fw-bold" id="confirm_no_btn" type="submit">
-            <div (click)="closeModal()"> OK </div>
-         </button>
-      
-       </div>
+
+<div class="modal-content center">
+  <div class="modal-body" style="text-align: center;">
+    <!-- Logout -->
+    <i *ngIf="!successData?.load && !failureData?.load" class="ri-information-fill icon-box wo-bg"></i>
+    <h5 *ngIf="!successData?.load && !failureData?.load" class="modal-title">Please log in to continue.</h5>
+    <!-- End logout -->
+
+    <!-- Success -->
+    <i *ngIf="successData?.load" class="ri-information-fill icon-box wo-bg"></i>
+    <h5 *ngIf="successData?.load" class="modal-title">{{successData?.content.message}}</h5>
+    <!-- end Success --> 
+
+    <!-- Falure -->
+    <i *ngIf="failureData?.load" style="color:red" class="ri-information-fill icon-box wo-bg"></i>
+    <h5 *ngIf="failureData?.load" class="modal-title">{{failureData?.content.message}}</h5>
+    <!-- Endfalire -->
+
+    <!-- <p >Are you sure you want to proceed?</p> -->
+    <div class="button-box" *ngIf="!failureData?.load && !successData?.load">
+      <button class="btn btn-md btn-theme-outline fw-bold" id="confirm_no_btn" type="submit">
+        <div (click)="closeModal()"> OK </div>
+      </button>
     </div>
- </div>
+  </div>
+</div>

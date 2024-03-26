@@ -9,6 +9,11 @@ import { getStringDataFromLocalStorage, mockResponseData, removeDataFromLocalSto
 import { AccountStateModel } from "./account.state";
 import { error } from "node:console";
 import { tap } from "rxjs";
+import { FailureResponse, SuccessResponse } from "../action/response.action";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { PleaseLoginModalComponent } from "../components/widgets/please-login-modal/please-login-modal.component";
+import { ClearCart } from "../action/cart.action";
+import { ClearWishList } from "../action/wishlist.action";
 export interface AuthStateModel {
   email: String;
   token: String | Number;
@@ -27,7 +32,7 @@ export interface AuthStateModel {
 export class AuthState {
 
   constructor(private store: Store, public router: Router,
-    private notificationService: NotificationService, private authService: AuthService) { }
+    private notificationService: NotificationService, private modalService: NgbModal, private authService: AuthService) { }
 
 
   ngxsOnInit(ctx: StateContext<AuthStateModel>) {
@@ -69,11 +74,13 @@ export class AuthState {
           storeStringDataInLocalStorage("user_id", result?.data.userId);
           this.router.navigate(["/home"]);
           const mockMessageObject = mockResponseData(result.messageobject);
-          // alert(mockMessageObject?.message);
+          this.store.dispatch(new SuccessResponse(mockMessageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
-          const messageObject = mockResponseData(err.messageobject);
-          // alert(messageObject?.message);
+          const messageObject = mockResponseData(err?.error.messageobject);
+          this.store.dispatch(new FailureResponse(messageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
         }
       }));
@@ -89,36 +96,37 @@ export class AuthState {
           storeStringDataInLocalStorage("user_id", result?.data.userId);
           this.router.navigate(["/home"]);
           const mockMessageObject = mockResponseData(result.messageobject);
-          // alert(mockMessageObject?.message);
+          this.store.dispatch(new SuccessResponse(mockMessageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
-          // console.log(err);
-          // console.log(err.error.messageobject.message);
-          const messageObject = mockResponseData(err.messageobject);
-          alert(err.error.messageobject.message);
+          const messageObject = mockResponseData(err?.error?.messageobject);
+          this.store.dispatch(new FailureResponse(messageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
         }
       }));
   }
 
- 
+
 
   @Action(ForgotPassWord)
-  
 
-  forgetpasswordd(ctx: StateContext<AuthStateModel>, {payload}: ForgotPassWord) {
- 
-    console.log(payload);
+
+  forgetpasswordd(ctx: StateContext<AuthStateModel>, { payload }: ForgotPassWord) {
+
     return this.authService.Emailvalidation(payload).pipe(
-     
       tap({
         next: result => {
-          console.log("Update password success", result);
-
-       this.router.navigate(['/auth/login']);
+          this.router.navigate(['/auth/login']);
+          const mockMessageObject = mockResponseData(result.messageobject);
+          this.store.dispatch(new SuccessResponse(mockMessageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
-          console.log("Update password error", err);
+          const messageObject = mockResponseData(err?.error.messageobject);
+          this.store.dispatch(new FailureResponse(messageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
         },
       })
@@ -140,7 +148,13 @@ export class AuthState {
   @Action(Logout)
   logout(ctx: StateContext<AuthStateModel>) {
     // Logout LOgic Here
+    this.router.navigate(["/home"]);
     this.store.dispatch(new AuthClear());
+    this.store.dispatch(new ClearCart());
+    this.store.dispatch(new ClearWishList());
+    const mockMessageObject = mockResponseData({ message: "Logout Successfully", status: 200 });
+    this.store.dispatch(new SuccessResponse(mockMessageObject));
+    this.modalService.open(PleaseLoginModalComponent, { centered: true });
   }
 
   @Action(AuthClear)

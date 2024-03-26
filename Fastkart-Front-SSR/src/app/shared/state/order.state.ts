@@ -8,6 +8,8 @@ import { OrderService } from "../services/order.service";
 import { ClearCart, GetCartItems } from "../action/cart.action";
 import { PleaseLoginModalComponent } from "../components/widgets/please-login-modal/please-login-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { mockResponseData } from "src/app/utilities/helper";
+import { FailureResponse, SuccessResponse } from "../action/response.action";
 
 export class OrderStateModel {
 
@@ -33,11 +35,11 @@ export class OrderStateModel {
 })
 @Injectable()
 export class OrderState {
-  @ViewChild("Place Order") PopupModal:PleaseLoginModalComponent;
+  @ViewChild("Place Order") PopupModal: PleaseLoginModalComponent;
 
   constructor(private store: Store,
     private router: Router,
-    private orderService: OrderService) { }
+    private orderService: OrderService, private modalService: NgbModal) { }
 
   @Selector()
   static order(state: OrderStateModel) {
@@ -69,6 +71,8 @@ export class OrderState {
           });
         },
         error: err => {
+          const messageObject = mockResponseData(err?.error.messageobject);
+          console.log(messageObject?.message);
           throw new Error(err?.error?.message);
         }
       })
@@ -93,6 +97,9 @@ export class OrderState {
           });
         },
         error: err => {
+          const messageObject = mockResponseData(err?.error.messageobject);
+          this.store.dispatch(new FailureResponse(messageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
         },
         complete: () => {
@@ -173,8 +180,14 @@ export class OrderState {
           this.store.dispatch(new GetOrders());
           this.store.dispatch(new GetCartItems());
           this.router.navigate(['/home']);
+          const mockMessageObject = mockResponseData(result.messageobject);
+          this.store.dispatch(new SuccessResponse(mockMessageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
+          const messageObject = mockResponseData(err?.error.messageobject);
+          this.store.dispatch(new FailureResponse(messageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
           throw new Error(err?.error?.message);
         },
         complete: () => {

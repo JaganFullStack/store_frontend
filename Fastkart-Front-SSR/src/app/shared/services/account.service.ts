@@ -27,11 +27,6 @@ export class AccountService {
     return this.http.get<any>(apiUrl, { headers });
   }
 
-
-
-
-
-
   UpdateUserPassword(payload: AccountUserUpdatePassword): Observable<any> {
     const userToken = getStringDataFromLocalStorage("user_token");
     const userId = getStringDataFromLocalStorage("user_id");
@@ -50,7 +45,19 @@ export class AccountService {
   
     return this.http.post<any>(apiUrl, body, { headers });
   }
+
+  createAddresss(payload: any): Observable<any> {
+    const userToken = getStringDataFromLocalStorage("user_token");
+    const userId = getStringDataFromLocalStorage("user_id");
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${userToken}`,
+    };
   
+    const apiUrl = `${environment.apiBaseUrl}/api/addeditaddress`;
+  
+    return this.http.post<any>(apiUrl, payload, { headers });
+  }
   
   
 

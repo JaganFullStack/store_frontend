@@ -13,3 +13,8 @@ export class DeleteWishlist {
   static readonly type = "[Wishlist] delete";
   constructor(public payload: any) {}
 }
+
+export class ClearWishList {
+  static readonly type = "[Wishlist] clear";
+  constructor() {}
+}
