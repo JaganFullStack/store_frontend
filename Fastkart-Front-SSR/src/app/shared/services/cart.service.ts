@@ -67,4 +67,19 @@ export class cartService {
     return this.http.post<any>(url, data, { headers: headers });
   };
 
+  bulkAddCart(data: any): Observable<any> {
+
+    const userToken = getStringDataFromLocalStorage("user_token");
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'AUTHKEY': 'StoreWeb',
+      'authorization': `Bearer ${userToken}`,
+    });
+
+    const url = `${environment.apiBaseUrl}/api/addcartlocal`;
+
+    return this.http.post<any>(url, data, { headers: headers });
+  };
+
 }

@@ -3,12 +3,12 @@ import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
 import { of, tap } from "rxjs";
 import {
   GetCartItems, AddToCartLocalStorage, AddToCart, UpdateCart, DeleteCart,
-  CloseStickyCart, ToggleSidebarCart, ClearCart, ReplaceCart, SubractFromCartLocalStorage
+  CloseStickyCart, ToggleSidebarCart, ClearCart, ReplaceCart, SubractFromCartLocalStorage, BulkAddCart
 } from "../action/cart.action";
 import { Cart, CartModel } from "../interface/cart.interface";
 import { cartService } from "../services/cart.service";
 import { NotificationService } from "../services/notification.service";
-import { convertStringToNumber, getObjectDataFromLocalStorage, getStringDataFromLocalStorage, mockResponseData, storeObjectDataInLocalStorage, storeStringDataInLocalStorage } from "src/app/utilities/helper";
+import { convertStringToNumber, getObjectDataFromLocalStorage, getStringDataFromLocalStorage, mockResponseData, removeDataFromLocalStorage, storeObjectDataInLocalStorage, storeStringDataInLocalStorage } from "src/app/utilities/helper";
 import { FailureResponse, SuccessResponse } from "../action/response.action";
 import { PleaseLoginModalComponent } from "../components/widgets/please-login-modal/please-login-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -129,18 +129,18 @@ export class CartState {
     const localCartData = getObjectDataFromLocalStorage("cart_data");
 
     cartData.cartItems = localCartData ? localCartData.cartItems : [];
-    cartData.total = localCartData ? localCartData.total : 0;
+    // cartData.total = localCartData ? localCartData.total : 0;
     let mockProduct = {
       product_variation_id: action?.payload?.variations?.id,
       qty: action?.payload?.qty,
-      product_id: action?.payload?.id,
+      product_id: action?.payload?.product_id ? action?.payload?.product_id : action?.payload?.id,
       product: action?.payload,
       shop: null,
     };
 
     mockProduct.product.min_price = action.payload.sale_price;
 
-    const indexOf = cartData?.cartItems.findIndex((e: any) => e?.product_id === mockProduct?.product.id);
+    const indexOf = cartData?.cartItems.findIndex((e: any) => e?.product_id === mockProduct?.product_id);
 
     if (indexOf <= -1) {
       cartData?.cartItems.push(mockProduct);
@@ -172,29 +172,31 @@ export class CartState {
     const localCartData = getObjectDataFromLocalStorage("cart_data");
 
     cartData.cartItems = localCartData ? localCartData.cartItems : [];
-    cartData.total = localCartData ? localCartData.total : 0;
+    // cartData.total = localCartData ? localCartData.total : 0;
 
-    const indexOf = cartData?.cartItems.findIndex((e: any) => e?.product_id === action?.payload?.id);
-    console.log(indexOf);
+    const product_id = action?.payload?.product_id ? action?.payload?.product_id : action?.payload.id;
+
+    const indexOf = cartData?.cartItems.findIndex((e: any) => e?.product_id === product_id);
 
     if (action?.payload?.qty || (action?.payload?.qty != 0)) {
       cartData.cartItems[indexOf].qty = action?.payload?.qty;
     } else {
       cartData.cartItems.splice(indexOf, 1);
     }
-    console.log(cartData.cartItems);
 
-    cartData?.cartItems.map((cart: any) => {
-      const productTotal = convertStringToNumber(cart.qty) * convertStringToNumber(cart?.product?.min_price);
-      cartData.total += productTotal;
-      return cart;
-    });
+    if (cartData?.cartItems.length > 0) {
+      cartData?.cartItems.map((cart: any) => {
+        const productTotal = convertStringToNumber(cart.qty) * convertStringToNumber(cart?.product?.min_price);
+        cartData.total += productTotal;
+        return cart;
+      });
+    }
 
     storeObjectDataInLocalStorage("cart_data", cartData);
 
     return ctx.patchState({
       items: cartData?.cartItems,
-      total: cartData.total,
+      total: (cartData?.cartItems.length > 0) ? cartData.total : 0,
     });
   }
 
@@ -332,6 +334,42 @@ export class CartState {
       items: [],
       total: 0
     });
+  }
+
+  @Action(BulkAddCart)
+  bulkCart(ctx: StateContext<CartStateModel>, action: BulkAddCart) {
+    const user_id = getStringDataFromLocalStorage('user_id');
+
+    const mockRequest: any = [];
+    action?.payload.forEach((data: any) => {
+      const requestObject = {
+        product_variation_id: data?.product_variation_id,
+        qty: data?.qty,
+        product_id: data?.product_id,
+        product: data?.product,
+        user_id: user_id,
+        shop: null,
+      };
+      mockRequest.push(requestObject);
+    });
+
+    return this.cartService.bulkAddCart(mockRequest).pipe(
+      tap({
+        next: (result: any) => {
+          this.store.dispatch(new GetCartItems());
+          removeDataFromLocalStorage('cart_data');
+          // const mockMessageObject = mockResponseData(result.messageobject);
+          // this.store.dispatch(new SuccessResponse(mockMessageObject));
+          // this.modalService.open(PleaseLoginModalComponent, { centered: true });
+        },
+        error: err => {
+          const messageObject = mockResponseData(err?.error.messageobject);
+          this.store.dispatch(new FailureResponse(messageObject));
+          this.modalService.open(PleaseLoginModalComponent, { centered: true });
+          throw new Error(err?.error?.message);
+        }
+      })
+    );
   }
 
 }

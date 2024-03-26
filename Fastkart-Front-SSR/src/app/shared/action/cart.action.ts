@@ -13,6 +13,11 @@ export class SubractFromCartLocalStorage {
   constructor(public payload: any) { }
 }
 
+export class BulkAddCart {
+  static readonly type = "[Cart] Bulk";
+  constructor(public payload: any) { }
+}
+
 export class AddToCart {
   static readonly type = "[Cart] Add";
   constructor(public payload: any) { }

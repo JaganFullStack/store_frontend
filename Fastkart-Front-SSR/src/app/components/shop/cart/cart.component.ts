@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Breadcrumb } from '../../../shared/interface/breadcrumb';
 import { Cart, CartAddOrUpdate } from '../../../shared/interface/cart.interface';
 import { CartState } from '../../../shared/state/cart.state';
-import { UpdateCart, DeleteCart, AddToCart } from '../../../shared/action/cart.action';
+import { UpdateCart, DeleteCart, AddToCart, SubractFromCartLocalStorage, AddToCartLocalStorage } from '../../../shared/action/cart.action';
 import { AddOrRemoveWishlist } from '../../../shared/action/wishlist.action';
 import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/utilities/helper';
 import { environment } from 'src/environments/environment';
@@ -50,7 +50,16 @@ export class CartComponent {
   }
 
   delete(itemId: number) {
-    this.store.dispatch(new DeleteCart({ id: itemId }));
+    const user_id = getStringDataFromLocalStorage("user_id");
+
+    if (user_id) {
+      this.store.dispatch(new DeleteCart({ id: itemId }));
+    } else {
+      let data = this.cartItems.find((e: any) => e.id === itemId);
+      data.qty = 0;
+
+      this.store.dispatch(new SubractFromCartLocalStorage(data));
+    }
   }
 
   addToWishlist(id: number) {
@@ -62,28 +71,27 @@ export class CartComponent {
 
     const userId = getStringDataFromLocalStorage("user_id");
 
-      let responseObject = {
-        "user_id": userId,
-        "product_variation_id": product.product_variation_id,
-        "product_id": product.product_id,
-        "qty": 0
-      };
+    let responseObject = {
+      "user_id": userId,
+      "product_variation_id": product.product_variation_id,
+      "product_id": product.product_id,
+      "qty": 0
+    };
 
-      const itemFound = this.cartItems.find((item: any) => item.product_id === product.product_id);
+    const itemFound = this.cartItems.find((item: any) => item.product_id === product.product_id);
 
-      if (itemFound) {
-        responseObject.qty = convertStringToNumber(itemFound.qty) + 1;
-      } else {
-        responseObject.qty = 1;
-      }
+    if (itemFound) {
+      responseObject.qty = convertStringToNumber(itemFound.qty) + 1;
+    } else {
+      responseObject.qty = 1;
+    }
 
-      if(userId){
-        this.store.dispatch(new AddToCart(responseObject));
-      }else{
-        product.qty=responseObject.qty;
-        console.log(product);
-        // this.store.dispatch(new AddToCart(responseObject));
-      }
+    if (userId) {
+      this.store.dispatch(new AddToCart(responseObject));
+    } else {
+      product.qty = responseObject.qty;
+      this.store.dispatch(new AddToCartLocalStorage(product));
+    }
 
   };
 
@@ -101,15 +109,25 @@ export class CartComponent {
     const itemFound = this.cartItems.find((item: any) => item.product_id === product.product_id);
     const formattedQty = convertStringToNumber(itemFound.qty);
     if ((formattedQty - 1) === 0) {
+      product.qty = 0;
       const object = {
         id: itemFound.id
       };
 
-      this.store.dispatch(new DeleteCart(object));
+      if (userId) {
+        this.store.dispatch(new DeleteCart(object));
+      } else {
+        this.store.dispatch(new SubractFromCartLocalStorage(product));
+      }
     } else {
       requestObject.qty = formattedQty - 1;
 
-      this.store.dispatch(new AddToCart(requestObject));
+      if (userId) {
+        this.store.dispatch(new AddToCart(requestObject));
+      } else {
+        product.qty = requestObject.qty;
+        this.store.dispatch(new SubractFromCartLocalStorage(product));
+      }
     }
   };
 

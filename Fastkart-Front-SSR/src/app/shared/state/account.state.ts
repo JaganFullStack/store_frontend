@@ -14,10 +14,12 @@ import { AccountService } from "../services/account.service";
 import { NotificationService } from "../services/notification.service";
 import { Permission } from "../interface/role.interface";
 import { Router } from "@angular/router";
-import { mockResponseData } from "src/app/utilities/helper";
+import { getObjectDataFromLocalStorage, getStringDataFromLocalStorage, mockResponseData } from "src/app/utilities/helper";
 import { FailureResponse, SuccessResponse } from "../action/response.action";
 import { PleaseLoginModalComponent } from "../components/widgets/please-login-modal/please-login-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { BulkAddCart } from "../action/cart.action";
+import { cartService } from "../services/cart.service";
 
 export class AccountStateModel {
   user: AccountUser | null;
@@ -48,16 +50,21 @@ export class AccountState {
 
   @Action(GetUserDetails)
   getUserDetails(ctx: StateContext<AccountStateModel>) {
+
+    const user_id = getStringDataFromLocalStorage("user_id");
+    const cart_data = getObjectDataFromLocalStorage("cart_data");
+
+    if (user_id && cart_data && (cart_data.cartItems.length > 0)) {
+      this.store.dispatch(new BulkAddCart(cart_data.cartItems));
+    }
     return this.accountService.getUserDetails().pipe(
       tap({
-        next: result => {
-          console.log("frfrfrfrfr",result?.data[0],)
 
+        next: result => {
           ctx.patchState({
             user: result?.data[0],
             permissions: [],
           });
-
         },
         error: err => {
           const messageObject = mockResponseData(err.error.messageobject);
@@ -96,14 +103,14 @@ export class AccountState {
     );
   }
 
-  @Action(CreateAddress)  
+  @Action(CreateAddress)
   createAddress(ctx: StateContext<AccountStateModel>, action: CreateAddress) {
 
     // Create Address Logic Here
     return this.accountService.createAddresss(action.payload).pipe(
       tap({
         next: result => {
-          console.log(result,"pipipipipp")
+          console.log(result, "pipipipipp")
           this.store.dispatch(new GetUserDetails());
           const mockMessageObject = mockResponseData(result.messageobject);
           this.store.dispatch(new SuccessResponse(mockMessageObject));
@@ -127,7 +134,7 @@ export class AccountState {
   deleteAddress(ctx: StateContext<AccountStateModel>, action: DeleteAddress) {
     return this.accountService.UserAddressDelete(action.payload.id).pipe(
       tap({
-        next: result=> {
+        next: result => {
           this.store.dispatch(new GetUserDetails());
           const mockMessageObject = mockResponseData(result.messageobject);
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
