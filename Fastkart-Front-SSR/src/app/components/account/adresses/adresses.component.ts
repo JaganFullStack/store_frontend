@@ -17,7 +17,7 @@ import { GetStates } from 'src/app/shared/action/state.action';
 })
 export class AdressesComponent implements OnInit {
 
-  @Select(AccountState.user) user$: Observable<AccountUser>;
+  @Select(AccountState.user) user$: Observable<any>;
 
   @ViewChild("addressModal") AddressModal: AddressModalComponent;
   @ViewChild("deleteModal") DeleteModal: DeleteModalComponent;
