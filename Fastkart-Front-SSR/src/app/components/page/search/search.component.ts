@@ -4,7 +4,7 @@ import { Select, Store } from '@ngxs/store';
 import { FormControl } from '@angular/forms';
 import { Observable, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GetProducts } from '../../../shared/action/product.action';
+import { GetProducts, SearchProducts } from '../../../shared/action/product.action';
 import { Product, ProductModel } from '../../../shared/interface/product.interface';
 import { ProductState } from '../../../shared/state/product.state';
 import { Params } from '../../../shared/interface/core.interface';
@@ -51,6 +51,11 @@ export class SearchComponent {
         this.products = val.product.product.data
       }
     });
+    this.store.dispatch(new SearchProducts(this.filter)).subscribe({
+      next: (val) =>{
+        this.products = val.product.product.data
+      }
+    });
    });
   }
 
@@ -72,6 +77,7 @@ export class SearchComponent {
   }
 
   searchProduct(){
+    console.log(this.search.value);
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {

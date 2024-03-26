@@ -94,6 +94,7 @@ export class TrackingComponent {
   order: any; 
   orderJson: string;
   products:any[];
+
   ngOnInit() {
     this.checkout$.subscribe(data => this.checkoutTotal = data);
     this.cartItem$.subscribe(items => {
@@ -124,6 +125,8 @@ export class TrackingComponent {
       this.store.dispatch(new ViewOrder(orderId)).subscribe(() => {
       
         this.store.select(OrderState.selectedOrder).subscribe(order => {
+          console.log(order);
+
           if (order) {
             this.order = order;
             // this.orderJson = JSON.stringify(this.order);

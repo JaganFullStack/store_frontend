@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { cartService } from 'src/app/shared/services/cart.service';
 import { CartModel } from '../../../../../shared/interface/cart.interface';
 import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/utilities/helper';
+import { WishlistState } from 'src/app/shared/state/wishlist.state';
 
 
 @Component({
@@ -27,10 +28,11 @@ export class ProductBoxHorizontalComponent {
   @Input() product: any;
   @Input() class: string;
   @Input() close: boolean;
-  apibaseurl:string=environment.apiBaseUrl;
+  apibaseurl: string = environment.apiBaseUrl;
   ApiImageurl = environment.backendBaseImageUrl;
 
   @Select(CartState.cartItems) cartItem$: Observable<Cart[]>;
+  @Select(WishlistState.wishlistItems) wishlistItem$: Observable<any>;
   @Select(CartState.getCartModel) cartModel$: Observable<CartModel[]>;
 
   @ViewChild("productDetailModal") productDetailModal: ProductDetailModalComponent;
@@ -66,6 +68,11 @@ export class ProductBoxHorizontalComponent {
     this.cartItem$.subscribe(items => {
       this.cartItems = items;
       this.cartItem = items.find(item => item.product.id == this.product.id)!;
+    });
+
+    this.wishlistItem$.subscribe(items => {
+      const data = items.data.find((item: any) => item.id == this.product.id)!;
+      this.product.isWishlisted = data ? true : false;
     });
 
     config.max = 5;
