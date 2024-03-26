@@ -7,27 +7,34 @@
     <div class="wallet-table mt-0">
         <div class="table-responsive">
             <table>
+                <thead>
+                    <th>{{ 'no' | translate }}</th>
+                    <th>{{ 'order_number' | translate }}</th>
+                    <th>{{ 'date' | translate }}</th>
+                    <th>{{ 'amount' | translate }}</th>
+                    <th>{{ 'payment_status' | translate }}</th>
+                    <th>{{ 'payment_method' | translate }}</th>
+                    <th>{{ 'option' | translate }}</th>
+                </thead>
                 <tbody>
-                    <tr>
-                        <th>{{ 'no' | translate }}</th>
-                        <th>{{ 'order_number' | translate }}</th>
-                        <th>{{ 'date' | translate }}</th>
-                        <th>{{ 'amount' | translate }}</th>
-                        <th>{{ 'payment_status' | translate }}</th>
-                        <th>{{ 'payment_method' | translate }}</th>
-                        <th>{{ 'option' | translate }}</th>
-                    </tr>
                     <tr *ngFor="let order of (order$ | async)?.data let i = index">
                         <td>{{ i + 1 }}</td>
                         <td><span class="fw-bolder">#{{order.id}}</span></td>
                         <td>{{ order?.created_at | date: 'dd MMM yyyy hh:mm:a' }}</td>
                         <td>{{ order?.sub_total_amount! | currencySymbol }} </td>
                         <td>
-                            <div class="status-{{order.payment_status.toLowerCase()}}"><span>{{ order.payment_status |
-                                    titleCase }}</span></div>
+                            <div class="status-{{order.payment_status.toLowerCase()}}">
+                                <span>
+                                    {{ order.payment_status |
+                                    titleCase }}
+                                </span>
+                            </div>
                         </td>
-                        <td>
-                            {{ order.payment_method.toUpperCase() }}
+                        <td *ngIf="order?.payment_method">
+                            {{ order?.payment_method?.toUpperCase() }}
+                        </td>
+                        <td *ngIf="!order?.payment_method">
+                            {{ defaultOrderStatus }}
                         </td>
                         <td><a [routerLink]="['/account/order/details', order.id]"><i class="ri-eye-line"></i></a></td>
                         <!-- <td><a (click)="click(order.id)"><i class="ri-eye-line"></i></a></td> -->

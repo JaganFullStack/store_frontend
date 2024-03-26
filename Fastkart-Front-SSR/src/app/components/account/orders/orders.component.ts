@@ -12,9 +12,9 @@ import { Params } from '../../../shared/interface/core.interface';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent {
+  defaultOrderStatus = "COD";
 
-
-  @Select(OrderState.order) order$: Observable<OrderModel>;
+  @Select(OrderState.order) order$: Observable<any>;
 
   public filter: Params = {
     'page': 1, // Current page number
@@ -29,11 +29,11 @@ export class OrdersComponent {
     this.filter['page'] = page;
     this.store.dispatch(new GetOrders(this.filter));
   }
-// id:any
-//   click(id:any){
+  // id:any
+  //   click(id:any){
 
 
-//     alert(id)
-//   }
+  //     alert(id)
+  //   }
 
 }

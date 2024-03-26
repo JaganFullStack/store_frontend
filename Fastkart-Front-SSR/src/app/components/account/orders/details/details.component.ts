@@ -24,30 +24,34 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   @ViewChild("refundModal") refundModal: RefundModalComponent;
   apiBaseUrl: string = environment.apiBaseUrl;
   private destroy$ = new Subject<void>();
-  order: any; 
-  products:any[];
-  constructor(private store: Store, private route: ActivatedRoute) {}
+  order: any;
+  selectedOrder: any = {};
+  products: Array<any> = [];
+  @Select(OrderState.selectedOrder) selectedOrder$: Observable<any>;
+
+  constructor(private store: Store, private route: ActivatedRoute) {
+    this.selectedOrder$.subscribe((data: any) => {
+      console.log(data);
+    });
+
+  }
 
   ngOnInit() {
     this.route.params.pipe(
       switchMap(params => {
-        if (!params['id']) return of(null); 
+        if (!params['id']) return of(null);
         return this.store.dispatch(new ViewOrder(params['id']));
       }),
       switchMap(() => this.store.select(OrderState.selectedOrder)),
-      filter(order => !!order), 
+      filter(order => !!order),
       takeUntil(this.destroy$)
     )
-    .subscribe(order => {
-      console.log('Order data:', order);
-      this.order = order;
-
-      this.products =  this.order.products
-      console.log(' this.products data:',  this.products);
-
-    });
+      .subscribe(order => {
+        this.order = order;
+        this.products = this.order.products;
+      });
   }
-  
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
