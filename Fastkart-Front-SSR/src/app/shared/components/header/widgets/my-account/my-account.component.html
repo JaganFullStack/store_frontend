@@ -17,7 +17,7 @@
         <div class="delivery-detail">
             <!-- <h6>{{ 'hi' | translate }}, {{ ((isAuthenticated$ | async) ? (user$ | async)?.name : 'user' | translate) }}</h6> -->
             
-            <h6 *ngIf="userData && userData?.id">{{ 'Hai' | translate }}, {{ userData?.name }}</h6>
+            <h6 *ngIf="userData && userData?.id">{{ 'Hai' | translate }}, {{ userData?.name | translate  }}</h6>
             <h6 *ngIf="!userData && !userData?.id">{{ 'Hai' | translate }}, {{ "Guest User" }}</h6>
         </div>
     </div>

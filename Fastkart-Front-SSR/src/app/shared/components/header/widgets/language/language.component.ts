@@ -35,6 +35,13 @@ export class LanguageComponent {
     icon: 'us'
   }
 
+
+  // public selectedLanguage: any = {
+  //   language: 'عربي',
+  //   code: 'ar',
+  //   icon: 'om' 
+  // }
+
   constructor(private translate: TranslateService) {
     this.selectLanguage(this.selectedLanguage)
   }
