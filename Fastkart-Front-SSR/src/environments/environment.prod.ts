@@ -4,11 +4,13 @@
 
 export const environment = {
   production: true,
-  baseURL: 'https://angular.pixelstrap.net/fastkart',
-  URL: 'https://angular.pixelstrap.net/fastkart/assets/data',
-  apiBaseUrl:"http://localhost:8080"
+  baseURL: 'https://storeapi.fcglobal.in/public',
+  URL: 'https://demostore.fcglobal.in/assets/data',
+  apiBaseUrl: "https://storeapi.fcglobal.in/public",
+  backendBaseImageUrl: "https://demostore.fcglobal.in/ProductImages/Thumbnail/",
+  backendCategoryImageUrl: "https://demostore.fcglobal.in/CategoryImage/"
 };
-  
+
 /*
 * For easier debugging in development mode, you can import the following file
 * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
@@ -17,4 +19,3 @@ export const environment = {
 * on performance if an error is thrown.
 */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
-  

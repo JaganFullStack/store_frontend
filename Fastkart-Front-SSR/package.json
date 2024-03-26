@@ -1,5 +1,5 @@
 {
-  "name": "fastkart-ssr",
+  "name": "store",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,10 +7,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "dev:ssr": "ng run fastkart-ssr:serve-ssr",
-    "serve:ssr": "node dist/fastkart-ssr/server/main.js",
-    "build:ssr": "ng build && ng run fastkart-ssr:server",
-    "prerender": "ng run fastkart-ssr:prerender"
+    "dev:ssr": "ng run store:serve-ssr",
+    "serve:ssr": "node dist/store/server/main.js",
+    "build:ssr": "ng build && ng run store:server",
+    "prerender": "ng run store:prerender"
   },
   "private": true,
   "dependencies": {

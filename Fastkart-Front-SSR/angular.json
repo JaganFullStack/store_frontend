@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "fastkart-ssr": {
+    "store": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
             "allowedCommonJsDependencies": [
               "feather-icons"
             ],
-            "outputPath": "dist/fastkart-ssr/browser",
+            "outputPath": "dist/store/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -77,10 +77,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "fastkart-ssr:build:production"
+              "buildTarget": "store:build:production"
             },
             "development": {
-              "buildTarget": "fastkart-ssr:build:development"
+              "buildTarget": "store:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,7 +88,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "fastkart-ssr:build"
+            "buildTarget": "store:build"
           }
         },
         "test": {
@@ -113,7 +113,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/fastkart-ssr/server",
+            "outputPath": "dist/store/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
             "inlineStyleLanguage": "scss"
@@ -136,14 +136,13 @@
           "builder": "@angular-devkit/build-angular:ssr-dev-server",
           "configurations": {
             "development": {
-              "browserTarget": "fastkart-ssr:build:development",
-              "serverTarget": "fastkart-ssr:server:development",
+              "browserTarget": "store:build:development",
+              "serverTarget": "store:server:development",
               "proxyConfig": "proxy.conf.json"
             },
             "production": {
-              "browserTarget": "fastkart-ssr:build:production",
-              "serverTarget": "fastkart-ssr:server:production"
-
+              "browserTarget": "store:build:production",
+              "serverTarget": "store:server:production"
             }
           },
           "defaultConfiguration": "development"
@@ -157,12 +156,12 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "fastkart-ssr:build:production",
-              "serverTarget": "fastkart-ssr:server:production"
+              "browserTarget": "store:build:production",
+              "serverTarget": "store:server:production"
             },
             "development": {
-              "browserTarget": "fastkart-ssr:build:development",
-              "serverTarget": "fastkart-ssr:server:development"
+              "browserTarget": "store:build:development",
+              "serverTarget": "store:server:development"
             }
           },
           "defaultConfiguration": "production"
