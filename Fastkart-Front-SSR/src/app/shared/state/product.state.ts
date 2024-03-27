@@ -81,90 +81,6 @@ export class ProductState {
         next: (result: any) => {
 
           let products = result.data || [];
-          // if (action?.payload) {
-          //   // Note:- For Internal filter purpose only, once you apply filter logic on server side then you can remove  it as per your requirement.
-          //   // Note:- we have covered only few filters as demo purpose
-          //   products = result.data.filter((product: any) =>
-          //     (action?.payload?.['store_slug'] && product?.store?.slug == action?.payload?.['store_slug']) ||
-          //     (
-          //       action?.payload?.['category'] && product?.categories?.length &&
-          //       product?.categories?.some((category: any) => action?.payload?.['category']?.split(',')?.includes(category.slug))
-          //     )
-          //   )
-
-          //   products = products.length ? products : result.data;
-
-          //   if (action?.payload?.['sortBy']) {
-          //     if (action?.payload?.['sortBy'] === 'asc') {
-          //       products = products.sort((a: any, b: any) => {
-          //         if (a.id < b.id) {
-          //           return -1;
-          //         } else if (a.id > b.id) {
-          //           return 1;
-          //         }
-          //         return 0;
-          //       })
-          //     } else if (action?.payload?.['sortBy'] === 'desc') {
-          //       products = products.sort((a: any, b: any) => {
-          //         if (a.id > b.id) {
-          //           return -1;
-          //         } else if (a.id < b.id) {
-          //           return 1;
-          //         }
-          //         return 0;
-          //       })
-          //     } else if (action?.payload?.['sortBy'] === 'a-z') {
-          //       products = products.sort((a: any, b: any) => {
-          //         if (a.name < b.name) {
-          //           return -1;
-          //         } else if (a.name > b.name) {
-          //           return 1;
-          //         }
-          //         return 0;
-          //       })
-          //     } else if (action?.payload?.['sortBy'] === 'z-a') {
-          //       products = products.sort((a: any, b: any) => {
-          //         if (a.name > b.name) {
-          //           return -1;
-          //         } else if (a.name < b.name) {
-          //           return 1;
-          //         }
-          //         return 0;
-          //       })
-          //     } else if (action?.payload?.['sortBy'] === 'low-high') {
-          //       products = products.sort((a: any, b: any) => {
-          //         if (a.sale_price < b.sale_price) {
-          //           return -1;
-          //         } else if (a.price > b.price) {
-          //           return 1;
-          //         }
-          //         return 0;
-          //       })
-          //     } else if (action?.payload?.['sortBy'] === 'high-low') {
-          //       products = products.sort((a: any, b: any) => {
-          //         if (a.sale_price > b.sale_price) {
-          //           return -1;
-          //         } else if (a.price < b.price) {
-          //           return 1;
-          //         }
-          //         return 0;
-          //       })
-          //     }
-          //   } else if (!action?.payload?.['ids']) {
-          //     products = products.sort((a: any, b: any) => {
-          //       if (a.id < b.id) {
-          //         return -1;
-          //       } else if (a.id > b.id) {
-          //         return 1;
-          //       }
-          //       return 0;
-          //     })
-          //   }
-
-          //   if (action?.payload?.['search']) {
-          //     products = products.filter((product: any) => product.name.toLowerCase().includes(action?.payload?.['search'].toLowerCase()))
-          //   }
-          // }
 
           ctx.patchState({
             product: {
@@ -186,23 +102,33 @@ export class ProductState {
   @Action(SearchProducts)
   searchProduct(ctx: StateContext<ProductStateModel>, action: SearchProducts) {
     this.productService.skeletonLoader = true;
-    // Note :- You must need to call api for filter and pagination as of now we are using json data so currently get all data from json 
-    //          you must need apply this logic on server side
-    let filterProducts: Array<any> = [];
 
-    this.products$.subscribe((product: any) => {
-      console.log(product)  
-      filterProducts = product?.data.filter((pro: any) => pro.name.includes(action.payload.search.toLowerCase())); 
-    });
-    console.log(action);
-    console.log(filterProducts);
-    return;
-    // return ctx.patchState({
-    //   product: {
-    //     data: products,
-    //     total: result?.total ? result?.total : result.data?.length
-    //   }
-    // });
+    if (action.payload.search && action.payload.search != '') {
+      return this.productService.searchProducts(action.payload).pipe(
+        tap({
+          next: (result: any) => {
+
+            ctx.patchState({
+              product: {
+                data: result?.data,
+                total: result?.total ? result?.total : result.data?.length
+              }
+            });
+          },
+          complete: () => {
+            this.productService.skeletonLoader = false;
+          },
+          error: err => {
+            const messageObject = mockResponseData(err.error.messageobject);
+            console.log(messageObject?.message);
+            throw new Error(err?.error?.message);
+          }
+        })
+      );
+    }else{
+      return ;
+    }
+
   }
 
   @Action(GetRelatedProducts)
@@ -257,13 +183,12 @@ export class ProductState {
 
   @Action(GetProductBySlug)
   getProductBySlug(ctx: StateContext<ProductStateModel>, { filterString }: any) {
-    // this.themeOptionService.preloader = true;
+
     this.productService.skeletonLoader = true;
-    console.log(filterString)
+
     return this.productService.getProductByCategoryId(filterString).pipe(
       tap({
         next: results => {
-          console.log("results", results);
           ctx.patchState({
             product: {
               data: (results?.data || (results?.data.length > 0)) ? results.data : [],

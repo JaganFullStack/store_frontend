@@ -23,7 +23,7 @@ export class CollectionProductsComponent {
   public skeletonItems = Array.from({ length: 40 }, (_, index) => index);
 
   constructor(public productService: ProductService) {
-    console.log("products",this.product$.subscribe((data:any)=>console.log(data)))
+
   }
 
   setGridClass(gridClass: string) {

@@ -122,14 +122,14 @@ export class AddressModalComponent {
   patchForm(value?: UserAddress) {
     if (value) {
       this.address = value;
-      console.log(this.address, ",addresssss")
+
       this.form.patchValue({
         user_id: value?.user_id,
         title: value?.title,
         street: value?.street,
         country_id: value?.country_id,
         state_id: value?.state_id,
-        city_id: value?.city?.id, 
+        city_id: value?.city?.id,
 
         // city: value?.city?.name, 
         pincode: value?.pincode,
@@ -137,7 +137,7 @@ export class AddressModalComponent {
         phone: value?.phone,
         address_type: value?.type
       });
-      console.log('Form value after patching:', this.form.value); 
+
     } else {
       this.address = null;
       this.form.reset();
@@ -152,12 +152,11 @@ export class AddressModalComponent {
   submit() {
     const user_id = getStringDataFromLocalStorage("user_id");
     if (!user_id) {
-      console.log("No access: user_id is not in local storage.");
-      return this.ngOnDestroy();; 
+      return this.ngOnDestroy();;
     }
+
     this.form.markAllAsTouched();
-   
-   
+
     let requestObject = {
       user_id: user_id,
       country_id: this.form.value.country_id,
@@ -166,12 +165,11 @@ export class AddressModalComponent {
       address: this.form.value.street,
       is_default: 1,
       phone: this.form.value.phone,
-     
       address_type: this.form.value.address_type,
-      title:this.form.value.title,
+      title: this.form.value.title,
       pincode: this.form.value.pincode,
     };
-console.log(requestObject,"ojojojojojojojojo");
+
     let action = new CreateAddress(requestObject);
 
     if (this.address) {
@@ -179,7 +177,6 @@ console.log(requestObject,"ojojojojojojojojo");
     }
 
     if (this.form.valid) {
-      // this.store.dispatch(action);
       this.store.dispatch(action).subscribe({
         complete: () => {
           this.form.reset();
@@ -199,7 +196,7 @@ console.log(requestObject,"ojojojojojojojojo");
       modalRef.close();
     });
   }
-  
+
 
   ngOnDestroy() {
     if (this.modalOpen) {

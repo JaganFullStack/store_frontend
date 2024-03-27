@@ -18,26 +18,26 @@ export class CollectionSortComponent {
   @Output() showFilter: EventEmitter<boolean> = new EventEmitter();
 
   public sorting: Select2Data = [{
-      value: 'asc',
-      label: 'Ascending Order',
-    },{
-      value: 'desc',
-      label: 'Descending Order',
-    },{
-      value: 'low-high',
-      label: 'Low - High Price',
-    },{
-      value: 'high-low',
-      label: 'High - Low Price',
-    },{
+    //   value: 'asc',
+    //   label: 'Ascending Order',
+    // },{
+    //   value: 'desc',
+    //   label: 'Descending Order',
+    // },{
+    //   value: 'low-high',
+    //   label: 'Low - High Price',
+    // },{
+    //   value: 'high-low',
+    //   label: 'High - Low Price',
+    // },{
       value: 'a-z',
       label: 'A - Z Order',
     },{
       value: 'z-a',
       label: 'Z - A Order',
-    },{
-      value: 'discount-high-low',
-      label: '% Off - Hight To Low',
+    // },{
+    //   value: 'discount-high-low',
+    //   label: '% Off - Hight To Low',
     }];
 
   public selectedGrid: string = "collection_4_grid";

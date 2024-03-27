@@ -38,4 +38,16 @@ export class ProductService {
     return this.http.get<any>(url, { headers });
   }
 
+  searchProducts(payload?: any): Observable<any> {
+
+    const url = `${environment.apiBaseUrl}/api/searchproduct?search=${payload.search}`;
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'AUTHKEY': 'StoreWeb'
+    };
+
+    return this.http.get<any>(url, { headers });
+  }
+
 }

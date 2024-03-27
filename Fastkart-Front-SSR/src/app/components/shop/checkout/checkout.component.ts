@@ -52,7 +52,7 @@ export class CheckoutComponent {
   public checkoutTotal: OrderCheckout;
   public loading: boolean = false;
 
-  constructor(private modalService: NgbModal,private store: Store,
+  constructor(private modalService: NgbModal, private store: Store,
     private formBuilder: FormBuilder) {
     this.store.dispatch(new GetCartItems());
     this.store.dispatch(new GetSettingOption());
@@ -73,7 +73,7 @@ export class CheckoutComponent {
       delivery_interval: new FormControl(),
       payment_method: new FormControl('', [Validators.required])
     });
-   
+
   }
 
   get productControl(): FormArray {
@@ -184,94 +184,45 @@ export class CheckoutComponent {
     }
   }
 
+  placeorder() {
 
+    const user_id = getStringDataFromLocalStorage("user_id");
 
+    if (user_id) {
 
+      if (this.form.value.shippingAddressList == '' || this.form.value?.shippingAddressList) {
+        const defaulShipId = (this.shippingAddressList.length > 0) ? this.shippingAddressList[0].id : '';
+        this.form.controls['shipping_address_id'].setValue(defaulShipId);
+      }
 
+      if (this.form.value.billing_address_id == '' || this.form.value?.billing_address_id) {
+        const defaulBillId = (this.shippingAddressList.length > 0) ? this.billingAddressList[0].id : '';
+        this.form.controls['billing_address_id'].setValue(defaulBillId);
+      }
 
-//   placeorder() {
+      const requestObject = {
+        user_id: user_id,
+        billing_address_id: this.form.value.billing_address_id,
+        shipping_address_id: this.form.value.shipping_address_id
+      };
 
-//     const user_id = getStringDataFromLocalStorage("user_id");
-
-//     // if (this.shippingAddressList.length === 0 && this.billingAddressList.length === 0) {
-//     //   this.opendata();
-      
-    
-//     // }
-//  if (user_id &&this.shippingAddressList.length === 0 && this.billingAddressList.length === 0){
-
-//     if (this.form.value.shippingAddressList == '' || this.form.value?.shippingAddressList) {
-//       const defaulShipId = (this.shippingAddressList.length > 0) ? this.shippingAddressList[0].id : '';
-//       this.form.controls['shipping_address_id'].setValue(defaulShipId);
-//     }
-
-//     if(this.form.value.billing_address_id == '' || this.form.value?.billing_address_id){
-//       const defaulBillId = (this.shippingAddressList.length > 0) ? this.billingAddressList[0].id : '';
-//       this.form.controls['billing_address_id'].setValue(defaulBillId);
-//     }
-
-//     const requestObject = {
-//       user_id: user_id,
-//       billing_address_id: this.form.value.billing_address_id,
-//       shipping_address_id: this.form.value.shipping_address_id
-//     };
-
-//     this.store.dispatch(new PlaceOrder(requestObject)).subscribe((data:any)=>{
-//       console.log("paying",data)
-//     })
-//   }else {
-     
-//     this.opendata();
-// }
-//   }
-
-  
-
-placeorder() {
-  const user_id = getStringDataFromLocalStorage("user_id");
-
-  if (!user_id || (this.shippingAddressList.length === 0 && this.billingAddressList.length === 0)) {
-    this.opendata();
-    return;
+      this.store.dispatch(new PlaceOrder(requestObject));
+    } else {
+      this.opendata();
+    }
   }
 
-  if (!this.form.value.shipping_address_id) {
-    const defaultShipId = (this.shippingAddressList.length > 0) ? this.shippingAddressList[0].id : '';
-    this.form.controls['shipping_address_id'].setValue(defaultShipId);
-  }
-
-  if (!this.form.value.billing_address_id) {
-    const defaultBillId = (this.billingAddressList.length > 0) ? this.billingAddressList[0].id : '';
-    this.form.controls['billing_address_id'].setValue(defaultBillId);
-  }
-
-  const requestObject = {
-    user_id: user_id,
-    billing_address_id: this.form.value.billing_address_id,
-    shipping_address_id: this.form.value.shipping_address_id
-  };
-
-  this.store.dispatch(new PlaceOrder(requestObject)).subscribe((data: any) => {
-    console.log("Order placed successfully:", data);
- 
-  }, 
-  );
-
-
-}
 
 
   checkAndOpenModal() {
     const user_id = getStringDataFromLocalStorage("user_id");
     if (user_id) {
-      
-        this.AddressModal.openModal();
+      this.AddressModal.openModal();
     } else {
-     
-        this.opendata();
+      this.opendata();
     }
-}
-// modal
+  }
+
   opendata() {
     const modalRef = this.modalService.open(PleaseLoginModalComponent, { centered: true });
     modalRef.componentInstance.closeModalEvent.subscribe(() => {
@@ -279,11 +230,7 @@ placeorder() {
     });
   }
 
-
- 
-
   ngOnDestroy() {
-
     this.store.dispatch(new Clear());
     this.form.reset();
   }

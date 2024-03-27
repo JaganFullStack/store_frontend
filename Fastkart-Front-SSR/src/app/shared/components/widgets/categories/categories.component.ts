@@ -56,7 +56,6 @@ export class CategoriesComponent {
   }
 
   selectCategory(id: number) {
-    console.log(id);
     this.selectedCategory.emit(id);
   }
 

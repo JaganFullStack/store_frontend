@@ -27,35 +27,33 @@ export class AdressesComponent implements OnInit {
   @ViewChild("addressModal") AddressModal: AddressModalComponent;
   @ViewChild("deleteModal") DeleteModal: DeleteModalComponent;
 
-  constructor(private store: Store,private modalService: NgbModal ,private sas:AccountService) { }
+  constructor(private store: Store, private modalService: NgbModal, private sas: AccountService) { }
 
   ngOnInit(): void {
     this.store.dispatch(new GetCountries());
     this.store.dispatch(new GetStates());
     this.store.dispatch(new GetCities());
   }
- 
 
 
-delete(action: string, data: UserAddress) {
-  if (action === 'delete') {
-    this.sas.UserAddressDelete(data.id).subscribe({
-      next: result => {
 
-        this.store.dispatch(new GetUserDetails());
-        const mockMessageObject = mockResponseData(result.messageobject);
- 
-        console.log("Delete successful", result);
-      },
-      error: error => {
-        const messageObject = mockResponseData(error?.error.messageobject);
+  delete(action: string, data: UserAddress) {
+    if (action === 'delete') {
+      this.sas.UserAddressDelete(data.id).subscribe({
+        next: result => {
+          this.store.dispatch(new GetUserDetails());
+          // const mockMessageObject = mockResponseData(result.messageobject);
+        },
+        error: error => {
+          const messageObject = mockResponseData(error?.error.messageobject);
+          console.log(messageObject?.message);
           this.store.dispatch(new FailureResponse(messageObject));
-      }
-    });
+        }
+      });
+    }
+    this.modalService.dismissAll();
   }
-  this.modalService.dismissAll();
-}
 
-  
+
 
 }

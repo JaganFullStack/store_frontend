@@ -38,46 +38,43 @@ export class SearchComponent {
     'search': ''
   }
 
-  constructor(private store: Store, public productService: ProductService, private route: ActivatedRoute, public router: Router){
-    // this.getProduct(this.filter);
+  constructor(private store: Store, public productService: ProductService, private route: ActivatedRoute, public router: Router) {
 
-   this.route.queryParams.subscribe(params => {
-    if(params['search']) {
-      this.filter['search'] = params['search'];
-      this.search.patchValue(params['search'] ? params['search'] : '')
-    }
-    this.store.dispatch(new GetProducts(this.filter)).subscribe({
-      next: (val) =>{
-        this.products = val.product.product.data
+    this.route.queryParams.subscribe(params => {
+      if (params['search']) {
+        this.filter['search'] = params['search'];
+        this.search.patchValue(params['search'] ? params['search'] : '')
       }
-    });
-    this.store.dispatch(new SearchProducts(this.filter)).subscribe({
-      next: (val) =>{
-        this.products = val.product.product.data
+
+      if (this.filter['search']) {
+        this.store.dispatch(new SearchProducts(this.filter)).subscribe({
+          next: (val) => {
+            this.products = val.product.product.data
+          }
+        });
       }
+
     });
-   });
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.search.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged()) // Adjust the debounce time as needed (in milliseconds)
       .subscribe((inputValue) => {
-      if(inputValue.length == 0){
-        this.router.navigate([], {
-          relativeTo: this.route,
-          queryParams: {
-            search: inputValue
-          }
-        });
-        this.filter['search'] = inputValue;
-      }
-    });
+        if (inputValue.length == 0) {
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: {
+              search: inputValue
+            }
+          });
+          this.filter['search'] = inputValue;
+        }
+      });
   }
 
-  searchProduct(){
-    console.log(this.search.value);
+  searchProduct() {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {

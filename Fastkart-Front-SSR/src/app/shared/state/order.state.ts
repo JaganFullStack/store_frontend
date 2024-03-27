@@ -73,7 +73,6 @@ export class OrderState {
       tap({
         next: result => {
 
-          console.log("result of get orders ", result);
           ctx.patchState({
             order: {
               data: result.data,

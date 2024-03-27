@@ -110,11 +110,10 @@ export class AccountState {
     return this.accountService.createAddresss(action.payload).pipe(
       tap({
         next: result => {
-          console.log(result, "pipipipipp")
           this.store.dispatch(new GetUserDetails());
-          const mockMessageObject = mockResponseData(result.messageobject);
-          this.store.dispatch(new SuccessResponse(mockMessageObject));
-          this.modalService.open(PleaseLoginModalComponent, { centered: true });
+          // const mockMessageObject = mockResponseData(result.messageobject);
+          // this.store.dispatch(new SuccessResponse(mockMessageObject));
+          // this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: err => {
           const messageObject = mockResponseData(err?.error.messageobject);
@@ -136,8 +135,8 @@ export class AccountState {
       tap({
         next: result => {
           this.store.dispatch(new GetUserDetails());
-          const mockMessageObject = mockResponseData(result.messageobject);
-          this.modalService.open(PleaseLoginModalComponent, { centered: true });
+          // const mockMessageObject = mockResponseData(result.messageobject);
+          // this.modalService.open(PleaseLoginModalComponent, { centered: true });
         },
         error: (err) => {
           const messageObject = mockResponseData(err?.error.messageobject);
