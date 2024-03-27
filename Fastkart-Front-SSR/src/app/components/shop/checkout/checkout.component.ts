@@ -212,6 +212,8 @@ export class CheckoutComponent {
     }
   }
 
+
+
   checkAndOpenModal() {
     const user_id = getStringDataFromLocalStorage("user_id");
     if (user_id) {
@@ -224,7 +226,7 @@ export class CheckoutComponent {
   opendata() {
     const modalRef = this.modalService.open(PleaseLoginModalComponent, { centered: true });
     modalRef.componentInstance.closeModalEvent.subscribe(() => {
-      modalRef.close();
+      // modalRef.close();
     });
   }
 
