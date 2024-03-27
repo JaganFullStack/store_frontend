@@ -353,7 +353,7 @@ export class CartState {
       mockRequest.push(requestObject);
     });
 
-    return this.cartService.bulkAddCart(mockRequest).pipe(
+    return this.cartService.bulkAddCart({ data: mockRequest }).pipe(
       tap({
         next: (result: any) => {
           this.store.dispatch(new GetCartItems());
