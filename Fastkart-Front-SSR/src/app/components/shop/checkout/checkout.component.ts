@@ -184,9 +184,16 @@ export class CheckoutComponent {
     }
   }
 
+
+
+
+
+
   placeorder() {
 
     const user_id = getStringDataFromLocalStorage("user_id");
+
+    if (user_id){
 
     if (this.form.value.shippingAddressList == '' || this.form.value?.shippingAddressList) {
       const defaulShipId = (this.shippingAddressList.length > 0) ? this.shippingAddressList[0].id : '';
@@ -207,6 +214,10 @@ export class CheckoutComponent {
     this.store.dispatch(new PlaceOrder(requestObject)).subscribe((data:any)=>{
       console.log("paying",data)
     })
+  }else {
+     
+    this.opendata();
+}
   }
 
   checkAndOpenModal() {
