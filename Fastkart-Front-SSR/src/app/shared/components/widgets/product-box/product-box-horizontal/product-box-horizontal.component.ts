@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { ProductDetailModalComponent } from '../../../widgets/modal/product-detail-modal/product-detail-modal.component';
 import { Product } from '../../../../../shared/interface/product.interface';
@@ -16,6 +16,7 @@ import { cartService } from 'src/app/shared/services/cart.service';
 import { CartModel } from '../../../../../shared/interface/cart.interface';
 import { convertStringToNumber, getStringDataFromLocalStorage } from 'src/app/utilities/helper';
 import { WishlistState } from 'src/app/shared/state/wishlist.state';
+import { PleaseLoginModalComponent } from '../../please-login-modal/please-login-modal.component';
 
 
 @Component({
@@ -63,7 +64,7 @@ export class ProductBoxHorizontalComponent {
   // 	config.readonly = true;
   // }
 
-  constructor(private store: Store, config: NgbRatingConfig, public cartService: cartService) {
+  constructor(private store: Store, config: NgbRatingConfig, public cartService: cartService, private modalService: NgbModal) {
 
     this.cartItem$.subscribe(items => {
       this.cartItems = items;
@@ -183,12 +184,21 @@ export class ProductBoxHorizontalComponent {
   addOrRemoveWishList(product: any) {
     const userId = getStringDataFromLocalStorage("user_id");
 
-    const requestObject = {
-      user_id: userId,
-      product_id: product.id
-    };
+    if (userId) {
+      const requestObject = {
+        user_id: userId,
+        product_id: product.id
+      };
 
-    this.store.dispatch(new AddOrRemoveWishlist(requestObject));
+      this.store.dispatch(new AddOrRemoveWishlist(requestObject));
+    } else {
+      const modalRef = this.modalService.open(PleaseLoginModalComponent, { centered: true });
+      modalRef.componentInstance.closeModalEvent.subscribe(() => {
+        modalRef.close();
+      });
+    }
+
+
 
   };
 

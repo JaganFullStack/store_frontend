@@ -5,7 +5,7 @@ import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Product, Variation } from '../../../../interface/product.interface';
 import { Cart, CartAddOrUpdate } from '../../../../interface/cart.interface';
-import { AddToCart, DeleteCart } from '../../../../action/cart.action';
+import { AddToCart, AddToCartLocalStorage, DeleteCart, SubractFromCartLocalStorage } from '../../../../action/cart.action';
 import { CartState } from '../../../../state/cart.state';
 import * as data from  '../../../../../shared/data/owl-carousel';
 import { environment } from 'src/environments/environment';
@@ -101,11 +101,15 @@ export class ProductDetailModalComponent {
       responseObject.qty = 1;
     }
 
-    this.store.dispatch(new AddToCart(responseObject));
+    if (userId) {
+      this.store.dispatch(new AddToCart(responseObject));
+    } else {
+      product.qty = responseObject.qty;
+      this.store.dispatch(new AddToCartLocalStorage(product));
+    }
   };
 
   subractItemCount(product: any) {
-
     const userId = getStringDataFromLocalStorage("user_id");
 
     let requestObject = {
@@ -117,15 +121,25 @@ export class ProductDetailModalComponent {
     const itemFound = this.cartItems.find((item: any) => item.product_id === product.id);
     const formattedQty = convertStringToNumber(itemFound.qty);
     if ((formattedQty - 1) === 0) {
+      product.qty = 0;
       const object = {
         id: itemFound.id
       };
 
-      this.store.dispatch(new DeleteCart(object));
+      if (userId) {
+        this.store.dispatch(new DeleteCart(object));
+      } else {
+        this.store.dispatch(new SubractFromCartLocalStorage(product));
+      }
     } else {
       requestObject.qty = formattedQty - 1;
 
-      this.store.dispatch(new AddToCart(requestObject));
+      if (userId) {
+        this.store.dispatch(new AddToCart(requestObject));
+      } else {
+        product.qty = requestObject.qty;
+        this.store.dispatch(new SubractFromCartLocalStorage(product));
+      }
     }
   };
 

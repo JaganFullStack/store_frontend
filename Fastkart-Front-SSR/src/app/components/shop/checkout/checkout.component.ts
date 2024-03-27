@@ -208,7 +208,10 @@ export class CheckoutComponent {
 
       this.store.dispatch(new PlaceOrder(requestObject));
     } else {
-      this.opendata();
+      const modalRef = this.modalService.open(PleaseLoginModalComponent, { centered: true });
+      modalRef.componentInstance.closeModalEvent.subscribe(() => {
+        modalRef.close();
+      });
     }
   }
 
@@ -226,7 +229,7 @@ export class CheckoutComponent {
   opendata() {
     const modalRef = this.modalService.open(PleaseLoginModalComponent, { centered: true });
     modalRef.componentInstance.closeModalEvent.subscribe(() => {
-      // modalRef.close();
+      modalRef.close();
     });
   }
 
