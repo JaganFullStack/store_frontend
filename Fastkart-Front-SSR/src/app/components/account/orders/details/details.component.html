@@ -48,7 +48,7 @@
 
     <!-- mahiii -->
     <div class="card">
-        <!-- <div class="card" > -->
+  
         <div class="card-body">
             <div class="tracking-wrapper table-responsive">
                 <table class="table product-table">
@@ -91,21 +91,13 @@
                             <td>
                                 <h6>{{ item?.subtotal | currencySymbol }}</h6>
                             </td>
-                            <!-- <td>
-                                <a href="javascript:void(0)" *ngIf="product?.is_return === 1 && product?.pivot?.is_refunded === 0 &&
-                          order.payment_status === 'COMPLETED' && order.order_status.slug === 'delivered'"
-                                    (click)="refundModal.openModal(product)">
-                                    {{ 'ask_for_refund' | translate }}
-                                </a>
-                                <ng-template #noRefund>-</ng-template>
-                            </td> -->
+                     
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
 
 
 

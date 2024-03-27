@@ -93,7 +93,9 @@
     "footer": {
       "footer_style": "light_mode",
       "footer_copyright": true,
-      "copyright_content": "2024-2025. All rights reserved. Kaveri Super Market",
+
+      "copyright_content": "©Copyright 2024 Kaveri Super Market.All rights reserved",
+
       "footer_about": "",
       "about_address": "Al Goubhra, Muscat, OM, 130 Oman",
       "about_email": "kaveristoresmuscat@gmail.com",

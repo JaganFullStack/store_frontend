@@ -51,7 +51,7 @@ export class AccountState {
     return this.accountService.getUserDetails().pipe(
       tap({
         next: result => {
-          console.log("frfrfrfrfr",result?.data[0],)
+          console.log(result?.data[0],)
 
           ctx.patchState({
             user: result?.data[0],

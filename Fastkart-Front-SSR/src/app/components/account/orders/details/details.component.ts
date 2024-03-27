@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subject, Subscribable, of } from 'rxjs';
@@ -30,7 +30,8 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   test: any[] = [];
   data$: Observable<any[]>;
   @Select(OrderState.selectedOrder) selectedOrder$: Observable<any>;
-  constructor(private store: Store, private route: ActivatedRoute) {
+
+  constructor(private store: Store, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
     this.selectedOrder$.subscribe((data: any) => {
     });
 
@@ -46,6 +47,12 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
       switchMap(() => this.store.select(OrderState.selectedOrder)),
       filter(order => !!order)
     )
+      // .subscribe(order => {
+      //   this.order = order;
+      //   this.products = this.order.products;
+      // });
+
+
       .subscribe(order => {
         this.order = order;
         this.data$ = this.order.productslist
