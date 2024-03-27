@@ -31,6 +31,7 @@ export class CollectionCategoryFilterComponent {
   }
 
   applyFilter(event: Event) {
+
     const index = this.selectedCategories.indexOf((<HTMLInputElement>event?.target)?.value);  // checked and unchecked value
 
     if ((<HTMLInputElement>event?.target)?.checked)
