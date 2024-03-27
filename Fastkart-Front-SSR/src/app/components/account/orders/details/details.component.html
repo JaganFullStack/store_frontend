@@ -1,10 +1,10 @@
-<div *ngIf="order">
+<div *ngIf="selectedOrder">
     <div class="title-header">
         <div class="d-flex  align-items-center w-100 justify-content-between">
 
 
             <!-- Order Number  -->
-            <h5>{{ 'order_number' | translate }}: #{{ order.id }}</h5>
+            <h5>{{ 'order_number' | translate }}: #{{ selectedOrder.id }}</h5>
             <!-- <div class="right-option">
                 <a href="javascript:void(0)" class="btn btn-md fw-bold text-light theme-bg-color"
                     *ngIf="order?.payment_status === 'FAILED'" (click)="payModal.openModal(order)">{{ 'pay_now' |
@@ -48,51 +48,51 @@
 
     <!-- mahiii -->
     <div class="card">
-  
         <div class="card-body">
             <div class="tracking-wrapper table-responsive">
                 <table class="table product-table">
                     <thead>
-                        <tr>
-                            <!-- <th scope="col">{{ 'image' | translate }}</th> -->
+                        <!-- <tr> -->
+                            <th scope="col">{{ 'image' | translate }}</th>
                             <th scope="col">{{ 'name' | translate }}</th>
                             <th scope="col">{{ 'price' | translate }}</th>
                             <th scope="col">{{ 'quantity' | translate }}</th>
                             <th scope="col">{{ 'subtotal' | translate }}</th>
                             <th scope="col">{{ 'action' | translate }}</th>
-                        </tr>
+                        <!-- </tr> -->
                     </thead>
-                    <!-- {{data$.length == true}}{{data$.length}} -->
-                    <!-- {{test | json}} -->
-                    <div *ngIf="test">
-                        <ul *ngFor="let item of test">
-                            <li>1</li>
-                            <li>{{item.name}}</li>
-                            <li>{{item | json}}</li>
-
-                        </ul>
-                    </div>
-
-                    <tbody>
-                        <tr *ngFor="let item of test">
-                            <!-- <td class="product-image">
+                    <tbody *ngIf="selectedProducts.length>0">
+                        
+                        <tr *ngFor="let data of selectedProducts">
+                            <td>{{data.id}}</td>
+                        </tr>
+                        <tr>{{selectedProducts[0].name}}</tr>
+                        <!-- <tr *ngFor="let product of selectedProducts">
+                            <td class="product-image">
                                 <img src="{{apiBaseUrl}}/{{product?.thumbnail_image_url}}" class="img-fluid"
                                     alt="product">
-                            </td> -->
-                            <td>
-                                <h6>{{ item.name}}</h6>
                             </td>
                             <td>
-                                <h6>{{ item?.min_price | currencySymbol }}</h6>
+                                <h6>{{ selectedProducts[0].id }}</h6>
                             </td>
                             <td>
-                                <h6>2</h6>
+                                <h6>{{ product?.min_price | currencySymbol }}</h6>
                             </td>
                             <td>
-                                <h6>{{ item?.subtotal | currencySymbol }}</h6>
+                                <h6>1</h6>
                             </td>
-                     
-                        </tr>
+                            <td>
+                                <h6>{{ product?.subtotal | currencySymbol }}</h6>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" *ngIf="product?.is_return === 1 && product?.pivot?.is_refunded === 0 &&
+                          order.payment_status === 'COMPLETED' && order.order_status.slug === 'delivered'"
+                                    (click)="refundModal.openModal(product)">
+                                    {{ 'ask_for_refund' | translate }}
+                                </a>
+                                <ng-template #noRefund>-</ng-template>
+                            </td>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -172,7 +172,7 @@
                     <h3 class="fw-semibold mb-3">
                         {{ 'summary' | translate }}
                     </h3>
-                    <div class="tracking-total tracking-wrapper">
+                    <!-- <div class="tracking-total tracking-wrapper">
                         <ul>
                             <li>{{ 'subtotal' | translate }} <span>{{ (order.amount ? order.amount : 0) | currencySymbol
                                     }}</span></li>
@@ -191,7 +191,7 @@
                             <li>{{ 'total'| translate }} <span>{{ (order.total ? order.total : 0) | currencySymbol
                                     }}</span></li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

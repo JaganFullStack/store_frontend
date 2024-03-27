@@ -21,29 +21,26 @@ import { SharedModule } from "../../../shared/shared.module";
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'app-tracking',
-    standalone: true,
-    templateUrl: './tracking.component.html',
-    styleUrl: './tracking.component.scss',
-    imports: [SharedModule]
+  selector: 'app-tracking',
+  standalone: true,
+  templateUrl: './tracking.component.html',
+  styleUrl: './tracking.component.scss',
+  imports: [SharedModule]
 })
-// export class TrackingComponent {
-
-// }
-
 
 export class TrackingComponent {
-
+  route: any;
+  order: any;
+  orderJson: string;
+  products: any[];
   public term = new FormControl();
   apiBaseurl: string = environment.apiBaseUrl;
   shippingAddressList: Array<any> = [];
   billingAddressList: Array<any> = [];
 
-
   public breadcrumb: Breadcrumb = {
     title: "Tracking",
     items: [{ label: 'Tracking', active: true }],
-    
   }
 
   @Select(AccountState.user) user$: Observable<AccountUser>;
@@ -62,7 +59,7 @@ export class TrackingComponent {
   public couponError: string | null;
   public checkoutTotal: OrderCheckout;
   public loading: boolean = false;
-  route: any;
+
 
   constructor(private store: Store,
     private formBuilder: FormBuilder) {
@@ -85,15 +82,12 @@ export class TrackingComponent {
       delivery_interval: new FormControl(),
       payment_method: new FormControl('', [Validators.required])
     });
-   
+
   }
 
   get productControl(): FormArray {
     return this.form.get("products") as FormArray;
   }
-  order: any; 
-  orderJson: string;
-  products:any[];
 
   ngOnInit() {
     this.checkout$.subscribe(data => this.checkoutTotal = data);
@@ -111,36 +105,24 @@ export class TrackingComponent {
           })
         ));
     });
- 
+
 
   }
 
-
-
-
-// mahi searchhhhhhhhhhhhhhhh
+  // mahi searchhhhhhhhhhhhhhhh
   searchOrder() {
     const orderId = this.term.value;
     if (orderId) {
       this.store.dispatch(new ViewOrder(orderId)).subscribe(() => {
-      
-        this.store.select(OrderState.selectedOrder).subscribe(order => {
-          console.log(order);
-
-          if (order) {
-            this.order = order;
-            // this.orderJson = JSON.stringify(this.order);
-
-            console.log(this.order,"searched order")
+        this.store.select(OrderState.selectedOrder).subscribe(data => {
+          if (data) {
+            this.order = data;
           }
         });
       });
     }
   }
-
-
-
-
+  
   selectShippingAddress(id: number) {
     if (id) {
       this.form.controls['shipping_address_id'].setValue(Number(id));
@@ -235,20 +217,11 @@ export class TrackingComponent {
       this.form.controls['shipping_address_id'].setValue(defaulShipId);
     }
 
-    if(this.form.value.billing_address_id == '' || this.form.value?.billing_address_id){
+    if (this.form.value.billing_address_id == '' || this.form.value?.billing_address_id) {
       const defaulBillId = (this.shippingAddressList.length > 0) ? this.billingAddressList[0].id : '';
       this.form.controls['billing_address_id'].setValue(defaulBillId);
     }
 
-    const requestObject = {
-      user_id: user_id,
-      billing_address_id: this.form.value.billing_address_id,
-      shipping_address_id: this.form.value.shipping_address_id
-    };
-
-    this.store.dispatch(new PlaceOrder(requestObject)).subscribe((data:any)=>{
-      console.log("paying",data)
-    })
   }
 
   ngOnDestroy() {

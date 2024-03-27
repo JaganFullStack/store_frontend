@@ -6,7 +6,16 @@ export class GetCartItems {
 
 export class AddToCartLocalStorage {
   static readonly type = "[Cart] Local Storage Add";
-  constructor(public payload: CartAddOrUpdate) { }
+  constructor(public payload: any) { }
+}
+export class SubractFromCartLocalStorage {
+  static readonly type = "[Cart] Local Storage Delete";
+  constructor(public payload: any) { }
+}
+
+export class BulkAddCart {
+  static readonly type = "[Cart] Bulk";
+  constructor(public payload: any) { }
 }
 
 export class AddToCart {
