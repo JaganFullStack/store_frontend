@@ -21,7 +21,7 @@ export class SettingStateModel {
 @Injectable()
 export class SettingState {
 
-  constructor(private settingService: SettingService) {}
+  constructor(private settingService: SettingService) { }
 
   @Selector()
   static setting(state: SettingStateModel) {
@@ -34,16 +34,16 @@ export class SettingState {
   }
 
   @Action(GetSettingOption)
-  getSettingOptions(ctx: StateContext<SettingStateModel>) { 
+  getSettingOptions(ctx: StateContext<SettingStateModel>) {
     return this.settingService.getSettingOption().pipe(
       tap({
-        next: (result:any) => {
+        next: (result: any) => {
           const state = ctx.getState();
-         
-          if(!state.selectedCurrency && result){
+
+          if (!state.selectedCurrency && result) {
             state.selectedCurrency = result?.values?.general?.default_currency;
           }
-          result.values.payment_methods=result.values.payment_methods.filter((e:any)=>e.name == "cod");
+          // result.values.payment_methods=result.values.payment_methods.filter((e:any)=>e.name == "cod");
           ctx.patchState({
             ...state,
             setting: result.values,
@@ -57,12 +57,12 @@ export class SettingState {
   }
 
   @Action(SelectedCurrency)
-  selectedCurrency(ctx: StateContext<SettingStateModel>, action: SelectedCurrency){
+  selectedCurrency(ctx: StateContext<SettingStateModel>, action: SelectedCurrency) {
     const state = ctx.getState();
     ctx.patchState({
       ...state,
       selectedCurrency: action.payload
     });
   }
-  
+
 }

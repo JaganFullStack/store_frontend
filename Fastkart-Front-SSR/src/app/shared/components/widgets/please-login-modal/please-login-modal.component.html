@@ -21,7 +21,7 @@
     <!-- Success -->
     <i *ngIf="successData?.load" class="ri-information-fill icon-box wo-bg"></i>
     <h5 *ngIf="successData?.load" class="modal-title">{{successData?.content.message}}</h5>
-    <!-- end Success --> 
+    <!-- end Success -->
 
     <!-- Falure -->
     <i *ngIf="failureData?.load" style="color:red" class="ri-information-fill icon-box wo-bg"></i>
@@ -30,8 +30,8 @@
 
     <!-- <p >Are you sure you want to proceed?</p> -->
     <div class="button-box" *ngIf="!failureData?.load && !successData?.load">
-      <button class="btn btn-md btn-theme-outline fw-bold" id="confirm_no_btn" type="submit">
-        <div (click)="closeModal()"> OK </div>
+      <button class="btn btn-md btn-theme-outline fw-bold" id="confirm_no_btn" type="submit" (click)="closeModal()">
+        <div> OK </div>
       </button>
     </div>
   </div>
