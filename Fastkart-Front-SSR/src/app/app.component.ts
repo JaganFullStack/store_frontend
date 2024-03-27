@@ -22,7 +22,8 @@ export class AppComponent {
   public isTabInFocus = true;
   public timeoutId: any;
   private currentMessageIndex = 0;
-  private messages = ["⚡ Come Back !!", "🎉 Offers for you..."];
+  // private messages = ["⚡ Come Back !!", "🎉 Offers for you..."];
+  private messages = ["🎉 Special offers for you..."];
   private currentMessage: string;
   private delay = 1000; // Delay between messages in milliseconds
 
@@ -78,7 +79,7 @@ export class AppComponent {
     });
 
     this.actions.pipe(ofActionDispatched(Logout)).subscribe(() => {
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/home']);
     });
 
   }
