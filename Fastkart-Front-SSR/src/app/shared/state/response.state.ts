@@ -49,7 +49,6 @@ export class ResponseSate {
     @Action(SuccessResponse)
     setSuccessResponse(ctx: StateContext<ResponseStateModel>, action: SuccessResponse) {
         return ctx.patchState({
-            // response: {
             success: {
                 load: true,
                 content: action.payload,
@@ -58,8 +57,6 @@ export class ResponseSate {
                 load: false,
                 content: null,
             },
-
-            // }
         });
     }
 

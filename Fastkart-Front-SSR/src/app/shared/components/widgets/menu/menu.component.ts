@@ -46,8 +46,6 @@ export class MenuComponent {
 
   }
   toggle(menu: Menu){
-
-    console.log("toggle togfgleeeee",menu.title)
     if(!menu.active){
       this.menu.forEach(item => {
         if(this.menu.includes(menu)){

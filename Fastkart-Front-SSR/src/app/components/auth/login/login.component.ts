@@ -39,49 +39,14 @@ export class LoginComponent {
     if (this.form.valid) {
       const email = this.form.get('email')!.value;
       const password = this.form.get('password')!.value;
-      try {
-        const userData = {
-          "email": email,
-          "password": password
-        };
-
-        this.store.dispatch(new Login(userData));
-        // this.authService.login(userddata).subscribe({
-        //   next: (response: any) => {
-        //     this.responseError = null;
-
-        //     console.log(response);
-
-        //     localStorage.setItem('AuthToken', response?.token);
-        //     localStorage.setItem('UserEmail', response?.Email)
-
-
-        //     const redirectUrl = this.authService.redirectUrl || '/account/dashboard';
-        //     this.router.navigateByUrl(redirectUrl);
-        //     // window.location.reload();
-
-        //   },
-        //   error: (error) => {
-        //     this.responseError = error?.error?.messages?.error ?? 'INVAILD EMAILID OR PASSWORD';
-        //     console.log("Api Error", error.error.messages.error);
-        //   },
-        // });
-      } catch (Error: any) {
-        console.log("catch Error", Error);
-      }
+      const userData = {
+        "email": email,
+        "password": password
+      };
+      this.store.dispatch(new Login(userData));
     } else {
-      // Form is invalid, display errors if needed
       console.log('Invalid form submission');
     }
-    // END OF LOGIN CODE 
-    // Navigate to the intended URL after successful login
-    // AuthLogin
-    // const redirectUrl = this.authService.redirectUrl || '/account/dashboard';
-
-    // this.router.navigateByUrl(redirectUrl);
-
-    // Clear the stored redirect URL
-    // this.authService.redirectUrl = undefined; 
   }
 
 }

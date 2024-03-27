@@ -78,7 +78,6 @@ export class ChangePasswordModalComponent {
       };
       this.store.dispatch(new UpdateUserPassword(payload)).subscribe({
         complete: () => {
-          console.log();
           this.form.reset();
           this.ngOnDestroy();
         }

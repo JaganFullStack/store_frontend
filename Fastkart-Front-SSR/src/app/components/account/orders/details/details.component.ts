@@ -36,8 +36,6 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
       this.selectedOrder = data;
       this.order_data = data;
       this.selectedProducts = data?.products;
-      console.log(this.selectedProducts[0].name)
-      console.log(this.order_data)
     });
 
   }

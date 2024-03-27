@@ -39,18 +39,13 @@ export class SearchComponent {
   }
 
   constructor(private store: Store, public productService: ProductService, private route: ActivatedRoute, public router: Router){
-    // this.getProduct(this.filter);
 
    this.route.queryParams.subscribe(params => {
     if(params['search']) {
       this.filter['search'] = params['search'];
       this.search.patchValue(params['search'] ? params['search'] : '')
     }
-    this.store.dispatch(new GetProducts(this.filter)).subscribe({
-      next: (val) =>{
-        this.products = val.product.product.data
-      }
-    });
+
     this.store.dispatch(new SearchProducts(this.filter)).subscribe({
       next: (val) =>{
         this.products = val.product.product.data
@@ -77,7 +72,6 @@ export class SearchComponent {
   }
 
   searchProduct(){
-    console.log(this.search.value);
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
