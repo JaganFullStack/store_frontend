@@ -19,7 +19,7 @@
     <!-- End logout -->
 
     <!-- Success -->
-    <i *ngIf="successData?.load" class="ri-information-fill icon-box wo-bg"></i>
+    <i class="ri-checkbox-circle-fill  icon-box wo-bg" *ngIf="successData?.load"></i>
     <h5 *ngIf="successData?.load" class="modal-title">{{successData?.content.message}}</h5>
     <!-- end Success -->
 
