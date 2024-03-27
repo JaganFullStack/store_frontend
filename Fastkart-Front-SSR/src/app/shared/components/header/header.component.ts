@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new GetUserDetails());
+
   }
 
   setHeader() {

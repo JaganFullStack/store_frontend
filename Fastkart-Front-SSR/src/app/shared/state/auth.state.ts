@@ -76,6 +76,7 @@ export class AuthState {
           const mockMessageObject = mockResponseData(result.messageobject);
           this.store.dispatch(new SuccessResponse(mockMessageObject));
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
+          this.store.dispatch(new GetUserDetails());
         },
         error: err => {
           const messageObject = mockResponseData(err?.error.messageobject);
@@ -98,6 +99,7 @@ export class AuthState {
           const mockMessageObject = mockResponseData(result.messageobject);
           this.store.dispatch(new SuccessResponse(mockMessageObject));
           this.modalService.open(PleaseLoginModalComponent, { centered: true });
+          this.store.dispatch(new GetUserDetails());
         },
         error: err => {
           const messageObject = mockResponseData(err?.error?.messageobject);
