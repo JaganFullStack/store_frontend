@@ -26,6 +26,10 @@ export const content: Routes = [
         path: "",
         loadChildren: () => import("../../components/page/page.module").then((m) => m.PagesModule)
     },
+    // {
+    //     path: "",
+    //     loadChildren: () => import("../../shared/shared.module").then((m) => m.SharedModule)
+    // },
     {
         path: '**',
         pathMatch: 'full',

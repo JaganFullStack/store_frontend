@@ -15,7 +15,7 @@ import { WishlistService } from '../../../shared/services/wishlist.service';
 export class WishlistComponent {
 
   @Select(WishlistState.wishlistItems) wishlistItems$: Observable<WishlistModel>;
-
+  
   public breadcrumb: Breadcrumb = {
     title: "Wishlist",
     items: [{ label: 'Wishlist', active: true }]

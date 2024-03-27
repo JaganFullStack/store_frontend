@@ -95,6 +95,7 @@ import { RefundModalComponent } from './components/widgets/modal/refund-modal/re
 import { VariantAttributesComponent } from './components/widgets/variant-attributes/variant-attributes.component';
 import { PayModalComponent } from './components/widgets/modal/pay-modal/pay-modal.component';
 import { PleaseLoginModalComponent } from './components/widgets/please-login-modal/please-login-modal.component';
+import { TrackingComponent } from '../components/shop/tracking/tracking.component';
 
 @NgModule({
   declarations: [
@@ -171,7 +172,8 @@ import { PleaseLoginModalComponent } from './components/widgets/please-login-mod
     RefundModalComponent,
     VariantAttributesComponent,
     PayModalComponent,
-    PleaseLoginModalComponent
+    PleaseLoginModalComponent,
+    // TrackingComponent
   ],
 
   imports: [

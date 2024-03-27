@@ -84,6 +84,7 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { ProductAccordionComponent } from './product/product-details/product-accordion/product-accordion.component';
 import { ProductDetailsAccordionComponent } from './product/product-details/widgets/product-details-accordion/product-details-accordion.component';
 import { CollectionNoSidebarComponent } from './collection/collection-no-sidebar/collection-no-sidebar.component';
+import { TrackingComponent } from './tracking/tracking.component';
 
 @NgModule({
   declarations: [
@@ -156,6 +157,7 @@ import { CollectionNoSidebarComponent } from './collection/collection-no-sidebar
     ProductAccordionComponent,
     ProductDetailsAccordionComponent,
     CollectionNoSidebarComponent,
+    // TrackingComponent,
     
   ],
   imports: [

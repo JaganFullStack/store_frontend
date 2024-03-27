@@ -28,7 +28,8 @@ import { TranslateModule } from '@ngx-translate/core';
     RefundComponent,
     AdressesComponent,
     NotificationComponent,
-    BankDetailsComponent
+    BankDetailsComponent,
+    
   ],
   imports: [
     CommonModule,

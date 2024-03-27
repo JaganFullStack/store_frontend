@@ -50,6 +50,7 @@ import { QuestionAnswersState } from './shared/state/questions-answers.state';
 import { ReviewState } from './shared/state/review.state';
 import { CouponState } from './shared/state/coupon.state';
 import { ResponseSate } from './shared/state/response.state';
+import { TrackingComponent } from './components/shop/tracking/tracking.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -59,7 +60,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     LayoutComponent,
-    MaintenanceComponent
+    MaintenanceComponent,
+    TrackingComponent
   ],
   imports: [
     BrowserModule,

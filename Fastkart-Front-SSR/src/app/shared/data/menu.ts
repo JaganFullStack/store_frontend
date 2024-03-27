@@ -576,6 +576,8 @@ export const menu: Menu[] = [
   {
     id: 7,
     title: 'Tracking',
+    label: 'Tracking',
+
     active: false,
     type: 'link',
     path: 'order-tracking',

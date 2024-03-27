@@ -22,10 +22,10 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tracking',
-  standalone: true,
+  // standalone: true,
   templateUrl: './tracking.component.html',
   styleUrl: './tracking.component.scss',
-  imports: [SharedModule]
+  // imports: [SharedModule]
 })
 
 export class TrackingComponent {
@@ -90,6 +90,9 @@ export class TrackingComponent {
   }
 
   ngOnInit() {
+
+
+ 
     this.checkout$.subscribe(data => this.checkoutTotal = data);
     this.cartItem$.subscribe(items => {
       if (!items?.length) {
@@ -107,6 +110,12 @@ export class TrackingComponent {
     });
 
 
+  }
+
+
+  updateBreadcrumbData(breadcrumb: Breadcrumb) {
+    this.breadcrumb = breadcrumb;
+    localStorage.setItem('breadcrumb', JSON.stringify(breadcrumb));
   }
 
   // mahi searchhhhhhhhhhhhhhhh
