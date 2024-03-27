@@ -6,21 +6,18 @@
         "main_banner": {
           "image_url": "assets/images/mahi/homebig1.jpg",
           "redirect_link": {
-            "link": "vegetables-fruits",
             "link_type": "collection"
           }
         },
         "sub_banner_1": {
           "image_url": "assets/images/mahi/HBI3.png",
           "redirect_link": {
-            "link": "grocery-staples",
             "link_type": "collection"
           }
         },
         "sub_banner_2": {
           "image_url": "assets/images/mahi/homesmall2.jpg",
           "redirect_link": {
-            "link": "vegetables-fruits",
             "link_type": "collection",
             "product_ids": 19
           }
@@ -31,7 +28,6 @@
         "banners": [
           {
             "redirect_link": {
-              "link": "vegetables-fruits",
               "link_type": "collection"
             },
             "status": true,
@@ -39,7 +35,6 @@
           },
           {
             "redirect_link": {
-              "link": "vegetables-fruits",
               "link_type": "collection"
             },
             "status": true,
@@ -47,7 +42,6 @@
           },
           {
             "redirect_link": {
-              "link": "vegetables-fruits",
               "link_type": "collection"
             },
             "status": true,
@@ -55,7 +49,6 @@
           },
           {
             "redirect_link": {
-              "link": "vegetables-fruits",
               "link_type": "collection"
             },
             "status": true,
@@ -88,14 +81,12 @@
             "banner_1": {
               "image_url": "assets/images/mahi/homepage4.jpg",
               "redirect_link": {
-                "link": "vegetables-fruits",
                 "link_type": "collection"
               }
             },
             "banner_2": {
               "image_url": "assets/images/mahi/HBI5.jpg",
               "redirect_link": {
-                "link": "vegetables-fruits",
                 "link_type": "collection"
               }
             }
@@ -146,14 +137,12 @@
           "banner_1": { 
             "image_url": "assets/images/slide-banner/6.png",
             "redirect_link": {
-              "link": "vegetables-fruits",
               "link_type": "collection"
             }
           },
           "banner_2": {
             "image_url": "assets/images/slide-banner/7.png",
             "redirect_link": {
-              "link": "vegetables-fruits",
               "link_type": "collection"
             }
           }
@@ -174,7 +163,6 @@
         "section5_coupons": {
           "image_url": "assets/images/data/themes/paris/7.jpg",
           "redirect_link": {
-            "link": "vegetables-fruits",
             "link_type": "collection"
           },
           "status": true
@@ -184,14 +172,12 @@
           "banner_1": {
             "image_url": "assets/images/mahi/HBI15.png",
             "redirect_link": {
-              "link": "vegetables-fruits",
               "link_type": "collection"
             }
           },
           "banner_2": {
             "image_url": "assets/images/mahi/HBI16.jpg",
             "redirect_link": {
-              "link": "vegetables-fruits",
               "link_type": "collection",
               "product_ids": "external_url"
             }
@@ -219,7 +205,6 @@
         "section8_full_width_banner": {
           "image_url": "assets/images/data/themes/paris/10.jpg",
           "redirect_link": {
-            "link": "vegetables-fruits",
             "link_type": "collection"
           },
           "status": true

@@ -22,11 +22,11 @@ export class LanguageComponent {
       code: 'ar',
       icon: 'om' 
     },
-    {
-      language: 'Français',
-      code: 'fr',
-      icon: 'fr'
-    },
+    // {
+    //   language: 'Français',
+    //   code: 'fr',
+    //   icon: 'fr'
+    // },
   ]
 
   public selectedLanguage: any = {

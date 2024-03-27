@@ -103,7 +103,7 @@ export class ProductState {
   searchProduct(ctx: StateContext<ProductStateModel>, action: SearchProducts) {
     this.productService.skeletonLoader = true;
 
-    if (action.payload.search && action.payload.search != '') {
+    if (action.payload?.search && (action.payload?.search != '')) {
       return this.productService.searchProducts(action.payload).pipe(
         tap({
           next: (result: any) => {
@@ -126,7 +126,8 @@ export class ProductState {
         })
       );
     } else {
-      return this.store.dispatch(new GetDealProducts({}));
+      // return this.store.dispatch(new GetProducts({}));
+      return ;
     }
 
   }
