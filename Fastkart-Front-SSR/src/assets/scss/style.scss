@@ -98,3 +98,11 @@
 {
   height: 44px;
 }
+footer .main-footer .footer-contain ul li
+{
+  line-height: 17px;
+}
+footer .main-footer .footer-logo .theme-logo a img {
+  width: calc(141px + 40*(100vw - 320px) / 1600);
+  margin-bottom: 0px;
+}
