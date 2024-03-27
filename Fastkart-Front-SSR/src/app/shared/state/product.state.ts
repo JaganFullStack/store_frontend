@@ -125,8 +125,8 @@ export class ProductState {
           }
         })
       );
-    }else{
-      return ;
+    } else {
+      return this.store.dispatch(new GetProducts());
     }
 
   }
