@@ -21,7 +21,7 @@
                         <td>{{ i + 1 }}</td>
                         <td><span class="fw-bolder">#{{order.id}}</span></td>
                         <td>{{ order?.created_at | date: 'dd MMM yyyy hh:mm:a' }}</td>
-                        <td>{{ order?.sub_total_amount! | currencySymbol }} </td>
+                        <td>{{ order?.order_group.sub_total_amount! | currencySymbol }} </td>
                         <td>
                             <div class="status-{{order.payment_status.toLowerCase()}}">
                                 <span>

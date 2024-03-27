@@ -3,41 +3,41 @@ import { CheckoutPayload, RePaymentPayload } from "../interface/order.interface"
 
 export class GetOrders {
   static readonly type = "[Order] Get";
-  constructor(public payload?: Params) {}
+  constructor(public payload?: Params) { }
 }
 
 export class ViewOrder {
   static readonly type = "[Order] View";
-  constructor(public order_id: number) {}
+  constructor(public id: number) { }
 }
 
 export class Checkout {
   static readonly type = "[Order] Checkout";
-  constructor(public payload: CheckoutPayload) {}
+  constructor(public payload: CheckoutPayload) { }
 }
 
 export class PlaceOrder {
   static readonly type = "[Order] Place";
-  constructor(public payload: any) {}
+  constructor(public payload: any) { }
 }
 
 export class Clear {
   static readonly type = "[Order] Clear";
-  constructor() {}
+  constructor() { }
 }
 
 export class RePayment {
   static readonly type = "[Order] Repayment";
-  constructor(public payload: RePaymentPayload) {}
+  constructor(public payload: RePaymentPayload) { }
 }
 
 export class VerifyPayment {
   static readonly type = "[Order] Verify";
-  constructor(public id: number) {}
+  constructor(public id: number) { }
 }
 
 
 export class TrackOrder {
   static readonly type = "[Order] Tracking";
-  constructor(public order_code: number) {}
+  constructor(public order_code: number) { }
 }

@@ -132,7 +132,7 @@ export interface getvieewwwOrders {
     created_at: string | null;
     updated_at: string | null;
     note: string | null;
-    products: Product[];
+    productslist: any[];
   }
 
 

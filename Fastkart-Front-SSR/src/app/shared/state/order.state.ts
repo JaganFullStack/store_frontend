@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { Store, Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
 import { GetOrders, ViewOrder, Checkout, PlaceOrder, Clear, VerifyPayment, RePayment, TrackOrder } from "../action/order.action";
-import { Order, OrderCheckout,  } from "../interface/order.interface";
+import { Order, OrderCheckout, } from "../interface/order.interface";
 import { OrderService } from "../services/order.service";
 import { ClearCart, GetCartItems } from "../action/cart.action";
 import { PleaseLoginModalComponent } from "../components/widgets/please-login-modal/please-login-modal.component";
@@ -73,7 +73,7 @@ export class OrderState {
       tap({
         next: result => {
 
-          console.log("result of get orders ",result);
+          console.log("result of get orders ", result);
           ctx.patchState({
             order: {
               data: result.data,
@@ -91,11 +91,9 @@ export class OrderState {
   }
 
   @Action(ViewOrder)
-
-
-  viewOrder(ctx: StateContext<OrderStateModel>, { order_id }: ViewOrder) {
+  viewOrder(ctx: StateContext<OrderStateModel>, { id }: ViewOrder) {
     this.orderService.skeletonLoader = true;
-    return this.orderService.getvieewwwOrders(order_id).pipe(
+    return this.orderService.getvieewwwOrders(id).pipe(
       tap({
         next: result => {
           // console.log(result, "viewww vorderrrrr");
@@ -122,61 +120,61 @@ export class OrderState {
 
 
 
-//   viewOrder(ctx: StateContext<OrderStateModel>, { id }: ViewOrder) {
+  //   viewOrder(ctx: StateContext<OrderStateModel>, { id }: ViewOrder) {
 
-//     this.orderService.skeletonLoader = true;
-//     return this.orderService.getOrders().pipe(
-//       tap({
-//         next: result => {
-//           console.log(result,"viewww vorderrrrr")
-//           const state = ctx.getState();
-//           const order = result.data.find((order: any) => order.id == id);
-// console.log(order,"oder whiuch i hav selected")
-//           ctx.patchState({
-//             ...state,
-//             selectedOrder: order
-//           });
-//         },
-//         error: err => {
-//           throw new Error(err?.error?.message);
-//         },
-//         complete: () => {
-//           this.orderService.skeletonLoader = false;
-//         }
-//       })
-//     );
-
-    
-//   }
+  //     this.orderService.skeletonLoader = true;
+  //     return this.orderService.getOrders().pipe(
+  //       tap({
+  //         next: result => {
+  //           console.log(result,"viewww vorderrrrr")
+  //           const state = ctx.getState();
+  //           const order = result.data.find((order: any) => order.id == id);
+  // console.log(order,"oder whiuch i hav selected")
+  //           ctx.patchState({
+  //             ...state,
+  //             selectedOrder: order
+  //           });
+  //         },
+  //         error: err => {
+  //           throw new Error(err?.error?.message);
+  //         },
+  //         complete: () => {
+  //           this.orderService.skeletonLoader = false;
+  //         }
+  //       })
+  //     );
 
 
+  //   }
 
-// @Action(TrackOrder)
 
 
-// TrackOrder(ctx: StateContext<OrderStateModel>, { order_code }: TrackOrder) {
-//   this.orderService.skeletonLoader = true;
-//   return this.orderService.getTrackOrdersList(order_code).pipe(
-//     tap({
-//       next: result => {
- 
-//         const state = ctx.getState();
-//         const order = result.data;
-   
-//         ctx.patchState({
-//           ...state,
-//           trackingorderlist: order
-//         });
-//       },
-//       error: err => {
-//         throw new Error(err?.error?.message);
-//       },
-//       complete: () => {
-//         this.orderService.skeletonLoader = false;
-//       }
-//     })
-//   );
-// }
+  // @Action(TrackOrder)
+
+
+  // TrackOrder(ctx: StateContext<OrderStateModel>, { order_code }: TrackOrder) {
+  //   this.orderService.skeletonLoader = true;
+  //   return this.orderService.getTrackOrdersList(order_code).pipe(
+  //     tap({
+  //       next: result => {
+
+  //         const state = ctx.getState();
+  //         const order = result.data;
+
+  //         ctx.patchState({
+  //           ...state,
+  //           trackingorderlist: order
+  //         });
+  //       },
+  //       error: err => {
+  //         throw new Error(err?.error?.message);
+  //       },
+  //       complete: () => {
+  //         this.orderService.skeletonLoader = false;
+  //       }
+  //     })
+  //   );
+  // }
 
 
   @Action(Checkout)
