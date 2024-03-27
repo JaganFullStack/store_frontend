@@ -12,6 +12,7 @@ import { ExitModalComponent } from '../../../shared/components/widgets/modal/exi
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { GetCartItems } from 'src/app/shared/action/cart.action';
 import { GetUserDetails } from 'src/app/shared/action/account.action';
+import { GetWishlist } from 'src/app/shared/action/wishlist.action';
 
 @Component({
   selector: 'app-paris',
@@ -31,10 +32,11 @@ export class ParisComponent {
   constructor(private store: Store,
     @Inject(PLATFORM_ID) private platformId: Object,
     private themeOptionService: ThemeOptionService) {
+    // this.store.dispatch(new GetUserDetails());
   }
 
   ngOnInit() {
-    this.store.dispatch(new GetUserDetails());
+    // this.store.dispatch(new GetUserDetails());
 
     if (isPlatformBrowser(this.platformId)) { // For SSR 
       if(this.data?.slug == this.slug) {
@@ -65,6 +67,7 @@ export class ParisComponent {
       document.documentElement.style.setProperty('--theme-color','#2f9339');
       this.themeOptionService.theme_color = '#2f9339';
     this.store.dispatch(new GetCartItems());
+    this.store.dispatch(new GetWishlist());
 
     }
 

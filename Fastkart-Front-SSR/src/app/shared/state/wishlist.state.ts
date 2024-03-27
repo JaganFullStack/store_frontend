@@ -47,7 +47,7 @@ export class WishlistState {
           ctx.patchState({
             wishlist: {
               data: result?.data,
-              total: result?.total ? result?.total : result?.data?.length
+              total: result?.data?.length
             }
           });
         },

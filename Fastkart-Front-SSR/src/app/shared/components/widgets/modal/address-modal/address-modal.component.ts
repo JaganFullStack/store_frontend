@@ -57,7 +57,7 @@ export class AddressModalComponent {
       // city: new FormControl('', [Validators.required]),
       city_id: new FormControl('', [Validators.required]),
       pincode: new FormControl('', [Validators.required]),
-      country_code: new FormControl('91', [Validators.required]),
+      country_code: new FormControl('', [Validators.required]),
       phone: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)])
     })
   }
@@ -168,6 +168,7 @@ export class AddressModalComponent {
       address_type: this.form.value.address_type,
       title: this.form.value.title,
       pincode: this.form.value.pincode,
+      country_code: this.form.value.country_code,
     };
 
     let action = new CreateAddress(requestObject);
