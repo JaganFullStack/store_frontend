@@ -189,36 +189,77 @@ export class CheckoutComponent {
 
 
 
-  placeorder() {
+//   placeorder() {
 
-    const user_id = getStringDataFromLocalStorage("user_id");
+//     const user_id = getStringDataFromLocalStorage("user_id");
 
-    if (user_id){
+//     // if (this.shippingAddressList.length === 0 && this.billingAddressList.length === 0) {
+//     //   this.opendata();
+      
+    
+//     // }
+//  if (user_id &&this.shippingAddressList.length === 0 && this.billingAddressList.length === 0){
 
-    if (this.form.value.shippingAddressList == '' || this.form.value?.shippingAddressList) {
-      const defaulShipId = (this.shippingAddressList.length > 0) ? this.shippingAddressList[0].id : '';
-      this.form.controls['shipping_address_id'].setValue(defaulShipId);
-    }
+//     if (this.form.value.shippingAddressList == '' || this.form.value?.shippingAddressList) {
+//       const defaulShipId = (this.shippingAddressList.length > 0) ? this.shippingAddressList[0].id : '';
+//       this.form.controls['shipping_address_id'].setValue(defaulShipId);
+//     }
 
-    if(this.form.value.billing_address_id == '' || this.form.value?.billing_address_id){
-      const defaulBillId = (this.shippingAddressList.length > 0) ? this.billingAddressList[0].id : '';
-      this.form.controls['billing_address_id'].setValue(defaulBillId);
-    }
+//     if(this.form.value.billing_address_id == '' || this.form.value?.billing_address_id){
+//       const defaulBillId = (this.shippingAddressList.length > 0) ? this.billingAddressList[0].id : '';
+//       this.form.controls['billing_address_id'].setValue(defaulBillId);
+//     }
 
-    const requestObject = {
-      user_id: user_id,
-      billing_address_id: this.form.value.billing_address_id,
-      shipping_address_id: this.form.value.shipping_address_id
-    };
+//     const requestObject = {
+//       user_id: user_id,
+//       billing_address_id: this.form.value.billing_address_id,
+//       shipping_address_id: this.form.value.shipping_address_id
+//     };
 
-    this.store.dispatch(new PlaceOrder(requestObject)).subscribe((data:any)=>{
-      console.log("paying",data)
-    })
-  }else {
+//     this.store.dispatch(new PlaceOrder(requestObject)).subscribe((data:any)=>{
+//       console.log("paying",data)
+//     })
+//   }else {
      
+//     this.opendata();
+// }
+//   }
+
+  
+
+placeorder() {
+  const user_id = getStringDataFromLocalStorage("user_id");
+
+  if (!user_id || (this.shippingAddressList.length === 0 && this.billingAddressList.length === 0)) {
     this.opendata();
-}
+    return;
   }
+
+  if (!this.form.value.shipping_address_id) {
+    const defaultShipId = (this.shippingAddressList.length > 0) ? this.shippingAddressList[0].id : '';
+    this.form.controls['shipping_address_id'].setValue(defaultShipId);
+  }
+
+  if (!this.form.value.billing_address_id) {
+    const defaultBillId = (this.billingAddressList.length > 0) ? this.billingAddressList[0].id : '';
+    this.form.controls['billing_address_id'].setValue(defaultBillId);
+  }
+
+  const requestObject = {
+    user_id: user_id,
+    billing_address_id: this.form.value.billing_address_id,
+    shipping_address_id: this.form.value.shipping_address_id
+  };
+
+  this.store.dispatch(new PlaceOrder(requestObject)).subscribe((data: any) => {
+    console.log("Order placed successfully:", data);
+ 
+  }, 
+  );
+
+
+}
+
 
   checkAndOpenModal() {
     const user_id = getStringDataFromLocalStorage("user_id");
@@ -234,7 +275,7 @@ export class CheckoutComponent {
   opendata() {
     const modalRef = this.modalService.open(PleaseLoginModalComponent, { centered: true });
     modalRef.componentInstance.closeModalEvent.subscribe(() => {
-      modalRef.close();
+      // modalRef.close();
     });
   }
 
