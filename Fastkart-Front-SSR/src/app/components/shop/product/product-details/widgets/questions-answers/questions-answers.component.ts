@@ -10,6 +10,7 @@ import { QuestionAnswers } from '../../../../../../shared/interface/questions-an
 import { QuestionsAnswersService } from '../../../../../../shared/services/questions-answers.service';
 import { AccountState } from '../../../../../../shared/state/account.state';
 import { Feedback } from '../../../../../../shared/action/questions-answers.action';
+import { getStringDataFromLocalStorage } from 'src/app/utilities/helper';
 
 @Component({
   selector: 'app-questions-answers',

@@ -49,8 +49,6 @@ export class LayoutComponent implements OnInit {
     this.exit$.subscribe(res => this.exit = res);
 
     this.themeOptionService.preloader = true;
-    this.store.dispatch(new GetUserDetails());
-
 
     const getCategories$ = this.store.dispatch(new GetCategories({ status: 1 }));
     const getBlog$ = this.store.dispatch(new GetBlogs({ status: 1, paginate: 10 }));
