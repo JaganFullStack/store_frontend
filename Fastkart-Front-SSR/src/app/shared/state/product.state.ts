@@ -81,8 +81,7 @@ export class ProductState {
         next: (result: any) => {
 
           let products = result.data || [];
-          console.log(products)
-          console.log(result)
+
           ctx.patchState({
             product: {
               data: products,
@@ -103,27 +102,33 @@ export class ProductState {
   @Action(SearchProducts)
   searchProduct(ctx: StateContext<ProductStateModel>, action: SearchProducts) {
     this.productService.skeletonLoader = true;
-    return this.productService.searchProducts(action.payload).pipe(
-      tap({
-        next: (result: any) => {
 
-          ctx.patchState({
-            product: {
-              data: result?.data,
-              total: result?.total ? result?.total : result.data?.length
-            }
-          });
-        },
-        complete: () => {
-          this.productService.skeletonLoader = false;
-        },
-        error: err => {
-          const messageObject = mockResponseData(err.error.messageobject);
-          console.log(messageObject?.message);
-          throw new Error(err?.error?.message);
-        }
-      })
-    );
+    if (action.payload.search && action.payload.search != '') {
+      return this.productService.searchProducts(action.payload).pipe(
+        tap({
+          next: (result: any) => {
+
+            ctx.patchState({
+              product: {
+                data: result?.data,
+                total: result?.total ? result?.total : result.data?.length
+              }
+            });
+          },
+          complete: () => {
+            this.productService.skeletonLoader = false;
+          },
+          error: err => {
+            const messageObject = mockResponseData(err.error.messageobject);
+            console.log(messageObject?.message);
+            throw new Error(err?.error?.message);
+          }
+        })
+      );
+    }else{
+      return ;
+    }
+
   }
 
   @Action(GetRelatedProducts)

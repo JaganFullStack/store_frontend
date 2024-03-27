@@ -23,7 +23,7 @@ export class ProductComponent {
   @Input() slider: boolean;
   @Input() showItem: number;
 
-  public products: Product[] = [];
+  public products: Array<any> = [];
 
   public skeletonItems = Array.from({ length: 6 }, (_, index) => index);
 
@@ -36,7 +36,6 @@ export class ProductComponent {
   ngOnChanges() {
     if (Array.isArray(this.productIds)) {
       this.product$.subscribe(products => {
-        // this.products = products.data.filter(product => this.productIds?.includes(product?.id));
         this.products = products.data;
       });
     }
