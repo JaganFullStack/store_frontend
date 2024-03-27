@@ -16,13 +16,11 @@
                                 <div class="checkout-box">
 
 
-                                    
+
                                     <div href="javascript:void(0)" class="checkout-title">
                                         <h4>{{ 'Shipping Address' | translate }}</h4>
                                         <a href="javascript:void(0)" class="d-flex align-items-center fw-bold"
-                                            (click)="checkAndOpenModal()"
-                                            
-                                            >
+                                            (click)="checkAndOpenModal()">
                                             <i class="ri-add-line me-1"></i> {{ 'add new' | translate }}
                                         </a>
                                     </div>
@@ -31,9 +29,7 @@
 
 
                                     <div class="checkout-detail">
-                                        <app-address-block
-                                            [addresses]="shippingAddressList"
-                                            [type]="'shipping'"
+                                        <app-address-block [addresses]="shippingAddressList" [type]="'shipping'"
                                             (selectAddress)="selectShippingAddress($event)">
                                         </app-address-block>
                                     </div>
@@ -52,9 +48,7 @@
                                         </a>
                                     </div>
                                     <div class="checkout-detail">
-                                        <app-address-block
-                                            [addresses]="billingAddressList"
-                                            [type]="'billing'"
+                                        <app-address-block [addresses]="billingAddressList" [type]="'billing'"
                                             (selectAddress)="selectBillingAddress($event)">
                                         </app-address-block>
                                     </div>
@@ -71,8 +65,7 @@
                                     <div class="empty-box" *ngIf="!(user$ | async)">
                                         <h2>{{ 'no_delivery_options_found' | translate }}</h2>
                                     </div>
-                                    <app-delivery-block
-                                        [setting]="(setting$ | async)!"
+                                    <app-delivery-block *ngIf="(user$ | async)" [setting]="(setting$ | async)!"
                                         (selectDelivery)="selectDelivery($event)">
                                     </app-delivery-block>
                                 </div>
@@ -88,8 +81,7 @@
                                     <div class="empty-box" *ngIf="!(user$ | async)">
                                         <h2>{{ 'no payment options found' | translate }}</h2>
                                     </div>
-                                    <app-payment-block
-                                        [setting]="(setting$ | async)!"
+                                    <app-payment-block *ngIf="(user$ | async)" [setting]="(setting$ | async)!"
                                         (selectPaymentMethod)="selectPaymentMethod($event)">
                                     </app-payment-block>
                                 </div>
@@ -107,11 +99,8 @@
                             </div>
                         </div>
                         <div class="product-details">
-                            <app-no-data
-                                [class]="'empty-cart'"
-                                [image]="'assets/svg/empty-items.svg'"
-                                [text]="'No items in a cart'"
-                                *ngIf="!(cartItem$ | async)?.length">
+                            <app-no-data [class]="'empty-cart'" [image]="'assets/svg/empty-items.svg'"
+                                [text]="'No items in a cart'" *ngIf="!(cartItem$ | async)?.length">
                             </app-no-data>
                             <ul class="cart-listing" *ngIf="(cartItem$ | async)?.length">
                                 <li *ngFor="let item of cartItem$ | async">
@@ -120,14 +109,17 @@
                                                 : item?.product?.product_thumbnail
                                                 ? item?.product?.product_thumbnail?.original_url
                                                 : 'assets/images/product.png'" class="img-fluid" alt="product"> -->
-                                    <img src="{{apiBaseurl}}/{{item?.product?.thumbnail_image_url}}" class="img-fluid" alt="product">
+                                    <img src="{{apiBaseurl}}/{{item?.product?.thumbnail_image_url}}" class="img-fluid"
+                                        alt="product">
                                     <div class="cart-content">
                                         <h4>{{ item?.variation ? item?.variation?.name : item?.product?.name }}</h4>
                                         <h5 class="text-theme">
-                                            {{ (item?.variation ? item.variation.sale_price : item.product.min_price) | currencySymbol }} X {{ item.qty }}
+                                            {{ (item?.variation ? item.variation.sale_price : item.product.min_price) |
+                                            currencySymbol }} X {{ item.qty }}
                                         </h5>
                                         <h5 class="price">
-                                            {{ (item?.variation ? item.variation.sale_price : item.product.min_price) * item.qty | currencySymbol }}
+                                            {{ (item?.variation ? item.variation.sale_price : item.product.min_price) *
+                                            item.qty | currencySymbol }}
                                         </h5>
                                     </div>
                                 </li>
@@ -144,7 +136,8 @@
                                             <h4>{{ 'subtotal' | translate }}</h4>
                                             <h4 class="price">
                                                 <!-- {{ (checkoutTotal ? (checkoutTotal.total.sub_total | currencySymbol) : 'Not Yet Calculated' | translate ) }} -->
-                                                {{ ((cartTotal$ | async) ? ((cartTotal$ | async) | currencySymbol) : 'Not Yet Calculated' | translate ) }}
+                                                {{ ((cartTotal$ | async) ? ((cartTotal$ | async) | currencySymbol) :
+                                                'Not Yet Calculated' | translate ) }}
                                             </h4>
                                         </li>
                                         <li>
@@ -155,7 +148,7 @@
                                             </h4>
                                         </li>
                                         <li>
-                                            <h4>{{ 'tax' | translate  }}</h4>
+                                            <h4>{{ 'tax' | translate }}</h4>
                                             <h4 class="price">
                                                 0
                                                 <!-- {{ (checkoutTotal ? (checkoutTotal.total.tax_total | currencySymbol) : 'Not Yet Calculated' | translate ) }} -->
@@ -223,14 +216,13 @@
                                             <h4>{{ 'total' | translate }}</h4>
                                             <h4 class="price">
                                                 <!-- {{ (checkoutTotal ? (checkoutTotal.total.total | currencySymbol) : 'Not Yet Calculated' | translate ) }} -->
-                                                {{ ((cartTotal$ | async) ? ((cartTotal$ | async) | currencySymbol) : 'Not Yet Calculated' | translate ) }}
+                                                {{ ((cartTotal$ | async) ? ((cartTotal$ | async) | currencySymbol) :
+                                                'Not Yet Calculated' | translate ) }}
                                             </h4>
                                         </li>
                                     </ul>
-                                    <app-button
-                                        [class]="'btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold'"
-                                        [id]="'place_order'"
-                                        [disabled]="(cartTotal$ | async) ? false : true">
+                                    <app-button [class]="'btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold'"
+                                        [id]="'place_order'" [disabled]="(cartTotal$ | async) ? false : true">
                                         <!-- [disabled]="form.valid && checkoutTotal ? false : true"> -->
                                         {{ 'Place Order' | translate }}
                                     </app-button>
