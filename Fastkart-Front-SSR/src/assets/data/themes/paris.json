@@ -35,7 +35,7 @@
               "link_type": "collection"
             },
             "status": true,
-            "image_url": "assets/images/mahi/HBI6.jpg"
+            "image_url": "assets/images/slide-banner/4.png"
           },
           {
             "redirect_link": {
@@ -43,7 +43,7 @@
               "link_type": "collection"
             },
             "status": true,
-            "image_url": "assets/images/mahi/HBI7.jpg"
+            "image_url": "assets/images/slide-banner/1.png"
           },
           {
             "redirect_link": {
@@ -51,7 +51,7 @@
               "link_type": "collection"
             },
             "status": true,
-            "image_url": "assets/images/mahi/HBI8.jpg"
+            "image_url": "assets/images/slide-banner/2.png"
           },
           {
             "redirect_link": {
@@ -59,7 +59,7 @@
               "link_type": "collection"
             },
             "status": true,
-            "image_url": "assets/images/mahi/HBI1O.jpg"
+            "image_url": "assets/images/slide-banner/3.png"
           }
         ]
       },
@@ -143,15 +143,15 @@
         },
         "section3_two_column_banners": {
           "status": true,
-          "banner_1": {
-            "image_url": "assets/images/mahi/HBI9.jpg",
+          "banner_1": { 
+            "image_url": "assets/images/slide-banner/6.png",
             "redirect_link": {
               "link": "vegetables-fruits",
               "link_type": "collection"
             }
           },
           "banner_2": {
-            "image_url": "assets/images/mahi/HBI10.png",
+            "image_url": "assets/images/slide-banner/7.png",
             "redirect_link": {
               "link": "vegetables-fruits",
               "link_type": "collection"
