@@ -1,25 +1,13 @@
 
 <app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
-
+<!-- 
 <section class="checkout-section-2 section-b-space">
     <div class="container">
         <div class="card">
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-sm-4 offset-sm-4">
-                        <!-- Search Basic Style -->
-                        <!-- <div class="input-group">
-                            <input type="search" class="form-control" placeholder="Enter Your Order Code"
-                                [formControl]="term">
-                            <div class="input-group-append">
-                             <app-button [type]="'button'" [class]="'btn sty'" [spinner]="false" (click)="searchOrder()"
-                            [id]="'basic_search_btn'" style="
-                                  background: #2f9339;
-                              ">
-                            <i class="ri-search-line"></i>
-                        </app-button>
-                            </div>
-                        </div> -->
+                
 
                         <div class="input-group">
                             <input type="search" class="form-control" placeholder="Enter Your Order Code"
@@ -74,4 +62,52 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
+
+
+
+<div class="total-box mt-0" *ngIf="(order$ | async)?.data?.length">
+    <div class="wallet-table mt-0">
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ 'no' | translate }}</th>
+                        <th>{{ 'order_number' | translate }}</th>
+                        <th>{{ 'date' | translate }}</th>
+                        <th>{{ 'amount' | translate }}</th>
+                        <th>{{ 'payment_status' | translate }}</th>
+                        <th>{{ 'payment_method' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let order of (order$ | async)?.data; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td><span class="fw-bolder">#{{order?.order_group?.order_code}}</span></td>
+                        <td>{{ order?.created_at | date: 'dd MMM yyyy hh:mm:a' }}</td>
+                        <td>{{ order?.order_group.sub_total_amount! | currencySymbol }}</td>
+                        <td>
+                            <div class="status-{{order.payment_status.toLowerCase()}}">
+                                <span>{{ order.payment_status | titleCase }}</span>
+                            </div>
+                        </td>
+                        <td *ngIf="order?.payment_method">
+                            {{ order?.payment_method?.toUpperCase() }}
+                        </td>
+                        <td *ngIf="!order?.payment_method">
+                            {{ defaultOrderStatus }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <nav class="custome-pagination" *ngIf="(order$ | async)?.data?.length">
+        <app-pagination [total]="(order$ | async)?.total || 0" [currentPage]="filter['page']"
+            [pageSize]="filter['paginate']" (setPage)="setPaginate($event)">
+        </app-pagination>
+    </nav>
+</div>
+<app-no-data [class]="'no-data-added'" [image]="'assets/svg/empty-items.svg'" [text]="'No Orders Found'"
+    [description]="'No orders have been made yet'" *ngIf="!(order$ | async)?.data?.length">
+</app-no-data>

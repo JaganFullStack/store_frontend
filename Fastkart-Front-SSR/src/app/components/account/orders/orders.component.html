@@ -17,6 +17,8 @@
                     <!-- <th>{{ 'option' | translate }}</th> -->
                 </thead>
                 <tbody>
+              
+                <p>  {{ order$ | json}}</p>
                     <tr *ngFor="let order of (order$ | async)?.data let i = index">
                         <td>{{ i + 1 }}</td>
                         <td><span class="fw-bolder">#{{order?.order_group?.order_code}}</span></td>
